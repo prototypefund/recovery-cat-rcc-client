@@ -1,0 +1,7 @@
+{
+  "name": "rc-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
