@@ -1,0 +1,34 @@
+<ion-menu 
+	side		=	"start" 
+	[menuId]	=	"this.config.menuId" 
+	[contentId] = 	"this.config.contentId"
+>
+
+	<ion-header>
+		<ion-toolbar color="primary">
+			<ion-title> Main Menu </ion-title>
+			<ion-buttons slot = "end">			
+				<ion-menu-toggle>
+					<ion-button>
+						<ion-icon name = "close-outline"></ion-icon>
+					</ion-button>
+				</ion-menu-toggle>				
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header>
+
+	<ion-content>
+
+		<ion-list>
+			<ng-container>
+				<ng-container
+					*ngFor 				= "let component of components"
+					[ngComponentOutlet] = "component"
+				>
+				</ng-container>
+			</ng-container>
+		</ion-list>
+
+	</ion-content>
+
+</ion-menu>
