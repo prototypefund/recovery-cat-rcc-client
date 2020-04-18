@@ -74,13 +74,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "rcc",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "rcc",
       "page",
       "kebab-case"
     ]
