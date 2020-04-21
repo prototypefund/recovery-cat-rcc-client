@@ -2,23 +2,23 @@ import	{
 			NgModule,
 			Component,
 			ModuleWithProviders
-		} 							from '@angular/core'
-import 	{ 	CommonModule } 			from '@angular/common'
-import 	{ 	IonicModule } 			from '@ionic/angular'
-import 	{ 	FormsModule } 			from '@angular/forms'
-import 	{ 	RouterModule } 			from '@angular/router'
+		} 								from '@angular/core'
+import 	{ 	CommonModule } 				from '@angular/common'
+import 	{ 	IonicModule } 				from '@ionic/angular'
+import 	{ 	RouterModule } 				from '@angular/router'
 
-import	{	MainMenuModule }		from '../main-menu/main-menu.module'
+import	{	MainMenuModule }			from '../main-menu/main-menu.module'
 
-import	{	HomePage } 				from './home.page'
+import	{	HomePage } 					from './home.page'
 
+import	{	TranslocoRootModule }		from '../transloco-root.module'
 
 const routes 		=	[
 							{ path: '',	component: HomePage	},
 						]
 
 @Component({
-	template:	'<ion-item routerLink = ""><ion-label>Startseite</ion-label></ion-item>'
+	template:	'<ion-item routerLink = ""><ion-label>{{ "HOMEPAGE.MENU_ENTRY" | transloco}}</ion-label></ion-item>'
 })
 export class MenuEntryHome {}
 
@@ -30,22 +30,18 @@ const menuEntries	=	[MenuEntryHome]
 
 @NgModule({
 	imports: [
-		CommonModule,
-		FormsModule,
 		IonicModule,
 		RouterModule.forChild(routes),
-		MainMenuModule.forChild(menuEntries)
+		MainMenuModule.forChild(menuEntries),
+		TranslocoRootModule
 	],
 	declarations: [
 		HomePage,
-		MenuEntryHome
+		MenuEntryHome		
 	],
 	exports:[
 		MenuEntryHome	
 	],
-	entryComponents: [
-		MenuEntryHome
-	]
 })
 export class HomePageModule {
 

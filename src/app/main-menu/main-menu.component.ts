@@ -20,10 +20,8 @@ import	{	Subscription }				from 'rxjs'
 import	{	filter }					from 'rxjs/operators'
 
 import	{	
-			MAIN_MENU_COMPONENTS,
-			MAIN_MENU_CONFIG,
-			MainMenuConfig,
-			MainMenuConfigClass
+			MainMenuComponents,
+			MainMenuConfig
 		}								from './main-menu.commons'
 
 
@@ -35,25 +33,25 @@ import	{
 export class MainMenuComponent implements OnInit, OnDestroy {
 
 
-	private subscription	: Subscription
+	protected subscription		: Subscription
 
 	constructor(
-		@Optional() @Inject(MAIN_MENU_COMPONENTS) 
-		public 	components		: Component[],
-		@Optional() @Inject(MainMenuConfigClass) 
-		public	config			: MainMenuConfig,
-		private router			: Router,
-		private menuController	: MenuController
-	){
+		@Optional() 
+		public 		components		: MainMenuComponents,
+		@Optional() 
+		public		config			: MainMenuConfig,
+		protected	router			: Router,
+		protected	menuController	: MenuController
+	){}
 
-		this.subscription =	router.events
+	ngOnInit() {
+
+		this.subscription =	this.router.events
 							.pipe(
 								filter(	event 	=> event instanceof NavigationStart)
 							)
 							.subscribe( event 	=> this.menuController.close() )
 	}
-
-	ngOnInit() {}
 
 	ngOnDestroy(){
 		this.subscription.unsubscribe()

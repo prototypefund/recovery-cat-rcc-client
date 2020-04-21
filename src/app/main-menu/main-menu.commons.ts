@@ -5,19 +5,14 @@ import	{
 		} 								from '@angular/core'
 
 
-
-
-export interface MainMenuConfig {
-	menuId 		: string,
-	contentId	: string 
+export class MainMenuComponents extends Array {
+	[index:number]	: Type<any> 
 }
 
-
-export class MainMenuConfigClass {
+export class MainMenuConfig {
 	menuId		: string
 	contentId	: string
+	manual?		: boolean	
 }
 
-export const MAIN_MENU_CONFIG 		= new InjectionToken<MainMenuConfig>('MAIN_MENU_CONFIG');
-
-export const MAIN_MENU_COMPONENTS 	= new InjectionToken<Type<any>[]>('MAIN_MENU_COMPONENTS');
+export const MAIN_MENU_COMPONENT = new InjectionToken<Type<any>>('Component used as main Menu');
