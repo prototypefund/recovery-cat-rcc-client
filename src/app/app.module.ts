@@ -1,7 +1,7 @@
 import 	{ 	NgModule 	} 			from '@angular/core'
 import	{	BrowserModule } 		from '@angular/platform-browser'
 import	{	RouteReuseStrategy }	from '@angular/router'
-import 	{ 	HttpClientModule } 		from '@angular/common/http';
+import 	{ 	HttpClientModule } 		from '@angular/common/http'
 import 	{	
 			IonicModule, 
 			IonicRouteStrategy 
@@ -9,14 +9,20 @@ import 	{
 import	{	SplashScreen } 			from '@ionic-native/splash-screen/ngx'
 import 	{	StatusBar } 			from '@ionic-native/status-bar/ngx'
 
-import 	{ 	TranslocoRootModule } 	from './transloco-root.module'
-
 import 	{	AppComponent } 			from './app.component'
-import	{	AppRoutingModule }		from './app-routing.module'
-import	{	HomePageModule }		from './home/home.module'
-import	{	MainMenuModule }		from './main-menu/main-menu.module'
-import	{	QuestionaireModule }	from './questionaire/questionaire.module'
+import	{	
+			AppRoutingModule,
+			TranslocoRootModule, 
 
+			HomePageModule, 
+			MainMenuModule,
+		}							from './core'
+
+import	{	
+			QuestionaireModule,
+			StaticQuestionStore,
+			LocalStorageModule 
+		}							from './features'
 
 @NgModule({
 	declarations: 		[ AppComponent ],
@@ -27,9 +33,14 @@ import	{	QuestionaireModule }	from './questionaire/questionaire.module'
 							AppRoutingModule,
 							HttpClientModule,
 							TranslocoRootModule,
+							MainMenuModule.forRoot({menuId: "rcc-main-menu", contentId: "rcc-main-content"}),
 
 							// All modules from here on should be removable
+							LocalStorageModule,
 							HomePageModule,
+							QuestionaireModule.forRoot([
+								StaticQuestionStore
+							])
 						],
 	providers: 			[
 							StatusBar,

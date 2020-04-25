@@ -1,4 +1,8 @@
 {
+
+	"MAIN_MENU": {
+		"HEADER": "RecoveryCat"
+	},
 	
 	"HOMEPAGE": {
 		"MENU_ENTRY":	"Home"

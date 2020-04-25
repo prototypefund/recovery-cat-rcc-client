@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		 <ion-buttons slot="start">
+			<ion-menu-button>
+			</ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			{{ "QUESTIONAIRE.HEADER" | transloco }}
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen = "true">
+	
+	<ion-list>
+		<ion-item 
+			[routerLink] 	= "[question.id]"
+			*ngFor 			= "let question of questionaire.items"
+		> 
+			<ion-label>
+				<h3>{{question.translations.en}}</h3>
+				<p>			
+					{{question.type}}
+					{{question.min ? 'min: '+question.min :'' }}
+					{{question.min ? 'max: '+question.max :'' }}
+					<span *ngFor =" let option of question.options; last as isLast">
+						{{option.value}} {{isLast ? '' : ','}}
+					</span>	
+				</p>
+			</ion-label>
+		</ion-item>
+	</ion-list>
+
+</ion-content>
