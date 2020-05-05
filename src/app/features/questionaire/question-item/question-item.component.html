@@ -1,0 +1,17 @@
+<ion-item 	
+	(click) = "showActions()" 
+	button
+> 
+	<ion-label>
+		<h3>{{question.translations.en || question.meaning}}</h3>
+		<p>			
+			{{question.type}}
+			{{question.min ? 'min: '+question.min :'' }}
+			{{question.min ? 'max: '+question.max :'' }}
+			<span *ngFor =" let option of question.options; last as isLast">
+				{{option.value}} {{isLast ? '' : ','}}
+			</span>	
+		</p>
+	</ion-label>
+	<ion-icon name = "settings-outline"></ion-icon>
+</ion-item>
