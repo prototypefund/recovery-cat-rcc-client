@@ -1,25 +1,20 @@
 import 	{ 	Injectable } 		from '@angular/core'
 
 import	{	
-			Question, 
 			QuestionConfig,
-			ItemStore
-		}						from 'app/rcc'
+			QuestionStore
+		}						from '@rcc/core'
 
 
 
 
+@Injectable()
+export class StaticQuestionStore extends QuestionStore {
 
-@Injectable({
-	providedIn: 'root'
-})
-export class StaticQuestionStore extends ItemStore<Question, QuestionConfig> {
+	public readonly name = "StaticQuestionStore"
 
 	constructor(){
-		super({
-			itemClass: 	Question,
-			storage:	staticStorage,
-		})
+		super(staticStorage)
 	}
 }
 

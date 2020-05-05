@@ -12,23 +12,18 @@
 
 <ion-content fullscreen = "true">
 	
-	<ion-list>
-		<ion-item 
-			[routerLink] 	= "[question.id]"
-			*ngFor 			= "let question of questionaire.items"
-		> 
-			<ion-label>
-				<h3>{{question.translations.en}}</h3>
-				<p>			
-					{{question.type}}
-					{{question.min ? 'min: '+question.min :'' }}
-					{{question.min ? 'max: '+question.max :'' }}
-					<span *ngFor =" let option of question.options; last as isLast">
-						{{option.value}} {{isLast ? '' : ','}}
-					</span>	
-				</p>
-			</ion-label>
-		</ion-item>
+	<ion-list *ngFor ="let store of questionaire.stores">
+
+		<ion-list-header>
+			{{ "QUESTIONAIRE.STORE.%1" | fill : store.name}}
+		</ion-list-header>
+
+		<rcc-question-item 
+			*ngFor 		= "let question of store.items"
+			[question]	= "question" 
+			[store] 	= "store"
+		>sss</rcc-question-item>
+
 	</ion-list>
 
 </ion-content>

@@ -10,6 +10,38 @@
 
 	"QUESTIONAIRE": {
 		"MENU_ENTRY":	"Questionaire"
+	},
+
+	"CUSTOM_QUESTIONS": {
+		"MENU_ENTRY":	"Custom Question",
+		"HEADER":		"Custom Question",
+		"QUESTION":		{
+							"TEXT":			"Wording",
+							"KIND":			"Kind",
+							"KINDS":		{
+												"SCALE_DISCRETE":	"Scale ({{CUSTOM_QUESTIONS.QUESTION.DISCRETE}})",
+												"SCALE_CONTINUOUS":	"Scale ({{CUSTOM_QUESTIONS.QUESTION.CONTINUOUS}})",
+												"YES_NO":			"Yes-No",
+												"INPUT":			"Input",
+												"SELECT":			"Selection"
+											},
+							"MIN":			"Minimum",
+							"MAX":			"Maximum",
+							"CONTINUOUS":	"continuous",
+							"DISCRETE":		"discrete",
+							"ADD_OPTION":	"Add option",
+							"STEP":			"Use steps",
+							"SIZE":			"Size",
+							"ANSWER_TYPE":	"Answer type",
+							"UNIT":			"Unit",
+							"INTEGER":		"Integer",
+							"FLOAT":		"Float",
+							"STRING":		"String",
+							"OPTIONS":		{
+												"VALUE":		"Value",
+												"DESCRIPTION":	"Description"
+											}
+						}
 	}
 
 }

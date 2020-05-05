@@ -4,7 +4,6 @@ export interface TranslationMap {
 
 export interface StringOptionConfig{
 	value:			string,
-	meaning:		string,	
 	translations:	TranslationMap
 }
 

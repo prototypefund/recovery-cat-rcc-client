@@ -1,6 +1,5 @@
 import 	{	
 			Component, 
-			OnInit 
 		} 						from '@angular/core'
 
 import	{
@@ -12,12 +11,10 @@ import	{
 	templateUrl: 	'./questionaire.page.html',
 	styleUrls: 		['./questionaire.page.scss'],
 })
-export class QuestionairePage implements OnInit {
+export class QuestionairePage {
 
 	constructor(
 		public questionaire: Questionaire
 	) { }
-
-	ngOnInit() {}
 
 }

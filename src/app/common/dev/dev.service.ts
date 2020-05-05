@@ -8,7 +8,7 @@ import	{
 			Question, 
 			QuestionConfig,
 			ItemStore
-		}							from 'app/rcc'
+		}							from '@rcc/core'
 
 
 import	{	DevWarnings			}	from './dev.commons'
@@ -19,9 +19,7 @@ export class DevService {
 
 	constructor(
 		public warnings: DevWarnings
-	){
-		console.log(this.warnings)
-	}
+	){}
 
 	addWarning(name: string, note: string){
 		this.warnings.push({name,note})

@@ -1,7 +1,7 @@
 import	{ 	NgModule			}		from '@angular/core'
 import 	{ 	CommonModule 		}		from '@angular/common'
 import 	{ 	IonicModule 		}		from '@ionic/angular'
-import	{	TranslocoRootModule }		from './translation/transloco-root.module'
+import	{	TranslationModule	}		from './translation/translation.module'
 
 
 
@@ -9,12 +9,12 @@ import	{	TranslocoRootModule }		from './translation/transloco-root.module'
 	imports: [
 		CommonModule,
 		IonicModule,
-		TranslocoRootModule
+		TranslationModule
 	],
 	exports: [	
 		CommonModule,
 		IonicModule,
-		TranslocoRootModule
+		TranslationModule
 	],
 	providers: [
 		
