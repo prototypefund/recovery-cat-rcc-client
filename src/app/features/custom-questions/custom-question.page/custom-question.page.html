@@ -263,6 +263,10 @@
 
 		</ng-container>
 
+		<ion-item>
+			{{all.errors}}
+		</ion-item>
+
 	</ion-list>	
 
 
@@ -274,7 +278,7 @@
 	<ion-button 
 		(click) 	= "createQuestion()"
 		expand 		= "block"
-		[disabled]	= "this.all.invalid"
+		[disabled]	= "all.invalid"
 	>
 		Done
 	</ion-button>

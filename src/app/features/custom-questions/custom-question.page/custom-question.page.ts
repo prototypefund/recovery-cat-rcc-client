@@ -75,14 +75,27 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 			last_value = -1
 		}
 
-		this.scaleOptions.push( new FormGroup({ 
-									value: new FormControl(last_value+1), 
-									meaning: new FormControl('')}, this.validateScaleOption.bind(this)))
+		this.scaleOptions.push( 
+			new FormGroup(
+					{ 
+						value: 		new FormControl(last_value+1), 
+						meaning: 	new FormControl('')
+					}, 
+					this.validateScaleOption.bind(this)
+				)
+		)
 	}
 
 	addSelectOption(){
-
-		this.selectOptions.push( new FormGroup({ value: new FormControl(''), meaning: new FormControl('')}, this.validateSeclectOption.bind(this)))
+		this.selectOptions.push( 
+			new FormGroup(
+					{ 
+						value: 		new FormControl(''), 
+						meaning: 	new FormControl('')
+					}, 
+					this.validateSeclectOption.bind(this)
+				)
+		)
 	}
 
 

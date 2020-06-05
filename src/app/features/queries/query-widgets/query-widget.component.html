@@ -1,0 +1,14 @@
+<ng-container 
+	[ngComponentOutlet] 			= "query | bestWidgetMatch" 
+	[ngComponentOutletInjector] 	= "query | injectQuery"
+></ng-container>    
+
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+	<ion-fab-button 
+		color 		= "light"
+		[disabled]	= "!query || !query.complete"
+		(click)		= "submit()"
+	>
+		<ion-icon name="checkmark-outline"></ion-icon>
+	</ion-fab-button>
+</ion-fab>
