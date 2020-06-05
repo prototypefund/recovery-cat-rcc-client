@@ -26,16 +26,17 @@ export class CustomQuestionStore extends QuestionStore {
 	}
 
 	public async addQuestionConfig(config: QuestionConfig): Promise<any> {
-		this.add(config)
-		return this.storage.storeAll(Object.values(this.dictionary))
+		const question = this.addConfig(config)
+		return 	this.storeAll()
+				.then( () => question)
 	}
 
 	public async delete(question: Question): Promise<any> {	
 		const id = this.identifyItem(question)
-		if(!this.dictionary[id]) return Promise.reject("CustomQuestionStore.delete: Unable to find question with id: "+id)
+		if(!this.map.get(id)) return Promise.reject("CustomQuestionStore.delete: Unable to find question with id: "+id)
 
-		delete this.dictionary[id]
-		return this.storage.storeAll(Object.values(this.dictionary))
+		this.map.delete(id)
+		return this.storeAll()
 	}
 }
 

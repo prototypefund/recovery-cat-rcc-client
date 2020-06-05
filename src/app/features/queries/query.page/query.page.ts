@@ -1,6 +1,7 @@
 import 	{ 
 			Component, 
-			OnInit 
+			OnInit,
+			ChangeDetectorRef 
 		} 						from '@angular/core'
 
 import	{
@@ -16,8 +17,9 @@ import	{
 
 import	{
 			mergeMap,
-			flatMap,
-			take		
+			mergeAll,
+			take,
+			map		
 		}						from 'rxjs/operators'
 
 import	{
@@ -28,9 +30,9 @@ import	{
 			Query
 		}						from '../query.class'
 
-// import	{
-// 			ReportingService
-// 		}						from '../../reports'
+import	{
+			ReportingService
+		}						from '../reporting/reporting.service'
 
 //TODO: Reports! and Query +submit
 
@@ -45,22 +47,29 @@ export class QueryPage implements OnInit {
 	public query: Query
 
 	constructor(
-		activatedRoute:		ActivatedRoute,
-		questionaire:		Questionaire
-		//ReportingService:	ReportingService
-	) { 
-		activatedRoute.paramMap
+		private	activatedRoute		: ActivatedRoute,
+		private questionaire		: Questionaire,
+		private reportingService	: ReportingService,
+		private	cd					: ChangeDetectorRef
+	){}
+
+	ngOnInit() {
+
+		this.activatedRoute.paramMap
 		.pipe(
 			mergeMap( 	(params) 					=> params.get('id') ),
-			mergeMap( 	(id			: string )		=> from(questionaire.lookUp([id])) ), //TODO: multiple matches?		
-			flatMap( x => x),
-			take(1)
+			mergeMap( 	(id			: string )		=> from(this.questionaire.lookUp([id])) ), //TODO: multiple matches?		
+			mergeAll(),
+			take(1),
+			map(		(question	: Question)		=> new Query(question) )
 		)
 		.subscribe({
-			next: question => 	this.query = new Query(question)
+			next: query => 	{
+				this.query = query
+				this.cd.detectChanges()
+			}
 		})
-	}
 
-	ngOnInit() {}
+	}
 
 }

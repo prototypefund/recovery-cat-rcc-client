@@ -1,6 +1,9 @@
 import 	{	
 			NgModule,
 			ModuleWithProviders, 
+			Type,
+			Inject,
+			Optional
 		} 								from '@angular/core'
 
 import 	{	CommonModule 			}	from '@angular/common'
@@ -9,31 +12,34 @@ import	{	RouterModule			}	from '@angular/router'
 
 import	{	SharedModule			}	from '@rcc/common'
 
+import	{	QuestionaireModule		}	from '@rcc/features/questionaire'
+
+import	{	QueryPage				}	from './query.page/query.page'
 import	{	
 			QUERY_WIDGETS,
-			QueryWidget		
-		}								from './query-widgets.commons'
-
-import	{
+			QueryWidget,
 			BestWidgetMatchPipe,
-			InjectQueryPipe
-		}								from './query-widget.pipes'
+			InjectQueryPipe,
+			QueryWidgetComponent,
+			QueryWidgetsService		
+		}								from './query-widgets'
 
-import	{
-			QueryPage
-		}								from './query.page/query.page'
-
-import	{
-			QueryWidgetComponent
-		}								from './query-widget/query-widget.component'
-
-
-import	{	QueryWidgetsService		}	from './query-widgets.service'
+import	{	ReportingService		}	from './reporting/reporting.service'
 
 const routes 		=	[
-							{ path: 'query/:id',	component: QueryPage },
+							{ 
+								path: 		'query/:id',	
+								component: 	QueryPage 
+							},
 						]
 
+const actions		=	[
+							{ 	
+								label: 		'QUERIES.ACTION', 
+								icon: 		'create-outline',
+								path:		'query/:id'
+							}
+						]
 
 
 
@@ -41,7 +47,8 @@ const routes 		=	[
 
 	imports: [
 		SharedModule,
-		RouterModule.forChild(routes)
+		RouterModule.forChild(routes),
+		QuestionaireModule.forChild(null, actions)
 	],
 
 	declarations: [
@@ -52,16 +59,19 @@ const routes 		=	[
 	],
 
 	providers: [
-		QueryWidgetsService
+		QueryWidgetsService,
+		ReportingService
 	],
 
 })
 export class QueriesModule {
 
-	static forChild(widgets: QueryWidget[]): ModuleWithProviders{
+	static forChild(widgets: QueryWidget[]): ModuleWithProviders {
 		return {
 			ngModule: 	QueriesModule,
-			providers:	widgets.map( widget => ({ provide: QUERY_WIDGETS, useValue: widget, multi: true }))
+			providers:	[
+							...(widgets||[]).map( widget => ({ provide: QUERY_WIDGETS, useValue: widget, multi: true })),							
+						]
 		}
 	}
 }

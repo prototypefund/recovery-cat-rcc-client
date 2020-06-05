@@ -14,7 +14,7 @@ import 	{
 
 import	{	CustomQuestionPage		}	from './custom-question.page/custom-question.page'
 import	{	CustomQuestionStore		}	from './custom-question-store.service'
-import	{	QUESTION_STORES			}	from '@rcc/features/questionaire'
+import	{	QuestionaireModule		}	from '@rcc/features/questionaire'
 
 const routes 		=	[
 							{ path: 'questionaire/custom',	component: CustomQuestionPage },
@@ -46,6 +46,7 @@ const menuEntries	=	[
 		SharedModule,
 		RouterModule.forChild(routes),
 		MainMenuModule.forChild(menuEntries),
+		QuestionaireModule.forChild([CustomQuestionStore]),
 		ReactiveFormsModule
 	],
 	exports: [
@@ -54,7 +55,6 @@ const menuEntries	=	[
 	],
 	providers:[
 		CustomQuestionStore,
-		{ provide: QUESTION_STORES, useClass: CustomQuestionStore, multi: true}
 	]
 })
 export class CustomQuestionsModule { }

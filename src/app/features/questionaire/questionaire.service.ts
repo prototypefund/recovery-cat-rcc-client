@@ -9,23 +9,22 @@ import	{	Question,
 			QuestionStore,			
 		}							from '@rcc/core'
 
-import	{	QUESTION_STORES		}	from './question-stores.token'
+import	{	QUESTION_STORES		}	from './questionaire.commons'
 
 
-interface QuestionActions {
+export interface StoreActions {
 	delete:		null | ((question: Question, store: QuestionStore) => Promise<any>)
 }
 
 @Injectable()
 export class Questionaire {
 
-	public stores: QuestionStore[]
 
 	constructor(
 		@Optional() @Inject(QUESTION_STORES) 
-		stores: QuestionStore[] = [],
+		public stores: QuestionStore[] = [],		
 	) {
-		this.stores = stores || [] 
+		console.log('Questionaire.constructor!!')				
 	}
 
 
@@ -40,7 +39,7 @@ export class Questionaire {
 		return Promise.resolve()
 	}
 
-	public getActions(question: Question, store: QuestionStore): QuestionActions {
+	public getStoreActions(question: Question, store: QuestionStore): StoreActions {
 		return	{
 					delete : 	typeof store.delete == 'function'
 								?	() => this.beforeDelete().then( ()=> store.delete(question) )

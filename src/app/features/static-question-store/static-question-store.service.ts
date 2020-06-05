@@ -1,6 +1,7 @@
 import 	{ 	Injectable } 		from '@angular/core'
 
 import	{	
+			Question,
 			QuestionConfig,
 			QuestionStore
 		}						from '@rcc/core'
@@ -18,9 +19,9 @@ export class StaticQuestionStore extends QuestionStore {
 	}
 }
 
-const staticStorage = { getAll: () => Promise.resolve(questions) }
+const staticStorage = { getAll: () => Promise.resolve(configs.map( config => new Question(config))) }
 
-const questions:QuestionConfig[] = [
+const configs:QuestionConfig[] = [
 		{
 			id:				'A',
 			type:			'integer',

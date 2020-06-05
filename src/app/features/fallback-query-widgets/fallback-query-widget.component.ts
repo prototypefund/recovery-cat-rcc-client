@@ -3,12 +3,11 @@
 import 	{ 	
 			OnDestroy,
 			Inject,
-			Component,
+			Component			
 		}									from '@angular/core'
 
-import	{
-			Subscription
-		}									from 'rxjs'
+import	{	Subscription				}	from 'rxjs'
+import	{	take						}	from 'rxjs/operators'
 
 import	{	Question					}	from '@rcc/core'
 import	{	Query 						}	from '@rcc/features/queries'
@@ -21,16 +20,21 @@ import	{	Query 						}	from '@rcc/features/queries'
 })
 export class FallbackQueryWidgetComponent implements OnDestroy {
 
-	public query		: Query
-	public subscription	: Subscription
+	private	subscription	: Subscription
 
-	constructor(query: Query){
+	constructor(
+		public 	query		: Query,
+	){
+
 		this.query 			= query
 		this.subscription 	= query.formControl.valueChanges.subscribe({
 			next : value => {
+
+
 				if(query.question.type == 'string' 	&& typeof value != 'string') 	this.query.formControl.setValue(String(value))
 				if(query.question.type == 'float'	&& typeof value != 'number') 	this.query.formControl.setValue(Number(value)||0)
 				if(query.question.type == 'integer'	&& typeof value != 'number') 	this.query.formControl.setValue(Number(value)||0)				
+
 			}
 		})
 	}

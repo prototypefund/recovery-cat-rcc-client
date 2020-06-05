@@ -2,7 +2,8 @@ import 	{
 			NgModule, 
 			Component,
 			InjectionToken,
-			ModuleWithProviders			
+			ModuleWithProviders,
+			Type		
 		} 								from '@angular/core'
 
 import 	{ 	RouterModule 			}	from '@angular/router'
@@ -13,14 +14,19 @@ import	{
 		}								from '@rcc/common'
 
 import	{	
-			ItemStore,
 			Question,
-			QuestionConfig 
+			QuestionConfig, 
+			QuestionStore,
 		}								from '@rcc/core'
 
 
 import	{	Questionaire			}	from './questionaire.service'
-import	{	QUESTION_STORES			}	from './question-stores.token'
+
+import	{	
+			QuestionAction,
+			QUESTION_STORES,
+			QUESTION_ACTIONS			
+		}								from './questionaire.commons'
 import	{	QuestionItemComponent	}	from './question-item/question-item.component'
 import	{	QuestionairePage 		}	from './questionaire.page/questionaire.page'
 
@@ -64,10 +70,17 @@ const menuEntries	=	[
 })
 export class QuestionaireModule {
 
-	// static forRoot(stores:(new () => ItemStore<Question, QuestionConfig>)[]): ModuleWithProviders {
-	// 	return 	{
-	// 				ngModule:	QuestionaireModule,
-	// 				providers:	stores.map( storeClass => ({provide: QUESTION_STORES, useClass: storeClass, multi:true }))
-	// 			}
-	// }
+	static 	forChild(
+				stores		: Type<QuestionStore>[],
+				actions?	: QuestionAction[] 
+			): ModuleWithProviders {
+		return 	{
+					ngModule:	QuestionaireModule,
+					providers:	[
+									...(stores||[])	.map( 	storeClass	=> ({provide: QUESTION_STORES,	useClass: storeClass, 	multi:true })),
+									...(actions||[]).map( 	action 		=> ({provide: QUESTION_ACTIONS,	useValue: action, 		multi:true })),
+
+								]
+				}
+	}
 }

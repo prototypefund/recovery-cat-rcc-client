@@ -9,7 +9,10 @@
 	},
 
 	"QUESTIONAIRE": {
-		"MENU_ENTRY":	"Questionaire"
+		"MENU_ENTRY":	"Questionaire",
+		"ACTIONS":		{
+							"DELETE":		"Delete"
+						}
 	},
 
 	"CUSTOM_QUESTIONS": {
@@ -42,6 +45,10 @@
 												"DESCRIPTION":	"Description"
 											}
 						}
+	},
+
+	"QUERIES": {
+		"ACTION":	"Provide an Answer"
 	}
 
 }

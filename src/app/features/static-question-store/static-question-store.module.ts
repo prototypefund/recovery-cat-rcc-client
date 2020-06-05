@@ -13,12 +13,8 @@ import	{	StaticQuestionStore		}	from './static-question-store.service'
 
 @NgModule({
 	imports: [
-		QuestionaireModule,
+		QuestionaireModule.forChild([StaticQuestionStore]),
 		DevModule.note('StaticQuestionStoreModule')
 	],
-
-	providers: [
-		{ provide: QUESTION_STORES, useClass: StaticQuestionStore, multi: true }
-	]
 })
 export class StaticQuestionStoreModule{}

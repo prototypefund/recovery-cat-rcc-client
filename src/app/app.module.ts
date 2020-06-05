@@ -22,7 +22,8 @@ import	{
 			StaticQuestionStoreModule,
 			LocalStorageModule,
 			CustomQuestionsModule,
-			FallbackQueryWidgetsModule 
+			FallbackQueryWidgetsModule,
+			QueriesModule 
 		}									from '@rcc/features'
 
 
@@ -58,3 +59,8 @@ export class AppModule {}
 
 //TODO: Abstract component outlet or something like thta.. homepage works like main menu works like..
 //TODO: Abstract translate
+
+//TODO: Abstract Icon Map
+//TODO: Abstract Header
+
+//TODO: Check bounds validation

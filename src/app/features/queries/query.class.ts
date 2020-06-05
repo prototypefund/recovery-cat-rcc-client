@@ -25,7 +25,7 @@ export class Query {
 
 
 		this.question			=	question									
-		this.formControl		= 	new FormControl('', asyncValidatorFn)
+		this.formControl		= 	new FormControl('', null, asyncValidatorFn)
 
 	}
 
@@ -33,4 +33,9 @@ export class Query {
 		return this.formControl.value
 	}
 
+	get complete(){
+		return this.formControl.valid
+	}
+
 }
+
