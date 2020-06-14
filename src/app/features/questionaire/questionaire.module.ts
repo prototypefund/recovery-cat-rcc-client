@@ -9,8 +9,10 @@ import 	{
 import 	{ 	RouterModule 			}	from '@angular/router'
 
 import	{	
+			SharedModule,
 			MainMenuModule, 		
-			SharedModule
+			MetaStoreModule,
+			ItemAction,
 		}								from '@rcc/common'
 
 import	{	
@@ -23,11 +25,9 @@ import	{
 import	{	Questionaire			}	from './questionaire.service'
 
 import	{	
-			QuestionAction,
 			QUESTION_STORES,
 			QUESTION_ACTIONS			
 		}								from './questionaire.commons'
-import	{	QuestionItemComponent	}	from './question-item/question-item.component'
 import	{	QuestionairePage 		}	from './questionaire.page/questionaire.page'
 
 
@@ -40,28 +40,23 @@ const routes 		=	[
 })
 export class MenuEntryQuestionaire {}
 
-const menuEntries	=	[
-							MenuEntryQuestionaire
-						]
-
 
 
 
 @NgModule({
 	declarations: [
 		MenuEntryQuestionaire,
-		QuestionItemComponent,
 		QuestionairePage,
 	],
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
-		MainMenuModule.forChild(menuEntries),
+		MainMenuModule.forChild([MenuEntryQuestionaire]),
+		MetaStoreModule
 	],
 
 	exports: [
 		MenuEntryQuestionaire,
-		QuestionItemComponent,
 		QuestionairePage,
 	],
 	providers:[
@@ -72,8 +67,10 @@ export class QuestionaireModule {
 
 	static 	forChild(
 				stores		: Type<QuestionStore>[],
-				actions?	: QuestionAction[] 
+				actions?	: ItemAction<Question>[]
 			): ModuleWithProviders {
+
+
 		return 	{
 					ngModule:	QuestionaireModule,
 					providers:	[

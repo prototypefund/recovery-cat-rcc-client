@@ -8,10 +8,20 @@ export class Schedule {
 
 	public rrule: any
 
+
+	static isValidDate(d : Date): boolean {
+		if(!d) 					return false
+		if(!d.getTime)			return false
+		if(isNaN(d.getTime()))	return false
+	}
+
 	constructor(str: string, start: Date) {
+
+		const rruleConfig = RRule.parseString(str || 'RRULE:FREQ=DAILY') 
+
 		this.rrule = 	new RRule({
-							dtstart: start || new Date(), 
-							...RRule.parseString(str || 'RRULE:FREQ=DAILY') 
+							dtstart: Schedule.isValidDate(start) ? start : new Date(), 
+							...rruleConfig
 						})
 	}
 

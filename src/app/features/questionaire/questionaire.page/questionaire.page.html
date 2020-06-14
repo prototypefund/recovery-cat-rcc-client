@@ -1,29 +1,46 @@
 <ion-header [translucent]="true">
+
 	<ion-toolbar>
 		 <ion-buttons slot="start">
 			<ion-menu-button>
 			</ion-menu-button>
 		</ion-buttons>
-		<ion-title>
+		<ion-title
+			*ngIf = "!showSearch"
+		>
 			{{ "QUESTIONAIRE.HEADER" | transloco }}
 		</ion-title>
+		<ion-searchbar
+			*ngIf 			= "showSearch" 
+			[formControl] 	= "searchControl">				
+		</ion-searchbar>
+		<ion-button 
+			slot 	= "end"
+			(click) = "showSearch = !showSearch"
+		>
+				<ion-icon>search</ion-icon>
+		</ion-button>
 	</ion-toolbar>
+
 </ion-header>
 
 <ion-content fullscreen = "true">
 	
-	<ion-list *ngFor ="let store of questionaire.stores">
-
-		<ion-list-header>
-			{{ "QUESTIONAIRE.STORE.%1" | fill : store.name}}
-		</ion-list-header>
-
-		<rcc-question-item 
-			*ngFor 		= "let question of store.items"
-			[question]	= "question" 
-			[store] 	= "store"
-		>sss</rcc-question-item>
-
-	</ion-list>
+		<rcc-meta-store 
+			[metaStore] = "this.questionaire"
+			[filter]	= "this.filterFn"
+		>
+			<ng-template #itemLabelTemplate let-item = "item">			
+				<h3>{{item.translations.en || item.meaning}}</h3>
+				<p>			
+					{{item.type}}
+					{{item.min ? 'min: '+item.min :'' }}
+					{{item.min ? 'max: '+item.max :'' }}
+					<span *ngFor =" let option of item.options; last as isLast">
+						{{option.value}} {{isLast ? '' : ','}}
+					</span>	
+				</p>							
+			</ng-template>
+		</rcc-meta-store>
 
 </ion-content>

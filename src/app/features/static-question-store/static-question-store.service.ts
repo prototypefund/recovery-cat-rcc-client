@@ -19,7 +19,7 @@ export class StaticQuestionStore extends QuestionStore {
 	}
 }
 
-const staticStorage = { getAll: () => Promise.resolve(configs.map( config => new Question(config))) }
+const staticStorage = { getAll: () => Promise.resolve(configs) }
 
 const configs:QuestionConfig[] = [
 		{

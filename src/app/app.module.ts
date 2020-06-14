@@ -23,7 +23,8 @@ import	{
 			LocalStorageModule,
 			CustomQuestionsModule,
 			FallbackQueryWidgetsModule,
-			QueriesModule 
+			QueriesModule,
+			StaticSymptomCheckStoreModule
 		}									from '@rcc/features'
 
 
@@ -45,6 +46,7 @@ import	{
 							StaticQuestionStoreModule,
 							CustomQuestionsModule,
 							FallbackQueryWidgetsModule,
+							StaticSymptomCheckStoreModule
 						],
 	providers: 			[
 							StatusBar,

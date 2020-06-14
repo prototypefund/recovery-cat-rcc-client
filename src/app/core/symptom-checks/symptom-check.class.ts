@@ -8,7 +8,7 @@ import	{	Schedule			}	from '@rcc/core/schedules'
 
 import	{
 			SymptomCheckConfig
-		}							from './symptom-check.commons'
+		}							from './symptom-checks.commons'
 
 
 //TODO Dates, timestamps and RRULE timezones
@@ -17,6 +17,8 @@ import	{
 
 
 export class SymptomCheck extends Item<SymptomCheckConfig> {
+
+	public id				:	string
 
 	public meta				:	{
 									source			: string | null
@@ -39,7 +41,9 @@ export class SymptomCheck extends Item<SymptomCheckConfig> {
 	private setup(config: SymptomCheckConfig){
 
 
-		this.meta  = 	{} as any
+		this.id						=	config.id
+
+		this.meta  					= 	{} as any
 
 		this.meta.source 			= 	config.meta.source || null
 		this.meta.paused			= 	config.meta.paused || false	
@@ -50,11 +54,11 @@ export class SymptomCheck extends Item<SymptomCheckConfig> {
 											this.meta.start
 										)
 
-		this.questions	= 	config[1].map( 
-								(item: any) => 	typeof item == 'string'
-											?	{id: item,		schedule: this.meta.defaultSchedule }
-											:	{id: item.id, 	schedule: new Schedule( item.schedule, this.meta.start ) }
-							)
+		this.questions				=	config.questions.map( 
+											(item: any) => 	typeof item == 'string'
+														?	{id: item,		schedule: this.meta.defaultSchedule }
+														:	{id: item.id, 	schedule: new Schedule( item.schedule, this.meta.start ) }
+										)
 		
 	}
 
@@ -69,6 +73,8 @@ export class SymptomCheck extends Item<SymptomCheckConfig> {
 	}
 
 	get config(){ 
+
+		let id			=	this.id
 
 		let meta		=	{
 								source:				this.meta.source,
@@ -88,7 +94,7 @@ export class SymptomCheck extends Item<SymptomCheckConfig> {
 										:	{id: item.id, schedule:  scheduleString}
 							})
 
-		return 	{ meta, questions }
+		return 	{ id, meta, questions }
 	}
 
 	get questionIds()	{ return this.questions.map( item => item.id) }

@@ -34,7 +34,14 @@ const menuEntries	=	[
 						]
 
 
-
+const itemActions 		= 	[
+								{
+									label: 		'DELETE',
+									store: 		CustomQuestionStore,
+									handler: 	(item: any, store: any) => store.delete(item),
+									icon:		'trash'
+								}
+							]
 
 
 @NgModule({
@@ -46,7 +53,7 @@ const menuEntries	=	[
 		SharedModule,
 		RouterModule.forChild(routes),
 		MainMenuModule.forChild(menuEntries),
-		QuestionaireModule.forChild([CustomQuestionStore]),
+		QuestionaireModule.forChild([CustomQuestionStore], itemActions),
 		ReactiveFormsModule
 	],
 	exports: [

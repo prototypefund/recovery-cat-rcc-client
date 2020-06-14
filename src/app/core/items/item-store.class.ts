@@ -1,41 +1,19 @@
-export interface ItemConfig {
+import	{
+			ItemConfig,
+			Item,
+			ItemStorage,
+			ItemStoreConfig,
+		}						from './items.commons'
 
-}
-
-
-export abstract class Item<C> {
-
-	public id? : string
-
-	abstract get config(): C
-
-}
-
-
-export interface ItemStorage<I extends Item<C>, C extends ItemConfig> {
-	getAll			: () 				=> Promise<C[]>
-	store?			: (items: (I|C)[])	=> Promise<any>
-	
-}
-
-
-export interface ItemStoreConfig<I extends Item<C>, C> {
-	itemClass		: new (config: C) => I,
-	storage			: ItemStorage<I,C>,
-	identifyItemBy?	: string | ( (item: Item<C>) => string),
-}
-
-
-export interface ItemStore<I extends Item<C>, C extends ItemConfig>{	
+export interface ItemStore<C extends ItemConfig, I extends Item<C>>{	
 	delete?(item:I):Promise<any>
 }
 
-
-export abstract class ItemStore<I extends Item<C>, C extends ItemConfig>{
+export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 
 	protected	itemClass		: new (config:C) => I
 	protected	map				: Map<string,I>				= new Map()	
-	protected	storage			: ItemStorage<I,C>
+	protected	storage			: ItemStorage<C,I>
 	protected	identifyItem	: (item: I) => string
 	protected	resolveReady	: (result: any) => void
 	protected	rejectReady		: (reason: any) => void

@@ -21,10 +21,10 @@ export function identifyItemBy(item:Report){
 
 }
 
-export class ReportStore extends ItemStore<Report, ReportConfig>{
+export class ReportStore extends ItemStore<ReportConfig, Report>{
 
 	constructor(
-		storage: ItemStorage<Report, ReportConfig>,
+		storage: ItemStorage<ReportConfig, Report>,
 	){
 		super({
 			itemClass: 		Report,

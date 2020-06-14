@@ -14,7 +14,7 @@ export class LocalStorageService {
 	constructor() { }
 
 
-	createItemStorage<I extends Item<C>, C extends ItemConfig>(id:string): ItemStorage<I, C> {
+	createItemStorage<C extends ItemConfig, I extends Item<C>>(id:string): ItemStorage<C, I> {
 
 		return	{
 					getAll: 	async () 				=> JSON.parse(localStorage.getItem(id))||[],

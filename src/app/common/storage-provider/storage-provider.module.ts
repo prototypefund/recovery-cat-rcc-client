@@ -12,7 +12,7 @@ import	{
 
 
 
-class voidStore<I extends Item<C>, C extends ItemConfig> {
+class voidStore<C extends ItemConfig, I extends Item<C>> {
 
 	constructor(){
 		console.warn("StorageProviderModule: using fallback voidStore; please provide alternative ItemStore." )
@@ -24,8 +24,8 @@ class voidStore<I extends Item<C>, C extends ItemConfig> {
 
 @Injectable()
 export class RccStorage {
-	createItemStorage<I extends Item<C>, C extends ItemConfig>(id:string):ItemStorage<I, C> { 
-		return new voidStore<I,C>()
+	createItemStorage<C extends ItemConfig, I extends Item<C>>(id:string):ItemStorage<C, I> { 
+		return new voidStore<C,I>()
 	}
 }
 

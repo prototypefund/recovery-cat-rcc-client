@@ -13,11 +13,11 @@ import	{
 		}								from "./question.class"
 
 
-export abstract class QuestionStore extends ItemStore<Question,QuestionConfig> {
+export abstract class QuestionStore extends ItemStore<QuestionConfig, Question> {
 
 
 	constructor(
-		storage	: ItemStorage<Question, QuestionConfig>
+		storage	: ItemStorage<QuestionConfig, Question>
 	){		
 		super({
 			itemClass: 	Question,
