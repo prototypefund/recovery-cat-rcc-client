@@ -1,5 +1,13 @@
 {
 
+
+	"GLOBAL": {
+		"SAVE": 	"save",
+		"APPLY":	"apply",
+		"CANCEL":	"cancel",
+		"OKAY":		"okay"
+	},
+
 	"MAIN_MENU": {
 		"HEADER": "RecoveryCat"
 	},

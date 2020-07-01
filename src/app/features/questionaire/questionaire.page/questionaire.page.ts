@@ -1,5 +1,6 @@
 import 	{	
 			Component, 
+			Type
 		} 							from '@angular/core'
 
 import	{	FormControl 		}	from '@angular/forms'
@@ -14,6 +15,8 @@ import	{
 			Questionaire
 		}							from '../questionaire.service'
 
+import	{	QuestionLabelComponent	}	from '../question-label/question-label.component'
+
 
 @Component({
 	selector: 		'rcc-questionaire.page',
@@ -25,6 +28,7 @@ export class QuestionairePage {
 	public searchControl 	: FormControl					= new FormControl()
 	public filterFn			: (item: Question) => boolean
 	public showSearch		: boolean
+	public questionLabel	: Type<any> 					= QuestionLabelComponent
 
 	constructor(
 		public questionaire: Questionaire

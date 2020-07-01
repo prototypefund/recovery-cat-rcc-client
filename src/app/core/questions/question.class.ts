@@ -28,6 +28,15 @@ export const QuestionProperties = [
 	'unit',
 ]
 
+export function unknownConfig(id: string): QuestionConfig {
+	return	{
+				id: 			id,
+				translations: 	{en: 'Unknown question: #'+id}, //todo use translationservice
+				type:			'unknown',
+				meaning:		'Missing config for question: #'+id
+			}
+}
+
 
 export class Question extends Item<QuestionConfig> {
 
@@ -41,31 +50,21 @@ export class Question extends Item<QuestionConfig> {
 	public tags					: string[]
 	public unit					: string
 
-	protected unknownConfig(id: string): QuestionConfig {
-		return	{
-					id: 			id,
-					translations: 	{en: 'Unknown question: #'+id}, //todo use translationservice
-					type:			'unknown',
-					meaning:		'Missing config for question: #'+id
-				}
-	}
+	
 
 	constructor(id:string)  
 	constructor(config:QuestionConfig) 
 	constructor(idOrConfig: string | QuestionConfig){ 
 
-		super()
-
 		const config	=	typeof idOrConfig == 'string'
-							?	this.unknownConfig(idOrConfig)
+							?	unknownConfig(idOrConfig)
 							:	idOrConfig
 
-		QuestionProperties.forEach( key => (this as any)[key] = (config as any)[key] )
+		super(config)
 	}
 
-
-	public async validateAnswer(value:any):Promise<object | null>{
-		return QuestionValidator.validateAnswer(value, this.config)
+	set config(config: QuestionConfig){
+		QuestionProperties.forEach( (key:string) => (this as any)[key] = (config as any)[key] )
 	}
 
 	get config() { 
@@ -75,6 +74,11 @@ export class Question extends Item<QuestionConfig> {
 
 		return (c as QuestionConfig)
 	}
+
+	public async validateAnswer(value:any):Promise<object | null>{
+		return QuestionValidator.validateAnswer(value, this.config)
+	}
+
 
 	
 

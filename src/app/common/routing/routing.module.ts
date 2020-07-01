@@ -7,9 +7,13 @@ import	{	PreloadAllModules,
 			RouterModule 
 		} 												from '@angular/router'
 
+const routes = 	[
+					{ path: '**', redirectTo: ''  }
+				]
+
 @NgModule({
 	imports: [
-		RouterModule.forRoot([], { preloadingStrategy: PreloadAllModules })
+		RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
 	],
 	exports: [RouterModule]
 })

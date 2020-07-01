@@ -1,22 +1,24 @@
-import	{ 	NgModule			}		from '@angular/core'
-import 	{ 	CommonModule 		}		from '@angular/common'
-import 	{ 	IonicModule 		}		from '@ionic/angular'
-import	{	TranslationModule	}		from './translation/translation.module'
-import	{	ReactiveFormsModule	}		from '@angular/forms'
-
+import	{ 	NgModule				}		from '@angular/core'
+import 	{ 	CommonModule 			}		from '@angular/common'
+import 	{ 	IonicModule 			}		from '@ionic/angular'
+import	{	TranslationsModule		}		from '@rcc/common/translations'
+import	{	IconsModule				}		from '@rcc/common/icons'
+import	{	ReactiveFormsModule		}		from '@angular/forms'
 
 @NgModule({
 	imports: [
 		CommonModule,
 		IonicModule,
-		TranslationModule,
-		ReactiveFormsModule
+		TranslationsModule,
+		IconsModule,
+		ReactiveFormsModule,
 	],
 	exports: [	
 		CommonModule,
 		IonicModule,
-		TranslationModule,
-		ReactiveFormsModule
+		TranslationsModule,
+		IconsModule,
+		ReactiveFormsModule,
 	],
 	providers: [
 		

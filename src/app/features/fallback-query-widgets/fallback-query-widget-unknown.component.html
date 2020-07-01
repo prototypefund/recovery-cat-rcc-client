@@ -1,4 +1,4 @@
- <ion-list *ngIf = "query && query.question" inset lines = "none">
+ <ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
 
 	<ion-list-header><ion-label>{{query.question.meaning}}</ion-label></ion-list-header>
 

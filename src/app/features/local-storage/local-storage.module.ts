@@ -9,11 +9,8 @@ import	{	LocalStorageService		}	from './local-storage.service'
 
 @NgModule({
 	imports: [
-		StorageProviderModule,
+		StorageProviderModule.forRoot(LocalStorageService),
 		DevModule.note('LocalStorageModule')
 	],
-	providers:[
-		{ provide: RccStorage, useClass: LocalStorageService}
-	]
 })
 export class LocalStorageModule{}

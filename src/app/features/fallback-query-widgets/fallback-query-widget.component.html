@@ -1,4 +1,4 @@
- <ion-list *ngIf = "query && query.question" inset lines = "none">
+ <ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
 
 	<ion-list-header><ion-label>{{query.question.translations?.en}}</ion-label></ion-list-header>
 
@@ -6,7 +6,7 @@
 		<ion-input			
 			type      		= "text" 
 			[formControl] 	= "query.formControl"
-			debounce 		= "500"
+			[debounce] 		= "500"
 		></ion-input>  
 	</ion-item>
 	

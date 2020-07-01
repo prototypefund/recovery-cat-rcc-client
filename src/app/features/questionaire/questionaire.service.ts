@@ -33,4 +33,8 @@ export class Questionaire extends MetaStore<QuestionConfig, Question, QuestionSt
 		super(stores, itemActions)
 	}
 
+	
+	public handleIdWithoutItem(id: string): Question | null {
+		return new Question(id)
+	}
 }

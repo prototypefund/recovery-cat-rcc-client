@@ -28,12 +28,23 @@ import	{
 			QUESTION_STORES,
 			QUESTION_ACTIONS			
 		}								from './questionaire.commons'
+
 import	{	QuestionairePage 		}	from './questionaire.page/questionaire.page'
+import	{	Id2QuestionPipe			}	from './questionaire.pipes'
+import 	{	QuestionLabelComponent	} 	from './question-label/question-label.component'
 
 
-const routes 		=	[
-							{ path: 'questionaire',	component: QuestionairePage	},
-						]
+const routes 				=	[
+									{ path: 'questionaire',	component: QuestionairePage	},
+								]
+
+const questionaireConfig 	=  	{
+									itemClass:			Question,
+									itemIcon:			'question',
+									itemLabelComponent:	QuestionLabelComponent,
+									serviceClass: 		Questionaire,
+
+								}
 
 @Component({
 	template:	'<ion-item routerLink = "questionaire"><ion-label>{{ "QUESTIONAIRE.MENU_ENTRY" | transloco }}</ion-label></ion-item>'
@@ -43,21 +54,25 @@ export class MenuEntryQuestionaire {}
 
 
 
+
 @NgModule({
 	declarations: [
 		MenuEntryQuestionaire,
 		QuestionairePage,
+		Id2QuestionPipe,
+		QuestionLabelComponent
 	],
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
 		MainMenuModule.forChild([MenuEntryQuestionaire]),
-		MetaStoreModule
+		MetaStoreModule.forChild(questionaireConfig)
 	],
-
 	exports: [
 		MenuEntryQuestionaire,
 		QuestionairePage,
+		Id2QuestionPipe,
+		QuestionLabelComponent
 	],
 	providers:[
 		Questionaire

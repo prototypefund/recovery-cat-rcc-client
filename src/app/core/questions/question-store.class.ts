@@ -24,4 +24,5 @@ export abstract class QuestionStore extends ItemStore<QuestionConfig, Question> 
 			storage
 		})
 	}
+
 }

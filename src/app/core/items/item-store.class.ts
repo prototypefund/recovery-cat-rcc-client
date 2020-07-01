@@ -1,3 +1,7 @@
+//TODO: filter!
+
+
+
 import	{
 			ItemConfig,
 			Item,
@@ -5,9 +9,6 @@ import	{
 			ItemStoreConfig,
 		}						from './items.commons'
 
-export interface ItemStore<C extends ItemConfig, I extends Item<C>>{	
-	delete?(item:I):Promise<any>
-}
 
 export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 
@@ -78,10 +79,16 @@ export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 	}
 
 
-	public async lookUp(ids: string[]): Promise<I[]> {
+	public async get(id: 		string): Promise<I> 
+	public async get(ids: 		string[]): Promise<I[]> 
+	public async get(id_or_ids: string | string[]): Promise<I|I[]> {
+
 		await this.ready
-		const ready_items = ids.map(id => this.map.get(id))
-		//TODO remote see POC
+
+		if(typeof id_or_ids == 'string') return await this.get([id_or_ids]).then( (items:I[]) => items[0])
+
+		const ready_items = id_or_ids.map(id => this.map.get(id))
+		
 		return ready_items
 	}
 

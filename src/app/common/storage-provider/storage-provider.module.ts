@@ -1,6 +1,8 @@
 import 	{ 	
 			NgModule,
-			Injectable 			
+			Injectable,
+			Type,
+			ModuleWithProviders 			
 
 		}					from '@angular/core'
 
@@ -22,6 +24,9 @@ class voidStore<C extends ItemConfig, I extends Item<C>> {
 	async storeAll(items: (I|C)[])	: Promise<any> {}
 }
 
+
+
+
 @Injectable()
 export class RccStorage {
 	createItemStorage<C extends ItemConfig, I extends Item<C>>(id:string):ItemStorage<C, I> { 
@@ -37,5 +42,14 @@ export class RccStorage {
 	]
 })
 export class StorageProviderModule { 
+
+	static forRoot(modalServiceClass: Type<RccStorage>): ModuleWithProviders{
+		return 	{
+					ngModule: StorageProviderModule,
+					providers: 	[
+									{provide: RccStorage, useClass: modalServiceClass }
+								]
+				}
+	}
 
 }

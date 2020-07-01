@@ -12,7 +12,7 @@ import 	{	StatusBar 					} 	from '@ionic-native/status-bar/ngx'
 import 	{	AppComponent 				} 	from './app.component'
 import	{	
 			AppRoutingModule,
-			TranslationModule, 
+			TranslationsModule, 
 
 			HomePageModule, 
 			MainMenuModule,
@@ -21,10 +21,14 @@ import	{
 import	{	
 			StaticQuestionStoreModule,
 			LocalStorageModule,
+			IonicModalsModule,
+			IonicIconsModule,
 			CustomQuestionsModule,
 			FallbackQueryWidgetsModule,
 			QueriesModule,
-			StaticSymptomCheckStoreModule
+			StaticSymptomCheckStoreModule,
+			CustomSymptomCheckStoreModule,
+			ViewSymptomChecksModule,
 		}									from '@rcc/features'
 
 
@@ -35,18 +39,27 @@ import	{
 	imports: 			[
 							BrowserModule, 
 							IonicModule.forRoot(), 
-							AppRoutingModule,
 							HttpClientModule,
-							TranslationModule,
+							TranslationsModule,
 							MainMenuModule.forRoot({menuId: "rcc-main-menu", contentId: "rcc-main-content"}),
 
-							// All modules from here on should be removable
+							//how to handle these modules?
+							IonicModalsModule,
+							IonicIconsModule,
+
+							// All following modules should be removable without causing any errors
 							HomePageModule,
 							LocalStorageModule,
 							StaticQuestionStoreModule,
 							CustomQuestionsModule,
 							FallbackQueryWidgetsModule,
-							StaticSymptomCheckStoreModule
+							StaticSymptomCheckStoreModule,
+							CustomSymptomCheckStoreModule,
+							ViewSymptomChecksModule,
+
+
+							///
+							AppRoutingModule,
 						],
 	providers: 			[
 							StatusBar,

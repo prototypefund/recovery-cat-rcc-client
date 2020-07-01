@@ -8,7 +8,10 @@ export class Report extends Item<ReportConfig>{
 	public	timestamp	: number
 
 	constructor(config: ReportConfig){
-		super()
+		super(config)		
+	}
+
+	set config(config: ReportConfig){
 		this.questionId = config[0]
 		this.answer		= config[1]
 		this.timestamp  = config[2]
