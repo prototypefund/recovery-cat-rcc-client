@@ -1,0 +1,56 @@
+{
+
+	"APP_NAME":		"RecoveryCat",
+
+	"SAVE": 		"Save",
+	"DELETE":		"Delete",
+	"REMOVE":		"Eemove",
+	"EDIT":			"Edit",
+
+	"OKAY":			"Okay",
+	"CANCEL":		"Cancel",
+	"APPLY":		"Apply",
+
+	"DAYS": 		{
+						"SHORT": 		{
+											"MO": "Mo",
+											"TU": "Tu",
+											"WE": "We",
+											"TH": "Th",
+											"FR": "Fr",
+											"SA": "Sa",
+											"SU": "Su"
+										},
+						"LONG": 		{
+											"MO": "Monday",
+											"TU": "Tuesday",
+											"WE": "Wednesday",
+											"TH": "Thursday",
+											"FR": "Friday",
+											"SA": "Saturday",
+											"SU": "Sunday"
+										}
+
+					},						
+
+
+
+	"MAIN_MENU": 	{
+						"HEADER":			"{{APP_NAME}}"
+					},
+
+
+
+	"HOME_PAGE": 	{
+						"MENU_ENTRY":		"Home"
+					},
+
+
+
+
+	"SCHEDULE":		"Schedule"
+					
+
+
+
+}

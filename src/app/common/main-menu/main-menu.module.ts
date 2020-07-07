@@ -32,21 +32,22 @@ export function provideEntries(entries: MainMenuEntry[]){
 
 
 @NgModule({
-	declarations: 		[
-							MainMenuComponent,
-						],
+	declarations: [
+		MainMenuComponent,
+	],
 
 	imports: 			[
-							SharedModule
-						],
+		SharedModule
+	],
 	
-	exports:			[
-							MainMenuComponent,
-						],
-	providers:			[
-							{ provide: MAIN_MENU_CONFIG, 	useValue: {} },
-							{ provide: MAIN_MENU_COMPONENT,	useValue: MainMenuComponent}
-						]
+	exports: [
+		MainMenuComponent,
+	],
+
+	providers: [
+		{ provide: MAIN_MENU_CONFIG, 	useValue: {} },
+		{ provide: MAIN_MENU_COMPONENT,	useValue: MainMenuComponent}
+	]
 
 })
 export class MainMenuModule {

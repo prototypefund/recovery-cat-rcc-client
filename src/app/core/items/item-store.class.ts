@@ -79,13 +79,13 @@ export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 	}
 
 
-	public async get(id: 		string): Promise<I> 
-	public async get(ids: 		string[]): Promise<I[]> 
+	public async get(id: 		string)		: Promise<I> 
+	public async get(ids: 		string[])	: Promise<I[]> 
 	public async get(id_or_ids: string | string[]): Promise<I|I[]> {
 
 		await this.ready
 
-		if(typeof id_or_ids == 'string') return await this.get([id_or_ids]).then( (items:I[]) => items[0])
+		if(typeof id_or_ids == 'string') return await this.get([id_or_ids]).then( (items:I[]) => items[0] )
 
 		const ready_items = id_or_ids.map(id => this.map.get(id))
 		

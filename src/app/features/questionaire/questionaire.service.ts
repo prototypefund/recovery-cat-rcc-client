@@ -1,7 +1,6 @@
 import 	{	
 			Injectable,
-			Inject ,
-			Optional			
+			Inject
 		} 								from '@angular/core'
 
 import	{	Question,
@@ -24,10 +23,10 @@ import	{
 export class Questionaire extends MetaStore<QuestionConfig, Question, QuestionStore> {
 
 	constructor(
-		@Optional() @Inject(QUESTION_STORES) 
+		@Inject(QUESTION_STORES) 
 		stores		: QuestionStore[],
 
-		@Optional() @Inject(QUESTION_ACTIONS) 
+		@Inject(QUESTION_ACTIONS) 
 		itemActions	: ItemAction<Question>[]
 	) {
 		super(stores, itemActions)

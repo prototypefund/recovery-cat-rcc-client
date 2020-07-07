@@ -89,8 +89,8 @@ export class QuestionaireModule {
 		return 	{
 					ngModule:	QuestionaireModule,
 					providers:	[
-									...(stores||[])	.map( 	storeClass	=> ({provide: QUESTION_STORES,	useClass: storeClass, 	multi:true })),
-									...(actions||[]).map( 	action 		=> ({provide: QUESTION_ACTIONS,	useValue: action, 		multi:true })),
+									...(stores||[])	.map( 	storeClass	=> ({provide: QUESTION_STORES,	useExisting: 	storeClass, 	multi:true })),
+									...(actions||[]).map( 	action 		=> ({provide: QUESTION_ACTIONS,	useValue: 		action, 		multi:true })),
 
 								]
 				}

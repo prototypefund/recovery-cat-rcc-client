@@ -5,7 +5,7 @@ export * from './routing'
 export * from './translations'
 export * from './storage-provider'
 export * from './meta-store'
-export * from './modal-provider'
+export * from './modals-provider'
 export * from './icons'
 
 export * from './shared.module'

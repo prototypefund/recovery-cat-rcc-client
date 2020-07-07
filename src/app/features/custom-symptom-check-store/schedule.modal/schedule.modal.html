@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+
+	<ion-toolbar>
+
+		<ion-title>			
+			{{'CUSTOM_SYMPTOM_CHECKS.SCHEDULE_MODAL.HEADER' | transloco}}
+		</ion-title>
+
+		<ion-buttons slot="end">
+			<ion-button 
+				color	= "light"
+				fill	= "solid"
+				(click) = "cancel()"
+			>
+				{{'CANCEL' | transloco }}
+			</ion-button>
+
+			<ion-button 
+				color	= "primary"
+				fill	= "solid"
+				(click) = "accept()"
+			>
+				{{'APPLY' | transloco }}
+			</ion-button>
+		</ion-buttons>		
+
+	</ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen] = "true">
+
+
+	<ion-list>
+
+		<ion-item>
+
+			<ion-label text-wrap>
+				<h3>{{ 'CUSTOM_SYMPTOM_CHECKS.SCHEDULE_MODAL.PREVIEW_LABEL' | transloco }}</h3>
+				<p>{{dummy_schedule.toText()}}</p>
+			</ion-label>
+
+		</ion-item>
+
+		<ion-radio-group [formControl] = "frequency">
+
+			<ion-item>
+
+				<ion-label>
+					{{ 'CUSTOM_SYMPTOM_CHECKS.SCHEDULE_MODAL.DAILY' | transloco }}
+				</ion-label>
+			
+				<ion-radio value = "daily" slot = "end"></ion-radio>
+
+			</ion-item>
+
+
+			<ion-item>
+
+				<ion-label>
+					{{ 'CUSTOM_SYMPTOM_CHECKS.SCHEDULE_MODAL.WEEKLY' | transloco }}
+				</ion-label>
+			
+				<ion-radio value = "weekly" slot = "end"></ion-radio>
+				
+			</ion-item>
+
+		</ion-radio-group>
+
+		<ng-container *ngIf = "frequency.value != 'daily'">
+			<ion-item >
+
+				<ion-label>
+					{{ 'CUSTOM_SYMPTOM_CHECKS.SCHEDULE_MODAL.RESTRICT_DAYS' | transloco }}
+				</ion-label>
+			
+				<ion-toggle [formControl] = "restrict_to_days" slot = "end"></ion-toggle>
+				
+			</ion-item>
+
+
+
+			<ion-item-group 
+				*ngIf 	= "restrict_to_days.value"
+				class	= "ion-margin-start"
+			>			
+
+				<ion-item *ngFor = "let day of ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']; index as index">
+
+					<ion-label>
+						<h3>{{'DAYS.LONG.%1' | fill: day | transloco}}</h3>
+					</ion-label>
+
+					<ion-checkbox [formControl] = "dayControls[index]"></ion-checkbox>
+
+				</ion-item>
+
+			</ion-item-group>
+		</ng-container>
+
+
+		<ion-item>
+			<ion-label>
+				{{ 'CUSTOM_SYMPTOM_CHECKS.SCHEDULE_MODAL.MANUAL' | transloco }}
+			</ion-label>
+			<ion-toggle [formControl] = "manual" slot = "end"></ion-toggle>
+
+		</ion-item>
+
+		<ion-item  *ngIf = "manual.value">
+
+			<ion-textarea [formControl] = "manualInput"></ion-textarea>
+
+		</ion-item>
+
+	</ion-list>
+
+</ion-content>

@@ -1,0 +1,12 @@
+{
+	"APP_NAME":		"RecoveryCat",
+
+	"SAVE": 		"speichern",
+	"DELETE":		"löschen",
+	"REMOVE":		"entfernen",
+	"EDIT":			"bearbeiten",
+
+	"MAIN_MENU":	{
+						"HEADER":		"{{APP_NAME}}"
+					}
+}

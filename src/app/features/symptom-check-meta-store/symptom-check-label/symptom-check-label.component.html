@@ -1,0 +1,7 @@
+<ng-template let-item> 
+	<h3>{{item.meta.source}}</h3>
+	<p>			
+		{{(item.meta.creationDate || item.meta.start)}}
+		{{ item.meta.paused ? 'SYMPTOM_CHECK_META_STORE.PAUSED' : ''}}										
+	</p>	
+</ng-template>

@@ -6,8 +6,8 @@ import 	{
 
 export class Schedule {
 
-	public rrule: 	any
-	public failed: 	boolean
+	public rrule	: any
+	public failed	: boolean
 
 
 	static isValidDate(d : Date): boolean {
@@ -16,11 +16,19 @@ export class Schedule {
 		if(isNaN(d.getTime()))	return false
 	}
 
-	constructor(str: string, start?: Date) {
+	constructor(str?: string, start?: Date) {
+		this.set(str,start)
 
-		const rruleConfig = RRule.parseString(str || 'RRULE:FREQ=DAILY') 
+		
+	}
 
+	set(str?:string, start?: Date){
+
+		this.failed = false
+		
 		try {
+			const rruleConfig = RRule.parseString(str || 'RRULE:FREQ=DAILY') 
+
 			this.rrule = 	new RRule({
 								dtstart: Schedule.isValidDate(start) ? start : new Date(), 
 								...rruleConfig
@@ -29,13 +37,14 @@ export class Schedule {
 			console.warn(e)
 			this.failed = true
 		}
+
 	}
 
 	toString(){
 		return 	this.rrule.toString() 
 	}
 
-	toText():string{ 
+	toText():string { 
 		return 	this.failed
 				?	'Error: unable to parse rule.'
 				:	this.rrule.toText() 

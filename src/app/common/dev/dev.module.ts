@@ -13,6 +13,8 @@ import	{	SharedModule		}	from '../shared.module'
 
 import	{	DevPage				}	from './dev.page/dev.page'
 
+import	{	ConsolePipe			}	from './dev.pipes'
+
 const routes 		=	[
 							{ path: 'dev',	component: DevPage	},
 						]
@@ -39,7 +41,8 @@ const menuEntries	=	[MenuEntryQuestionaire]
 @NgModule({
 	declarations: [
 		DevPage,
-		MenuEntryQuestionaire
+		MenuEntryQuestionaire,
+		ConsolePipe
 	],
 	imports: [
 		SharedModule,
@@ -48,7 +51,8 @@ const menuEntries	=	[MenuEntryQuestionaire]
 	],
 	exports: [
 		DevPage,
-		MenuEntryQuestionaire
+		MenuEntryQuestionaire,
+		ConsolePipe
 	],
 	providers: [
 		DevService,

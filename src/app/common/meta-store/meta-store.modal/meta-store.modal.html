@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+
+	<ion-toolbar>
+		<ion-buttons slot="end">
+			<ion-button 
+				color	= "light"
+				fill	= "solid"
+				(click) = "cancel()"
+			>
+				{{'CANCEL' | transloco }}
+			</ion-button>
+
+			<ion-button 
+				color	= "primary"
+				fill	= "solid"
+				(click) = "accept()"
+			>
+				{{'APPLY' | transloco }}
+			</ion-button>
+		</ion-buttons>		
+
+	</ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen] = "true">
+	
+		<rcc-meta-store 
+			[metaStore] 	= "metaStore"
+			[selectInto]	= "selected"
+		>
+		</rcc-meta-store>
+
+</ion-content>

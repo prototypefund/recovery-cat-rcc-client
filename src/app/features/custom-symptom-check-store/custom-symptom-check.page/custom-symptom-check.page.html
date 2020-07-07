@@ -1,0 +1,99 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref = ".."></ion-back-button>
+		</ion-buttons>
+
+		<ion-title>
+			{{ 'CUSTOM_SYMPTOM_CHECKS.EDIT.HEADER_%1' | fill: 'new' | translate }}
+		</ion-title>
+
+		<ion-buttons slot="end">
+
+			<ion-button 
+				color	= "primary"
+				fill	= "solid"
+				(click) = "save()"
+			>
+				{{'CUSTOM_SYMPTOM_CHECKS.EDIT.SAVE' | translate }}
+			</ion-button>
+
+		</ion-buttons>
+
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen] = "true">
+
+	<ion-list>
+
+		<ion-item>
+
+			<ion-label position = "stacked">
+				{{'CUSTOM_SYMPTOM_CHECKS.EDIT.SOURCE'  | translate}}
+			</ion-label>
+
+			<ion-input [formControl] = "source"></ion-input>
+
+		</ion-item>
+
+		<ion-item
+			[button] 	= "true"
+			(click)		= "editSchedule(this.defaultSchedule)"
+		>
+			<ion-label> 
+				<h3>{{'CUSTOM_SYMPTOM_CHECKS.EDIT.SCHEDULE'|translate}} </h3>
+				<p>{{this.defaultSchedule.toText()}}</p>
+			</ion-label>
+			
+			<ion-icon [name] = " 'edit' | rccIcon" slot = "end"></ion-icon>
+
+			
+		</ion-item>
+
+
+		<ion-list-header>
+			<ion-label>
+				{{'CUSTOM_SYMPTOM_CHECKS.EDIT.QUESTIONS' | translate}}
+			</ion-label>
+
+		</ion-list-header>
+
+		<ion-item 
+			[button]	= "true"
+			(click) 	= "selectQuestions()"
+		>
+
+			<ion-label>
+				{{'CUSTOM_SYMPTOM_CHECKS.EDIT.SELECT_QUESTIONS' | translate}}
+			</ion-label>
+
+			<ion-icon [name] = " 'select-items' | rccIcon" slot = "end" ></ion-icon>
+
+		</ion-item>	
+<!-- 
+
+		<ion-item [routerLink] 	= "['/questions', 'new']">
+			
+			<ion-label>
+				Create new question
+			</ion-label>
+
+			<ion-icon name = "add-outline" slot = "end"></ion-icon>
+
+		</ion-item>
+
+-->
+
+
+		<rcc-store-item
+			*ngFor 			= "let question of questions"			
+			[item] 			= "question"
+			[itemActions]	= "questionActions"
+			(mouseenter)	= "open = !open"
+		>
+		</rcc-store-item>
+
+	</ion-list> 
+
+</ion-content>

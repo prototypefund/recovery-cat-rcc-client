@@ -1,0 +1,72 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref = "/"></ion-back-button>
+		</ion-buttons>
+
+		<ion-title>
+			{{symptom_check?.meta.source}}
+		</ion-title>
+
+		<ion-buttons slot="end">
+			<!-- <ion-button [routerLink] = "['edit']">
+				<ion-icon name="create-outline"></ion-icon>
+			</ion-button> -->
+		</ion-buttons>
+
+	</ion-toolbar>
+</ion-header>
+
+<ion-content 
+	[fullscreen] = "true"
+	*ngIf = "symptom_check"
+>
+	<ion-list>
+		<ion-list-header>
+			{{symptom_check?.meta.source}}
+		</ion-list-header>
+		<ion-item>
+			<ion-label>				
+				<p>
+					{{'VIEW_SYMPTOM_CHECK.DETAILS.CREATION_DATE' | transloco }}: 
+					{{symptom_check.meta.creationDate}}
+				</p>
+				<p 
+					*ngIf ="symptom_check.meta.start"
+				>
+					{{'VIEW_SYMPTOM_CHECK.DETAILS.START' | transloco }}: 
+					{{symptom_check.meta.start}}
+				</p>				
+
+				<p>
+					{{symptom_check.meta.defaultSchedule}}
+				</p>
+
+				<p>
+					{{'VIEW_SYMPTPM_CHECK.DETAILS.PAUSED_%1' | fill : (symptom_check.meta.paused ? 'TRUE' : 'FALSE') | transloco }}
+				</p>
+			</ion-label>
+
+			<ion-buttons slot="end">
+				<!-- <ion-button (click) = "shareQR()" slot = "end">
+					<ion-icon name="qr-code-outline"></ion-icon>
+				</ion-button> -->
+			</ion-buttons>
+
+		</ion-item>
+	</ion-list>
+
+	<ion-list>
+
+		<ion-list-header>
+			{{'VIEW_SYMPTOM_CHECK.DETAILS.QUESTIONS' | transloco}}
+		</ion-list-header>
+
+		<rcc-store-item
+			*ngFor 			= "let item of symptom_check.questions"			
+			[item]			= "item.id | id2Question | async"
+		>
+		</rcc-store-item>
+
+	</ion-list>
+</ion-content>
