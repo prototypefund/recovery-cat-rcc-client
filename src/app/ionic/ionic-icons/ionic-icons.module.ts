@@ -22,6 +22,7 @@ import	{	IconsModule		}	from '@rcc/common'
 			'new':				'add-putline',
 			'fill':				'create-outline',
 			'share':			'share-outline',
+			'qr-code':			'qr-code-outline'
 		})
 	]
 })

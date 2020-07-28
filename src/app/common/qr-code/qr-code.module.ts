@@ -11,16 +11,20 @@ import	{
 			IncomingDataModule,
 			IncomingData		
 		}							from '@rcc/common/incoming-data'
+import	{	TranslationsModule	}	from '@rcc/common/translations'
 import	{	QrCodeComponent		}	from './qr-code/qr-code.component'
 import	{	RccQrCodeScanner	}	from './qr-code.commons'
 import	{	QrCodeService		}	from './qr-code.service'
 
+import	en	from './i18n/en.json'
+import	de	from './i18n/de.json'
 
 
 
 @Component({
 	template:	`
 					<ion-item [button] = "true" (click) = "scan()">
+						<ion-icon [name] = "'qr-code' | rccIcon" slot = "start"></ion-icon>
 						<ion-label>{{ "QRCODE.SCAN" | transloco }}</ion-label>
 					</ion-item>
 				`
@@ -52,6 +56,7 @@ export class MenuEntryQrCode {
 		IncomingDataModule,		
 		QRCodeModule,
 		SharedModule,
+		TranslationsModule.forChild('QRCODE', {en, de}),
 		MainMenuModule.forChild([MenuEntryQrCode]),
 	],
 	providers: [
