@@ -1,0 +1,34 @@
+{
+
+	"MENU_ENTRY": "Create new symptom check",
+
+	"ACTIONS": {
+		"CREATE_NEW_FROM": 	"Use as template",
+		"EDIT":				"Edit",
+		"DELETE":			"{{DELETE}}",
+		"DELETE_SUCCESS":	"Symptom check deleted."
+	},
+
+	"EDIT": {
+		"HEADER_NEW":		"New symptom check",
+		"HEADER_UPDATE":	"Edit symptom check",
+		"SAVE":				"{{SAVE}}",
+		"SAVE_SUCCESS":		"Symptom check sucessfully saved.",
+		"SAVE_FAILURE":		"Unable to save symptom check.",
+		"SOURCE":			"Source",
+		"SCHEDULE":			"{{SCHEDULE}}",
+		"QUESTIONS":		"Questions",
+		"SELECT_QUESTIONS":	"Select questions"
+	},
+
+	"SCHEDULE_MODAL": {
+		"HEADER":			"{{SCHEDULE}}",
+		"PREVIEW_LABEL":	"Preview",	
+		"RESTRICT_DAYS":	"Restrict to specific days of the week",
+		"DAILY":			"Daily",
+		"WEEKLY":			"Weekly",
+		"MANUAL":			"Manual rule input"
+	}
+
+}
+
