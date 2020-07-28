@@ -9,6 +9,7 @@ export * from './qr-code'
 export * from './modals-provider'
 export * from './icons'
 export * from './incoming-data'
+export * from './connection'
 
 export * from './shared.module'
 

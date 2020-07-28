@@ -5,7 +5,7 @@ export * from './queries'
 export * from './fallback-query-widgets'
 export * from './qr-code-scanner'
 export * from './reports'
-
+export * from './transmission'
 export * from './symptom-checks'
 
 export * from './journal'
