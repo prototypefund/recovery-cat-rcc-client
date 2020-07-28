@@ -1,7 +1,6 @@
 import 	{ 
 			Component, 
-			OnInit,
-			OnDestroy
+			OnInit
 		}								from '@angular/core'
 
 import	{
@@ -15,6 +14,10 @@ import	{
 			QuestionConfig
 		}								from '@rcc/core'
 
+import	{
+			RccToastController
+		}								from '@rcc/common'
+
 import	{	CustomQuestionStore		}	from '../custom-question-store.service'
 
 @Component({
@@ -22,14 +25,14 @@ import	{	CustomQuestionStore		}	from '../custom-question-store.service'
 	templateUrl: 	'./custom-question.page.html',
 	styleUrls: 		['./custom-question.page.scss'],
 })
-export class CustomQuestionPage implements OnInit, OnDestroy {
+export class CustomQuestionPage implements OnInit {
 
 
 
 	public	question					= 	new FormControl('', this.validateQuestion.bind(this))
 
-	public	kinds			: string[]	= 	['yes_no', 'select', 'scale_discrete', 'scale_continuous', 'input']
-	public	kind 						= 	new FormControl('', this.validateKind.bind(this)) 
+	public	questionTypes	: string[]	= 	['yes_no', 'select', 'scale_discrete', 'scale_continuous', 'input']
+	public	questionType 				= 	new FormControl(this.questionTypes[0], this.validatequestionType.bind(this)) 
 
 	public	min							= 	new FormControl(null, this.validateMin.bind(this)) 
 	public	max							= 	new FormControl(null, this.validateMax.bind(this))
@@ -41,29 +44,47 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 	public	selectOptions				= 	new FormArray([], this.validateSelectOptions.bind(this))
 
 
-	public	answerTypes					= 	['string', 'integer', 'float']
+	public	answerTypes					= 	['string', 'integer', 'decimal']
 	public	answerType					= 	new FormControl('string', this.validateAnswerType.bind(this))	
 
 	public	unit						= 	new FormControl('', this.validateUnit.bind(this))
 
 
-	public all	 						= 	new FormArray([
-												this.question, 
-												this.kind, 
-												this.min, 
-												this.max, 
-												this.useSteps, 
-												this.scaleOptions, 
-												this.selectOptions, 
-												this.answerType,
-												this.unit
+	public 	allForms					= 	new FormArray([
+													this.question, 
+													this.questionType, 
+													this.min, 
+													this.max, 
+													this.useSteps, 
+													this.scaleOptions, 
+													this.selectOptions, 
+													this.answerType,
+													this.unit
 											])
 
-	
+	public _errors			: string[]	= []
 
 	constructor(
-		private customQuestionStore : CustomQuestionStore
+		private customQuestionStore : CustomQuestionStore,
+		private rccToastController	: RccToastController
 	) {}
+
+
+	ngOnInit(){
+		this.questionType.valueChanges.subscribe( (type:string) =>{
+			switch(type){
+				case 'select':	
+					while(this.selectOptions.length < 2) this.addSelectOption()
+				break
+
+				case 'scale_discrete':
+					while(this.scaleOptions.length < 2) this.addScaleOption()
+				break
+
+			}
+
+		})
+	}
 
 	addScaleOption(){
 		let last_value: number
@@ -96,9 +117,16 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 				) 
 		)
 
-		console.dir(this.selectOptions.controls)
-	}
+	}	
 
+	get firstError(): string | null {
+		const first_control_with_errors = this.allForms.controls.find( (control: FormControl)  => control.errors )
+
+		return 	first_control_with_errors
+				?	Object.keys(first_control_with_errors.errors)[0]
+				:	null
+
+	}
 
 	protected validateQuestion(q:FormControl): ValidationErrors | null {
 		return 	q.value
@@ -106,14 +134,14 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 				:	{ question_empty: true }
 	}
 
-	protected validateKind(k:FormControl): ValidationErrors | null{
-		return 	this.kinds.includes(k.value)
+	protected validatequestionType(k:FormControl): ValidationErrors | null{
+		return 	this.questionTypes.includes(k.value)
 				?	null
-				:	{ kind_unknown: true }	
+				:	{ questionType_unknown: true }	
 	}
 
 	protected validateMin(m:FormControl): ValidationErrors | null {
-		if( this.kind.value != 'scale_continuous') 	return null
+		if( this.questionType.value != 'scale_continuous') 	return null
 		if( !isNaN(m.value)) 						return null
 
 		return { 'min_nan' :true}
@@ -121,7 +149,7 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 	}
 
 	protected validateMax(m:FormControl): ValidationErrors | null{
-		if( this.kind.value != 'scale_continuous') 	return null
+		if( this.questionType.value != 'scale_continuous') 	return null
 		if( !isNaN(m.value)) 						return null
 
 		return { 'max_nan' :true}
@@ -129,7 +157,7 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 	}
 
 	protected validateStep(s:FormControl):ValidationErrors | null {
-		if( this.kind.value != 'scale_continuous')	return null
+		if( this.questionType.value != 'scale_continuous')	return null
 		if( !this.useSteps.value )					return null
 
 		if( isNaN(s.value))							return { 'step_nan': 		true }
@@ -139,14 +167,18 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 	}
 
 	protected validateScaleOptions(o:FormArray): ValidationErrors | null {
-		if( this.kind.value != 'scale_continuous')	return null
+		if( this.questionType.value != 'scale_continuous')	return null
 		if( o.controls.length < 2)					return {'opt_count': true}
 		
+		const first_option_with_errors =  o.controls.find( (control: FormControl) => control.errors)
+		if(first_option_with_errors) 				return first_option_with_errors.errors
+
 		return null
 	}
 
 	protected validateScaleOption(o:FormControl): ValidationErrors | null {
-		if( this.kind.value != 'scale_continuous')	return null
+		if( this.questionType.value != 'scale_continuous')	return null
+
 		if(!o.value.value)							return { 'opt_value_missing': 	true }
 		if(isNaN(o.value.value))					return { 'opt_nan':				true }	
 
@@ -154,41 +186,47 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 	}
 
 	protected validateSelectOptions(o:FormArray): ValidationErrors | null {
-		if( this.kind.value != 'select')			return null
+		if( this.questionType.value != 'select')	return null
+
 		if( o.controls.length < 2)					return {'opt_count': true}
 		
+		const first_option_with_errors =  o.controls.find( (control: FormControl) => control.errors)
+
+		if(first_option_with_errors) 				return first_option_with_errors.errors
+
 		return null
 	}
 
 	protected validateSeclectOption(o:FormControl): ValidationErrors | null {
-		if( this.kind.value != 'select')			return null
+		if( this.questionType.value != 'select')	return null
+
 		if(!o.value.value)							return { 'opt_value_missing': 	true }
 		if(isNaN(o.value.value))					return { 'opt_value_nan':		true }	
 
-		if(!o.value.meaning)						return { 'opt_value_missing':	true }
+		if(!o.value.meaning)						return { 'opt_label_missing':	true }
 		return null
 	}
 
 	protected validateAnswerType(a: FormControl): ValidationErrors | null {
-		if(this.kind.value != 'input')				return null
-		if(this.answerTypes.includes(this.kind.value))	return null
+		if(this.questionType.value != 'input')					return null
+		if(this.answerTypes.includes(this.questionType.value))	return null
 
 		return { 'answer_type_unknown': true}	
 	}
 
 	protected validateUnit(u:FormControl): ValidationErrors | null {
 
-		if(this.kind.value == 'input' && !['float', 'integer'].includes(this.answerType.value)) return null
+		if(this.questionType.value == 'input' && !['decimal', 'integer'].includes(this.answerType.value)) return null
 
-		if(!['scale_discrete', 'scale_continuous'].includes(this. kind.value))	return null
+		if(!['scale_discrete', 'scale_continuous'].includes(this. questionType.value))	return null
 
 	}
 
 
-	createQuestion(): void{
+	public async save(): Promise<any>{
 		const config:any = {}
 
-		if(this.all.invalid) return;
+		if(this.allForms.invalid) return "invalid config form";
 
 		//needs this.question != ''
 
@@ -203,11 +241,11 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 									yes_no:				'boolean',
 									select:				'string',
 									scale_discrete:		'integer',
-									scale_continuous:	Number.isInteger(this.step.value) && this.step.value > 0 && Number.isInteger(config.min.value)  //needs step to be null or > 0
+									scale_continuous:	Number.isInteger(this.step.value) && this.step.value > 0 && Number.isInteger(this.min.value)  //needs step to be null or > 0
 														?	'integer'
-														:	'float',
+														:	'decimal',
 									input:				this.answerType.value //needs answerType to be not null
-								}as any)[this.kind.value]			//needs this.kind to be not null
+								}as any)[this.questionType.value]			//needs this.questionType to be not null
 
 
 		//nees min < max!
@@ -217,7 +255,7 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 									scale_discrete:		undefined,
 									scale_continuous:	this.min.value, //needs this.min to be not null
 									input:				undefined
-								}as any)[this.kind.value]			//needs this.kind to be not null
+								}as any)[this.questionType.value]			//needs this.questionType to be not null
 
 		config.max			=	({
 									yes_no:				undefined,
@@ -225,14 +263,14 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 									scale_discrete:		undefined,
 									scale_continuous:	this.max.value, //needs this.min to be not null
 									input:				undefined
-								}as any)[this.kind.value]			//needs this.kind to be not null
+								}as any)[this.questionType.value]			//needs this.questionType to be not null
 
-		config.unit			=	['float', 'integer'].includes(config.type)
+		config.unit			=	['decimal', 'integer'].includes(config.type)
 								?	this.unit.value
 								:	undefined
 
 		config.tags			=	[]
-								.concat( ['scale_discrete', 'scale_continuous'].includes(this.kind.value) ? ['scale'] : [] )
+								.concat( ['scale_discrete', 'scale_continuous'].includes(this.questionType.value) ? ['scale'] : [] )
 
 		config.options		=	({
 									yes_no:				undefined,
@@ -243,21 +281,22 @@ export class CustomQuestionPage implements OnInit, OnDestroy {
 															.map( n => n + config.max)
 														:	undefined,
 									input:				undefined
-								}as any)[this.kind.value]					
+								}as any)[this.questionType.value]					
 
 		//TODO
 		config.id			=	'custom-'+Date.now()
 
-					
-		this.customQuestionStore.addQuestionConfig(config)
-		.catch(console.log)
+		
+		try{			
+			await this.customQuestionStore.addQuestionConfig(config)
+			this.rccToastController.present({message:'CUSTOM_QUESTIONS.EDIT.SAVE_SUCCESS'})
+		} catch (reason) {
+			console.warn(reason) //TODO
+			this.rccToastController.present({message:'CUSTOM_QUESTIONS.EDIT.SAVE_FAILURE'})
+		}
+		
 
 	}
 
-	ngOnInit() {
-
-	}
-
-	ngOnDestroy() {}
 
 }

@@ -16,15 +16,15 @@ export class RccToastController {
 	}
 
 	public async success (message: string): Promise<any>{
-		return await this.present({message: message})
+		return await this.present({message: message, color: 'success'})
 	}
 
 	public async failure (message: string): Promise<any>{
-		return await this.present({message: message})
+		return await this.present({message: message, color: 'warning'})
 	}
 
 	public async info (message: string): Promise<any>{
-		return await this.present({message: message})
+		return await this.present({message: message, color: 'info'})
 	}
 }
 

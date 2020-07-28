@@ -3,8 +3,8 @@ import	{
 			Input
 		}							from '@angular/core'
 
+import	{	Journal				}	from '@rcc/features/journal'
 import	{	Query				}	from '../query.class'
-import	{	ReportingService	}	from '../reporting/reporting.service'
 
 
 @Component({
@@ -17,12 +17,12 @@ export class QueryWidgetComponent {
 	query: Query
 
 	constructor(
-		private reportingService: ReportingService
+		private journal: Journal
 	){ }
 
 
 	submit():void{
 		if(!this.query.complete) return null
-		this.reportingService.submit(this.query.question.id, this.query.answer)
+		this.journal.log(this.query.question.id, this.query.answer)
 	}
 }

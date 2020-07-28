@@ -12,16 +12,41 @@ import	{
 
 import	{	MetaStore			}	from './meta-store.class'
 
-export class AbstractMetaStoreModule {
-	static forChild: () => ModuleWithProviders
+
+
+
+export class BaseMetaStoreModule {
+
+	static getModuleWithProviders(
+		module		: Type<BaseMetaStoreModule>, 
+		stores		: Type<ItemStore<any,any>>[],
+		actions		: ItemAction<any>[],
+		storeToken	: any, 
+		actionToken	: any
+	){
+
+		return 	{
+					ngModule:	module,
+					providers:	[
+									...(stores||[])	.map( 	storeClass	=> ({provide: storeToken,	useExisting: 	storeClass, 	multi:true })),
+									...(actions||[]).map( 	action 		=> ({provide: actionToken,	useValue: 		action, 		multi:true })),
+
+								]
+				}
+	}	
+
 }
+
+
+
 
 export interface ItemAction<I extends Item<any>> {
 	label			: string,
 	icon?			: string,
 	path?			: string,
 	store?			: Type<ItemStore<any, I>>,
-	handler?		: (item: I, store? :ItemStore<any,I>) => any,
+	handler?		: (item: I, store? :ItemStore<any,I>, ...dependencies: any[]) => any,
+	dependencies?	: any, 
 	successMessage?	: string,
 	failureMessage?	: string
 

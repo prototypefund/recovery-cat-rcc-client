@@ -1,64 +1,93 @@
-<ion-header [translucent]="true">
+<ion-header>
 	<ion-toolbar>
-		 <ion-buttons slot="start">
-			<ion-menu-button>
-			</ion-menu-button>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref = ".."></ion-back-button>
 		</ion-buttons>
+
 		<ion-title>
-			{{ "CUSTOM_QUESTIONS.HEADER" | transloco }}
+			{{ 'CUSTOM_QUESTIONS.EDIT.HEADER_NEW' | translate }}
 		</ion-title>
+
+		<ion-buttons slot="end">
+
+			<ion-button 
+				color		= "primary"
+				fill		= "solid"
+				(click) 	= "save()"
+				[disabled]	= "allForms.invalid"
+			>
+				{{'CUSTOM_QUESTIONS.EDIT.SAVE' | translate }}
+			</ion-button>
+
+
+		</ion-buttons>
+
 	</ion-toolbar>
 </ion-header>
+
 
 <ion-content [fullscreen] = "true">
 	
 	<ion-list>
 
+		<ion-item
+			*ngIf 	= "allForms.invalid && allForms.touched; else blank"
+			color	= "danger"
+			lines 	= "none"
+		>
+			{{'CUSTOM_QUESTIONS.EDIT.VALIDATION.%1' | fill: firstError | translate}}
+		</ion-item>
+
+		<ng-template #blank>
+			<ion-item lines = "none"></ion-item>
+		</ng-template>
+
 		<ion-item>			
-			<ion-label position = "stacked" >{{ "CUSTOM_QUESTIONS.QUESTION.TEXT" | transloco }}</ion-label>
+			<ion-label position = "stacked" >{{ "CUSTOM_QUESTIONS.EDIT.TEXT" | translate }}</ion-label>
 			<ion-input [formControl] = "question"></ion-input>
 		</ion-item>
 
 		<ion-item>
-			<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.QUESTION.KIND" | transloco }}</ion-label>
+			<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.EDIT.QUESTION_TYPE" | translate }}</ion-label>
 			<ion-select 
-				[formControl] = "kind"
-				interface		= "action-sheet"
+				[formControl] 	= "questionType"
+				interface		= "popover"
 			>
 				<ion-select-option 
-					*ngFor	= "let k of kinds "
+					*ngFor	= "let k of questionTypes "
 					[value]	= "k"
 				>
-					{{ "CUSTOM_QUESTIONS.QUESTION.KINDS."+k.toUpperCase() | transloco }}
+					{{ "CUSTOM_QUESTIONS.EDIT.QUESTION_TYPES."+k.toUpperCase() | translate }}
 				</ion-select-option>
 			</ion-select>
 		</ion-item>
 
 
 		<!-- SELECT -->
-		<ng-container *ngIf = "kind.value == 'select'">
+		<ng-container *ngIf = "questionType.value == 'select'">
 
 				<ion-item 
 					[button]	= "true"
 					(click) 	= "addSelectOption()"
-					lines		= "full"
+					lines		= "full"					 
 				>
-						<ion-label> {{ "CUSTOM_QUESTIONS.QUESTION.ADD_OPTION" | transloco}} </ion-label>
+						<ion-label> {{ "CUSTOM_QUESTIONS.EDIT.ADD_OPTION" | translate}} </ion-label>
 						<ion-icon name = "add-outline"></ion-icon>
 				</ion-item>
 
-				<ion-grid class = "ion-no-padding">
+				<ion-grid class = "ion-no-padding" >
 
 					<ion-row 						
 						*ngFor 		= "let option of selectOptions.controls; index as index"						
 						class 		= "ion-align-items-end"
+						[formGroup]	= "$any(option)"												
 					>
 
 							<ion-col size = "3" class = "ion-no-padding">
 
 								<ion-item lines = "full">
-									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.QUESTION.OPTIONS.VALUE" | transloco }}</ion-label>
-									<ion-input formControlName = "option.value" type = "text"></ion-input>
+									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.EDIT.OPTIONS.VALUE" | translate }}</ion-label>
+									<ion-input formControlName = "value" type = "text"></ion-input>
 								</ion-item>
 
 							</ion-col>
@@ -66,8 +95,8 @@
 							<ion-col size = "7">
 
 								<ion-item lines = "full">
-									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.QUESTION.OPTIONS.DESCRIPTION" | transloco }}</ion-label>
-									<ion-input formControlName =  "optin.meaning" type ="text"></ion-input>									
+									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.EDIT.OPTIONS.LABEL" | translate }}</ion-label>
+									<ion-input formControlName =  "meaning" type ="text"></ion-input>									
 								</ion-item>
 
 							</ion-col>		
@@ -95,14 +124,14 @@
 
 		<!-- SCALE discrete -->
 
-		<ng-container *ngIf = "kind.value == 'scale_discrete'">
+		<ng-container *ngIf = "questionType.value == 'scale_discrete'">
 
 				<ion-item 
 					[button]= "true"
 					(click) = "addScaleOption()"
 					lines	= "full"
 				>
-						<ion-label> {{ "CUSTOM_QUESTIONS.QUESTION.ADD_OPTION" | transloco}} </ion-label>
+						<ion-label> {{ "CUSTOM_QUESTIONS.EDIT.ADD_OPTION" | translate}} </ion-label>
 						<ion-icon name = "add-outline"></ion-icon>
 				</ion-item>
 
@@ -111,21 +140,22 @@
 					<ion-row 						
 						*ngFor 		= "let option of scaleOptions.controls; index as index"
 						class 		= "ion-align-items-end"
+						[formGroup]	= "$any(option)"
 					>
 
 							<ion-col size = "3" class = "ion-no-padding">
 
 								<ion-item lines = "full">
-									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.QUESTION.OPTIONS.VALUE" | transloco }}</ion-label>
-									<ion-input formControlName = "option.value" type = "number"></ion-input>
+									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.EDIT.OPTIONS.VALUE" | translate }}</ion-label>
+									<ion-input formControlName = "value" type = "number"></ion-input>
 								</ion-item>
 
 							</ion-col>
 							<ion-col size = "7">
 
 								<ion-item lines = "full">
-									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.QUESTION.OPTIONS.DESCRIPTION" | transloco }}</ion-label>
-									<ion-input formControlName =  "option.meaning" type ="text"></ion-input>									
+									<ion-label position = "stacked">{{ "CUSTOM_QUESTIONS.EDIT.OPTIONS.LABEL" | translate }}</ion-label>
+									<ion-input formControlName =  "meaning" type ="text"></ion-input>									
 								</ion-item>
 
 							</ion-col>		
@@ -155,11 +185,11 @@
 
 		<!-- SCALE continuous -->
 
-		<ng-container *ngIf = "kind.value == 'scale_continuous'">
+		<ng-container *ngIf = "questionType.value == 'scale_continuous'">
 
 			<ion-item>
 				<ion-label position = "stacked">
-					{{ "CUSTOM_QUESTIONS.QUESTION.MIN" | transloco}}
+					{{ "CUSTOM_QUESTIONS.EDIT.MIN" | translate}}
 				</ion-label>
 				<ion-input 
 					[formControl] 	= "min"
@@ -169,7 +199,7 @@
 
 			<ion-item>
 				<ion-label position = "stacked">
-					{{ "CUSTOM_QUESTIONS.QUESTION.MAX" | transloco}}
+					{{ "CUSTOM_QUESTIONS.EDIT.MAX" | translate}}
 				</ion-label>
 				<ion-input 
 					[formControl] 	= "max"
@@ -183,7 +213,7 @@
 					<ion-col size = "8" class = "ion-no-padding">
 						<ion-item lines = "full">							
 							<ion-label>
-								{{ "CUSTOM_QUESTIONS.QUESTION.STEP" | transloco}}:
+								{{ "CUSTOM_QUESTIONS.EDIT.USE_STEPS" | translate}}:
 							</ion-label>
 							<ion-toggle [formControl] = "useSteps">							
 							</ion-toggle>
@@ -193,7 +223,7 @@
 					<ion-col size = "4">
 						<ion-item>
 							<ion-label position = "stacked">
-								{{ "CUSTOM_QUESTIONS.QUESTION.SIZE" | transloco}}:
+								{{ "CUSTOM_QUESTIONS.EDIT.SIZE" | translate}}:
 							</ion-label>
 							<ion-input 
 								[formControl] 	= "step"
@@ -215,7 +245,7 @@
 
 		<!-- INPUT -->
 
-		<ng-container *ngIf = "kind.value == 'input'">
+		<ng-container *ngIf = "questionType.value == 'input'">
 
 			<ion-grid class = "ion-no-padding">
 			
@@ -226,7 +256,7 @@
 						<ion-item >
 
 							<ion-label position = "stacked">
-								{{ "CUSTOM_QUESTIONS.QUESTION.ANSWER_TYPE" | transloco }}
+								{{ "CUSTOM_QUESTIONS.EDIT.ANSWER_TYPE" | translate }}
 							</ion-label>
 
 							<ion-select [formControl] = "answerType" interface = "popover">
@@ -234,7 +264,7 @@
 									*ngFor 	= "let type of answerTypes" 
 									[value]	= "type"
 								>
-									{{ "CUSTOM_QUESTIONS.QUESTION."+type.toUpperCase() | transloco }}
+									{{ "CUSTOM_QUESTIONS.EDIT.ANSWER_TYPES."+type.toUpperCase() | translate }}
 								</ion-select-option>
 							</ion-select>
 
@@ -252,7 +282,7 @@
 						<ion-item>
 
 							<ion-label position = "stacked">
-								{{ "CUSTOM_QUESTIONS.QUESTION.UNIT"| transloco }}
+								{{ "CUSTOM_QUESTIONS.EDIT.UNIT"| translate }}
 							</ion-label>
 							<ion-input [formControl] = "unit"></ion-input>					
 
@@ -267,9 +297,6 @@
 
 		</ng-container>
 
-		<ion-item>
-			{{all.errors}}
-		</ion-item>
 
 	</ion-list>	
 
@@ -277,13 +304,3 @@
 	
 	
 </ion-content>
-
-<ion-footer>
-	<ion-button 
-		(click) 	= "createQuestion()"
-		expand 		= "block"
-		[disabled]	= "all.invalid"
-	>
-		Done
-	</ion-button>
-</ion-footer>

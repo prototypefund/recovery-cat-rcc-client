@@ -1,5 +1,0 @@
-export * from './symptom-check-meta-store.service'
-export * from './symptom-check-meta-store.commons'
-export * from './symptom-check-meta-store.module'
-export * from './symptom-check-meta-store.page/symptom-check-meta-store.page'
-export * from './symptom-check-label/symptom-check-label.component'

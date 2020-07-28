@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "de.recoverycat.app",
   "appName": "rc-client",
   "bundledWebRuntime": false,
   "npmClient": "npm",

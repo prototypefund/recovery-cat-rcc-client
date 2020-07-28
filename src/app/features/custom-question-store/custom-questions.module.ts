@@ -9,12 +9,17 @@ import	{	ReactiveFormsModule		}	from '@angular/forms'
 
 import 	{ 	
 			SharedModule,
-			MainMenuModule, 			
+			MainMenuModule,
+			TranslationsModule			
 		}								from '@rcc/common'
 
 import	{	CustomQuestionPage		}	from './custom-question.page/custom-question.page'
 import	{	CustomQuestionStore		}	from './custom-question-store.service'
 import	{	QuestionaireModule		}	from '@rcc/features/questionaire'
+
+import	de from './i18n/de.json'
+import	en from './i18n/en.json'
+
 
 const routes 		=	[
 							{ path: 'questionaire/custom',	component: CustomQuestionPage },
@@ -54,6 +59,7 @@ const itemActions 		= 	[
 		RouterModule.forChild(routes),
 		MainMenuModule.forChild(menuEntries),
 		QuestionaireModule.forChild([CustomQuestionStore], itemActions),
+		TranslationsModule.forChild('CUSTOM_QUESTIONS', {de, en}),
 		ReactiveFormsModule
 	],
 	exports: [

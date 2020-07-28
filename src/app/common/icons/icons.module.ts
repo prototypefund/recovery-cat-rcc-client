@@ -37,7 +37,7 @@ import	{
 })
 export class IconsModule { 
 
-	static forChild(iconMap: any): ModuleWithProviders{
+	static forChild(iconMap: any): ModuleWithProviders<IconsModule>{
 		return	{
 					ngModule: 	IconsModule,
 					providers:	[{provide: ICON_MAP, useValue: iconMap}]

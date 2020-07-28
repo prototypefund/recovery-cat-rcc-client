@@ -10,10 +10,7 @@ import	{
 
 import	{	Question		}	from '@rcc/core'
 
-import	{
-
-			Questionaire
-		}						from '@rcc/features/questionaire'
+import	{	Questionaire	}	from '@rcc/features/questionaire'
 
 import	{
 			mergeMap,
@@ -26,13 +23,8 @@ import	{
 			from
 		}						from 'rxjs'
 
-import	{
-			Query
-		}						from '../query.class'
+import	{	Query			}	from '../query.class'
 
-import	{
-			ReportingService
-		}						from '../reporting/reporting.service'
 
 //TODO: Reports! and Query +submit
 
@@ -49,7 +41,6 @@ export class QueryPage implements OnInit {
 	constructor(
 		private	activatedRoute		: ActivatedRoute,
 		private questionaire		: Questionaire,
-		private reportingService	: ReportingService,
 		private	cd					: ChangeDetectorRef
 	){}
 

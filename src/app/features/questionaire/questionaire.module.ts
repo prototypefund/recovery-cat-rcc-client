@@ -12,7 +12,9 @@ import	{
 			SharedModule,
 			MainMenuModule, 		
 			MetaStoreModule,
+			BaseMetaStoreModule,
 			ItemAction,
+			TranslationsModule,
 		}								from '@rcc/common'
 
 import	{	
@@ -33,6 +35,8 @@ import	{	QuestionairePage 		}	from './questionaire.page/questionaire.page'
 import	{	Id2QuestionPipe			}	from './questionaire.pipes'
 import 	{	QuestionLabelComponent	} 	from './question-label/question-label.component'
 
+import en from './i18n/en.json'
+import de from './i18n/de.json'
 
 const routes 				=	[
 									{ path: 'questionaire',	component: QuestionairePage	},
@@ -66,7 +70,8 @@ export class MenuEntryQuestionaire {}
 		SharedModule,
 		RouterModule.forChild(routes),
 		MainMenuModule.forChild([MenuEntryQuestionaire]),
-		MetaStoreModule.forChild(questionaireConfig)
+		MetaStoreModule.forChild(questionaireConfig),
+		TranslationsModule.forChild("QUESTIONAIRE", {en, de} )
 	],
 	exports: [
 		MenuEntryQuestionaire,
@@ -78,21 +83,16 @@ export class MenuEntryQuestionaire {}
 		Questionaire
 	]
 })
-export class QuestionaireModule {
+export class QuestionaireModule extends BaseMetaStoreModule {
 
 	static 	forChild(
 				stores		: Type<QuestionStore>[],
 				actions?	: ItemAction<Question>[]
-			): ModuleWithProviders {
+			): ModuleWithProviders<QuestionaireModule> {
 
 
-		return 	{
-					ngModule:	QuestionaireModule,
-					providers:	[
-									...(stores||[])	.map( 	storeClass	=> ({provide: QUESTION_STORES,	useExisting: 	storeClass, 	multi:true })),
-									...(actions||[]).map( 	action 		=> ({provide: QUESTION_ACTIONS,	useValue: 		action, 		multi:true })),
+		const mwp = BaseMetaStoreModule.getModuleWithProviders(this, stores, actions, QUESTION_STORES, QUESTION_ACTIONS)
+		return mwp
 
-								]
-				}
 	}
 }

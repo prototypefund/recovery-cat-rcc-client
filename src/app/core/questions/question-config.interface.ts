@@ -18,7 +18,7 @@ export interface QuestionConfig {
 	id:				string,
 	meaning:		string,
 	translations:	TranslationMap,
-	type:			string,
+	type:			string,				//string, integer, decimal...
 	min?:			number, 
 	max?:			number,
 	options?:		QuestionConfigOption[],

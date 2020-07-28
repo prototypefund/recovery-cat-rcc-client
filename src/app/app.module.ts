@@ -19,17 +19,27 @@ import	{
 		}									from '@rcc/common'
 
 import	{	
-			StaticQuestionStoreModule,
 			LocalStorageModule,
-			IonicModalsModule,
-			IonicIconsModule,
 			CustomQuestionsModule,
 			FallbackQueryWidgetsModule,
 			QueriesModule,
-			StaticSymptomCheckStoreModule,
 			CustomSymptomCheckStoreModule,
-			ViewSymptomChecksModule,
+			SymptomCheckViewModule,
+			SymptomCheckShareModule,
+			QrCodeScannerModule,
+			ReportImportStoreModule
 		}									from '@rcc/features'
+
+import	{
+			IonicModalsModule,
+			IonicIconsModule,
+		}									from '@rcc/ionic'
+
+import	{
+
+			StaticQuestionStoreModule,
+			StaticSymptomCheckStoreModule,
+		}									from '@rcc/mock'
 
 
 
@@ -55,7 +65,10 @@ import	{
 							FallbackQueryWidgetsModule,
 							StaticSymptomCheckStoreModule,
 							CustomSymptomCheckStoreModule,
-							ViewSymptomChecksModule,
+							SymptomCheckViewModule,
+							SymptomCheckShareModule,
+							QrCodeScannerModule,
+							ReportImportStoreModule,
 
 
 							///

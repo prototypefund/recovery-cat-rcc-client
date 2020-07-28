@@ -43,7 +43,7 @@ export class RccStorage {
 })
 export class StorageProviderModule { 
 
-	static forRoot(modalServiceClass: Type<RccStorage>): ModuleWithProviders{
+	static forRoot(modalServiceClass: Type<RccStorage>): ModuleWithProviders<StorageProviderModule>{
 		return 	{
 					ngModule: StorageProviderModule,
 					providers: 	[

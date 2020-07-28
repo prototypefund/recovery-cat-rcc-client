@@ -23,7 +23,7 @@ export interface ModalConfig {
 @NgModule()
 export class ModalProviderModule { 
 
-	static forRoot(modalConfig: ModalConfig): ModuleWithProviders{
+	static forRoot(modalConfig: ModalConfig): ModuleWithProviders<ModalProviderModule>{
 		return 	{
 					ngModule: 	ModalProviderModule,
 					providers: 	Object.keys(modalConfig).map( (key:string) => {

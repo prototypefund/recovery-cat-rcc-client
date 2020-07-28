@@ -79,7 +79,7 @@ import de from '../i18n/de.json'
 })
 export class TranslationsModule {
 
-	static forChild(scope: string, map: any): ModuleWithProviders {
+	static forChild(scope: string, map: any): ModuleWithProviders<TranslationsModule> {
 		return 	{
 					ngModule: 	TranslationsModule,
 					providers:	[

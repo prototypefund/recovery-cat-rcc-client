@@ -13,6 +13,7 @@ import	{	RouterModule			}	from '@angular/router'
 import	{	SharedModule			}	from '@rcc/common'
 
 import	{	QuestionaireModule		}	from '@rcc/features/questionaire'
+import	{	JournalModule			}	from '@rcc/features/journal'
 
 import	{	QueryPage				}	from './query.page/query.page'
 import	{	
@@ -24,7 +25,6 @@ import	{
 			QueryWidgetsService		
 		}								from './query-widgets'
 
-import	{	ReportingService		}	from './reporting/reporting.service'
 
 const routes 		=	[
 							{ 
@@ -36,7 +36,7 @@ const routes 		=	[
 const actions		=	[
 							{ 	
 								label: 		'QUERIES.ACTION', 
-								icon: 		'create-outline',
+								icon: 		'fill',
 								path:		'query/:id'
 							}
 						]
@@ -48,7 +48,8 @@ const actions		=	[
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
-		QuestionaireModule.forChild(null, actions)
+		QuestionaireModule.forChild(null, actions),
+		JournalModule
 	],
 
 	declarations: [
@@ -60,13 +61,12 @@ const actions		=	[
 
 	providers: [
 		QueryWidgetsService,
-		ReportingService
 	],
 
 })
 export class QueriesModule {
 
-	static forChild(widgets: QueryWidget[]): ModuleWithProviders {
+	static forChild(widgets: QueryWidget[]): ModuleWithProviders<QueriesModule> {
 		return {
 			ngModule: 	QueriesModule,
 			providers:	[

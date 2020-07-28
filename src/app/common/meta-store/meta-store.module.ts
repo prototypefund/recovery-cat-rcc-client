@@ -51,7 +51,7 @@ import	{
 })
 export class MetaStoreModule {
 
-	static 	forChild(config: MetaStoreConfig<any, any, any>): ModuleWithProviders {
+	static 	forChild(config: MetaStoreConfig<any, any, any>): ModuleWithProviders<MetaStoreModule> {
 
 
 		return 	{

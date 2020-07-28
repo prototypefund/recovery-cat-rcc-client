@@ -191,25 +191,28 @@ export 	class StoreItemComponent
 	public getHandler(itemAction: ItemAction<I>): () => any {
 		let handler: () => any = () => null
 
-		if(itemAction.path) 	handler = () => this.router.navigateByUrl(itemAction.path.replace(/:id/, this._item.id))
-		if(itemAction.handler)	handler = () => itemAction.handler(this._item, this.store)
-												.then( 
-													(result:any) => {
-														itemAction.successMessage
-														?	this.rccToastController.success(itemAction.successMessage)
-														:	result
-													},
+		if(itemAction.handler) {
+		
+			const resolved_dependencies = (itemAction.dependencies ||[] ).map( (dep: any) => this.injector.get(dep) )
 
-													(reason:any) => {
-														itemAction.failureMessage
-														?	this.rccToastController.failure(itemAction.failureMessage)
-														:	Promise.reject(reason)
-													}
+			return 	() =>	Promise.resolve(itemAction.handler(this._item, this.store, ...resolved_dependencies))
+							.then( 
+								(result:any) => {
+									itemAction.successMessage
+									?	this.rccToastController.success(itemAction.successMessage)
+									:	result
+								},
 
-												)
+								(reason:any) => {
+									itemAction.failureMessage
+									?	this.rccToastController.failure(itemAction.failureMessage)
+									:	Promise.reject(reason)
+								}
 
+							)
+		}
 
-		return handler
+		if(itemAction.path) 	return () => this.router.navigateByUrl(itemAction.path.replace(/:id/, this._item.id))
 	}
 
 	public toggleSlidingItem(){
