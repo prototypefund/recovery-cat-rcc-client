@@ -9,6 +9,11 @@ import	{	IonicToastController	}	from './ionic-toast-controller.service'
 
 
 @NgModule({
+	providers:[
+		IonicModalController,
+		IonicAlertController,
+		IonicToastController
+	],
 	imports: [
 		ModalProviderModule.forRoot({
 			modalController: IonicModalController,

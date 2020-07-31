@@ -1,8 +1,8 @@
 {
   "name": "rc-client",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "recoveycat",
+  "homepage": "https://recoverycat.de",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -31,6 +31,7 @@
     "angularx-qrcode": "^10.0.6",
     "core-js": "^3.6.5",
     "rrule": "^2.6.4",
+    "rxjs": "^6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3",
     "zxing": "^0.1.2"
@@ -59,5 +60,5 @@
     "tslint": "^6.1.2",
     "typescript": "~3.9.7"
   },
-  "description": "An Ionic project"
+  "description": "RecoveryCat Client"
 }

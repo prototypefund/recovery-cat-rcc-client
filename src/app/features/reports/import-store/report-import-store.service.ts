@@ -15,12 +15,12 @@ export class ReportImportStore extends ReportStore {
 		super(noStorage)
 	}
 
-	public claim(data:any){
+	public checkClaim(data:any){
 		return	Report.checkConfig(data)
 				?	{
 						label: 	'IMPORTED_REPORT_STORE.CLAIM',
-						icon:	'report'					
-
+						icon:	'report',					
+						import:	() => this.import(data)
 					}
 				:	null
 	}

@@ -54,18 +54,19 @@ import de from '../i18n/de.json'
 	],
 	providers: [
 		RccTranslationService, 
+		RccTranslationLoader,
 		{
 			provide: 	TRANSLOCO_CONFIG,
 			useValue: 	translocoConfig({
 							availableLangs: 		['en', 'de'],
 							defaultLang: 			'en',							
 							reRenderOnLangChange: 	true,
-							prodMode: environment.production,
+							prodMode: 				environment.production,
 						})
 		},
 		{ 
-			provide:	TRANSLOCO_LOADER, 
-			useClass:	RccTranslationLoader 
+			provide:		TRANSLOCO_LOADER, 
+			useExisting:	RccTranslationLoader 
 		},
 		{
 			provide:	SCOPED_TRANSLATION_TABLES,

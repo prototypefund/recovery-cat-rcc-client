@@ -28,9 +28,9 @@ export class ModalProviderModule {
 					ngModule: 	ModalProviderModule,
 					providers: 	Object.keys(modalConfig).map( (key:string) => {
 									switch(key){
-										case 'modalController': return { provide: RccModalController, useClass: modalConfig.modalController }
-										case 'alertController': return { provide: RccAlertController, useClass: modalConfig.alertController }
-										case 'toastController': return { provide: RccToastController, useClass: modalConfig.toastController }
+										case 'modalController': return { provide: RccModalController, useExisting: modalConfig.modalController }
+										case 'alertController': return { provide: RccAlertController, useExisting: modalConfig.alertController }
+										case 'toastController': return { provide: RccToastController, useExisting: modalConfig.toastController }
 										default: throw "ModalProviderModule.forRoot(): invalid key in config: "+key
 									}
 								})

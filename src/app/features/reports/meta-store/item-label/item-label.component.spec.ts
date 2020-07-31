@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SymptomCheckLabelComponent } from './symptom-check-label.component';
+import { ReportLabelComponent } from './report-label.component';
 
-describe('SymptomCheckLabelComponent', () => {
-  let component: SymptomCheckLabelComponent;
-  let fixture: ComponentFixture<SymptomCheckLabelComponent>;
+describe('ReportLabelComponent', () => {
+  let component: ReportLabelComponent;
+  let fixture: ComponentFixture<ReportLabelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SymptomCheckLabelComponent ],
+      declarations: [ ReportLabelComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SymptomCheckLabelComponent);
+    fixture = TestBed.createComponent(ReportLabelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

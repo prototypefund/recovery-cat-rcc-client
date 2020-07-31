@@ -47,7 +47,7 @@ export class StorageProviderModule {
 		return 	{
 					ngModule: StorageProviderModule,
 					providers: 	[
-									{provide: RccStorage, useClass: modalServiceClass }
+									{provide: RccStorage, useExisting: modalServiceClass }
 								]
 				}
 	}

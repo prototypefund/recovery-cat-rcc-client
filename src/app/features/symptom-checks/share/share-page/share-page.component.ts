@@ -1,26 +1,27 @@
 import 	{ 	
 			Component, 
 			OnInit
-		}							from '@angular/core'
+		}									from '@angular/core'
 
 import	{
 			mergeMap
-		}							from 'rxjs/operators'
+		}									from 'rxjs/operators'
 
 import	{
+			Router,
 			ActivatedRoute,
 			ParamMap
-		}							from '@angular/router'							
+		}									from '@angular/router'							
 
 import	{	
 			SymptomCheckMetaStore
-		}							from '@rcc/features/symptom-checks/meta-store'
+		}									from '@rcc/features/symptom-checks/meta-store'
 
 import	{
 			SymptomCheck
-		}							from '@rcc/core'
+		}									from '@rcc/core'
 
-
+import	{	WebsocketTransmissionService	}	from '@rcc/features/transmission'
 
 @Component({
 	templateUrl: 	'./share-page.component.html',
@@ -33,10 +34,14 @@ export class SymptomCheckSharePage  implements OnInit {
 	public data				:	string
 	public error			:	string
 	public complete			:	boolean
+	public id				:	string
 
 	constructor(
-		private activatedRoute:			ActivatedRoute,		
-		private symptomCheckMetaStore: 	SymptomCheckMetaStore
+		private router							: Router,
+		private activatedRoute					: ActivatedRoute,		
+		private symptomCheckMetaStore			: SymptomCheckMetaStore,
+		private websocketTransmissionService	: WebsocketTransmissionService,
+
 	){}
 
 
@@ -44,15 +49,29 @@ export class SymptomCheckSharePage  implements OnInit {
 
 		this.activatedRoute.paramMap
 		.pipe(
-			mergeMap( 	(params	: ParamMap) 	=> this.symptomCheckMetaStore.get(params.get('id')) )
+			mergeMap( 	(params	: ParamMap) => (this.id = params.get('id')) && this.symptomCheckMetaStore.get(this.id) )
 		)
-		.subscribe(		(sc		: SymptomCheck)	=> sc && this.setup(sc) ) 
+		.subscribe({		
+			next:	(sc		: SymptomCheck)	=> 	this.setup(sc),  
+			error:	(e:any)					=>  this.router.navigateByUrl(this.router.url.replace(this.id, 'null'))
+		})
 
 		//will unsubscribe automaticcaly as part of route
   	}
 
-  	public setup(symptom_check: SymptomCheck){
-  		this.symptom_check = symptom_check 
-  		this.data = JSON.stringify(symptom_check.config)
+  	public async setup(symptom_check: SymptomCheck){
+
+  		this.symptom_check 	= symptom_check 
+
+  		const transmission 	= await this.websocketTransmissionService.open()
+
+  		const receipt 		= transmission.send(symptom_check.config)
+
+  		this.data = JSON.stringify(transmission.meta)
+
+  		await receipt
+
+  		this.complete = true
+
   	}
 }

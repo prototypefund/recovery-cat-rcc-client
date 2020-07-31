@@ -45,22 +45,23 @@ export abstract	class MetaStore
 
 		if(typeof id_or_ids == 'string') return await this.get([id_or_ids]).then( items => items[0])
 
-		const 	getPromises	= this.stores.map( store => store.get(id_or_ids) ) //TODO: deal with doubles?
-		const 	itemArrays 	= await Promise.all(getPromises)  //TODO: deal with undefined!
+		const 	getPromises	= 	this.stores.map( store => store.get(id_or_ids) ) //TODO: deal with doubles?
+		const 	itemArrays 	= 	await Promise.all(getPromises)  //TODO: deal with undefined!
 
-		
-
-		return	id_or_ids.map( (id: string, index: number) => {
+		const	result 		= 	id_or_ids.map( (id: string, index: number) => {
 			
-					return 	itemArrays.reduce( (result:I, itemArray)  => {
-								return result || itemArray[index]
-							}, undefined)
-							||
-							this.handleIdWithoutItem(id)
-				})
-				.filter( (item: I) => !!item )
+									return 	itemArrays.reduce( (result:I, itemArray)  => {
+												return result || itemArray[index]
+											}, undefined)
+											||
+											this.handleIdWithoutItem(id)
+								})
+								.filter( (item: I) => !!item )
 		
+		if(result.length == 0) throw "no matching items found"
 
+		return result
+		
 	}
 
 	public getStore(item: I) : S {

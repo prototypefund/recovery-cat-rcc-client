@@ -13,14 +13,17 @@ export class QrCodeService {
 
 	public present(data:string): Promise<any> {
 
-		this.rccModalController.present(QrCodePresentationComponent, {})
-		console.log('QrCodeService.present: ', data)
-
+		//this.rccModalController.present(QrCodePresentationComponent, {})
 		return Promise.reject('QrCodeService.present not yet implemented.')
 	}
 
 
 	public async scan(): Promise<string> {
-		return await this.rccQrCodeScanner.scan()					
+		const result = await this.rccQrCodeScanner.scan()					
+		try{
+			return JSON.parse(result)
+		}catch(e) {
+			return result
+		}
 	}
 }

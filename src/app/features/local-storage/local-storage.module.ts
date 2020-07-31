@@ -8,6 +8,9 @@ import	{
 import	{	LocalStorageService		}	from './local-storage.service'
 
 @NgModule({
+	providers:[
+		LocalStorageService
+	],
 	imports: [
 		StorageProviderModule.forRoot(LocalStorageService),
 		DevModule.note('LocalStorageModule')

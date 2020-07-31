@@ -27,7 +27,8 @@ import	{
 			SymptomCheckViewModule,
 			SymptomCheckShareModule,
 			QrCodeScannerModule,
-			ReportImportStoreModule
+			ReportImportStoreModule,
+			WebsocketTransmissionModule
 		}									from '@rcc/features'
 
 import	{
@@ -69,7 +70,7 @@ import	{
 							SymptomCheckShareModule,
 							QrCodeScannerModule,
 							ReportImportStoreModule,
-
+							WebsocketTransmissionModule.forRoot("wss://signal.recoverycat.de"),
 
 							///
 							AppRoutingModule,

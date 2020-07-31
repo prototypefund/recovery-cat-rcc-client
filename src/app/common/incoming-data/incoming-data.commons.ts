@@ -3,15 +3,15 @@ import	{
 			InjectionToken				
 		}						from '@angular/core'
 
-export interface claim {
+export interface Claim {
 	label		: string,
-	icon?		: string	
+	icon?		: string,
+	import		: (...args:any) => any	
 }
 
 export interface DataClaimConfig {
 	dependencies?	: 		Type<any>[],
-	claim			:		(data:any, ...dependencies:any[])	=> claim|null,
-	import			:		(data:any, ...dependencies:any[]) 	=> any
+	checkClaim		:		(data:any, ...dependencies:any[])	=> Claim|null,
 }
 
 export const DATA_IMPORT_CALLBACK = new InjectionToken<DataClaimConfig>("Callback config.")

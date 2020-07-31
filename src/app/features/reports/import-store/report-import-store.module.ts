@@ -23,8 +23,7 @@ const itemActions 		= 	[
 		ReportMetaStoreModule.forChild([ReportImportStore], itemActions),
 		IncomingDataModule.forChild({
 			dependencies:	[ReportImportStore],
-			claim: 			(data:any, reportImportStore:ReportImportStore) => reportImportStore.claim(data),
-			import:			(data:any, reportImportStore:ReportImportStore) => reportImportStore.import(data),
+			checkClaim: 	(data:any, reportImportStore:ReportImportStore) => reportImportStore.checkClaim(data),			
 		})
 	],
 	providers: [
