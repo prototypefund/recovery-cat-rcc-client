@@ -8,21 +8,24 @@ import	{	IconsModule		}	from '@rcc/common'
 	imports: [
 		IconsModule.forChild({
 			'add':				'add-outline',
-			'create-from':		'copy-outline',
+			'create-from':		'duplicate-outline',
 			'delete':			'trash-outline',
 			'edit':				'pencil',
-			'question':			'help-circle-outline',
 			'remove':			'close',
 			'revert':			'refresh-outline',
 			'select-items':		'list-outline',
-			'symptom-check': 	'list-circle-outline',
 			'schedule':			'time-outline',
 			'time':				'time-outline',
 			'view':				'eye-outline',
 			'new':				'add-putline',
 			'fill':				'create-outline',
 			'share':			'share-outline',
-			'qr-code':			'qr-code-outline'
+			'qr-code':			'qr-code-outline',
+
+			//Items:
+			'entry':			'reader-outline',
+			'question':			'help-circle-outline',
+			'symptom-check': 	'list-circle-outline',
 		})
 	]
 })

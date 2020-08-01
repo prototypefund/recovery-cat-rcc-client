@@ -32,7 +32,10 @@ import	{
 		}								from './questionaire.commons'
 
 import	{	QuestionairePage 		}	from './questionaire.page/questionaire.page'
-import	{	Id2QuestionPipe			}	from './questionaire.pipes'
+import	{	
+			Id2QuestionPipe,
+			AnswerToPipe
+		}								from './questionaire.pipes'
 import 	{	QuestionLabelComponent	} 	from './question-label/question-label.component'
 
 import en from './i18n/en.json'
@@ -64,6 +67,7 @@ export class MenuEntryQuestionaire {}
 		MenuEntryQuestionaire,
 		QuestionairePage,
 		Id2QuestionPipe,
+		AnswerToPipe,
 		QuestionLabelComponent
 	],
 	imports: [
@@ -77,6 +81,7 @@ export class MenuEntryQuestionaire {}
 		MenuEntryQuestionaire,
 		QuestionairePage,
 		Id2QuestionPipe,
+		AnswerToPipe,
 		QuestionLabelComponent
 	],
 	providers:[

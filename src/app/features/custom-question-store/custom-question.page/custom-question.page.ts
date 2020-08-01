@@ -201,8 +201,6 @@ export class CustomQuestionPage implements OnInit {
 		if( this.questionType.value != 'select')	return null
 
 		if(!o.value.value)							return { 'opt_value_missing': 	true }
-		if(isNaN(o.value.value))					return { 'opt_value_nan':		true }	
-
 		if(!o.value.meaning)						return { 'opt_label_missing':	true }
 		return null
 	}

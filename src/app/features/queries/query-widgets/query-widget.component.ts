@@ -3,7 +3,7 @@ import	{
 			Input
 		}							from '@angular/core'
 
-import	{	Journal				}	from '@rcc/features/journal'
+import	{	Journal				}	from '@rcc/features/entries'
 import	{	Query				}	from '../query.class'
 
 

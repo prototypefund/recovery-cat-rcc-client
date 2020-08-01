@@ -118,6 +118,7 @@ export class MetaStoreService {
 	}
 
 
+
 	async get<I extends Item<any>>(itemClass: Type<I>, id		: string			): Promise<I>
 	async get<I extends Item<any>>(itemClass: Type<I>, ids		: string[]			): Promise<I[]>
 	async get<I extends Item<any>>(itemClass: Type<I>, id_or_ids: any				): Promise<I|I[]> {			

@@ -13,7 +13,7 @@ import	{	RouterModule			}	from '@angular/router'
 import	{	SharedModule			}	from '@rcc/common'
 
 import	{	QuestionaireModule		}	from '@rcc/features/questionaire'
-import	{	JournalModule			}	from '@rcc/features/journal'
+import	{	JournalModule			}	from '@rcc/features/entries'
 
 import	{	QueryPage				}	from './query.page/query.page'
 import	{	
