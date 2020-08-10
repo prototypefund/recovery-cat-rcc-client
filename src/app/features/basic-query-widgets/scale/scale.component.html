@@ -1,0 +1,33 @@
+
+ <div 
+ 	*ngIf 	= "query && query.question" 
+ 	class	= "ion-padding"
+ >
+
+	<ion-list-header><ion-label>{{query.question | translate }}</ion-label></ion-list-header>
+
+
+	<div class = "ion-padding">
+		<ion-range 
+			[min] 			= "min" 
+			[max] 			= "max" 
+			[pin]			= "true"
+			[snaps]			= "true"
+			[formControl]	= "query.formControl"
+			color			= "primary"
+		>
+			<!-- <ion-label slot="start">	{{min}}	</ion-label>
+			<ion-label slot="end">		{{max}}	</ion-label> -->
+		</ion-range>
+
+		<div class ="labels">	
+			<div 
+				*ngFor  	= "let option of options; index as index"
+				[ngStyle]	= "getOptionStyle(index, option)" 
+			>
+				{{option | translate}}
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -38,17 +38,7 @@ export class WebsocketTransmissionModule {
 
 
 	static forRoot(url:string): ModuleWithProviders<WebsocketTransmissionModule> {
-		let m:any 
-
-		AESprepare()
-		.then( (meta:any) => {
-			m =  meta
-			return AESencrypt( {test: 'abc', a:[1,2,3]}, meta.key, meta.iv) 
-		})		
-		.then( (x:any) => {console.log(x); return x} )
-		.then( (x:any) => AESdecrypt(x, m.key, m.iv))
-		.then( console.log)
-
+	
 		return 	{
 					ngModule: 	WebsocketTransmissionModule,
 					providers:	[

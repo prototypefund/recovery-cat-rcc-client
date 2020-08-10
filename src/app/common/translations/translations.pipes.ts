@@ -15,6 +15,9 @@ import	{
 			TRANSLOCO_LANG
 		}						from '@ngneat/transloco'
 
+import	{
+			Translatable
+		}						from './translations.commons'
 
 
 function fix(str:string = ''){
@@ -58,7 +61,10 @@ export class RccTranslatePipe implements PipeTransform {
 		this.translocoPipe = new  TranslocoPipe(this.translocoService, providerScope, providerLang, cdr)
 	}
 
-	transform(str: string) {
-		return this.translocoPipe.transform(str)
+	transform(str: string | Translatable) {
+		if(typeof str == 'string') 		return this.translocoPipe.transform(str)
+		if((str as any).translations)	return (str as any).translations[this.translocoService.getActiveLang()] || (str as any).meaning
+			
+		return (str as any).meaning	|| ''
 	}
 }

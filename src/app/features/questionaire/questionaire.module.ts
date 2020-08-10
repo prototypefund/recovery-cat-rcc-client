@@ -34,7 +34,7 @@ import	{
 import	{	QuestionairePage 		}	from './questionaire.page/questionaire.page'
 import	{	
 			Id2QuestionPipe,
-			AnswerToPipe
+			AnswerToPipe,
 		}								from './questionaire.pipes'
 import 	{	QuestionLabelComponent	} 	from './question-label/question-label.component'
 
@@ -53,6 +53,11 @@ const questionaireConfig 	=  	{
 
 								}
 
+const pipes					=	[
+									Id2QuestionPipe,
+									AnswerToPipe,
+								]
+
 @Component({
 	template:	'<ion-item routerLink = "questionaire"><ion-label>{{ "QUESTIONAIRE.MENU_ENTRY" | transloco }}</ion-label></ion-item>'
 })
@@ -66,9 +71,8 @@ export class MenuEntryQuestionaire {}
 	declarations: [
 		MenuEntryQuestionaire,
 		QuestionairePage,
-		Id2QuestionPipe,
-		AnswerToPipe,
-		QuestionLabelComponent
+		QuestionLabelComponent,
+		...pipes
 	],
 	imports: [
 		SharedModule,
@@ -80,9 +84,8 @@ export class MenuEntryQuestionaire {}
 	exports: [
 		MenuEntryQuestionaire,
 		QuestionairePage,
-		Id2QuestionPipe,
-		AnswerToPipe,
-		QuestionLabelComponent
+		QuestionLabelComponent,
+		...pipes
 	],
 	providers:[
 		Questionaire

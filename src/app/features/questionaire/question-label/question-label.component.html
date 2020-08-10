@@ -1,7 +1,7 @@
 <ng-template let-question>
-	<h3>{{question.translations?.en || question.meaning}}</h3>
+	<h3>{{question | translate}}</h3>
 	<p>			
-		{{question.type}}
+		{{ 'QUESTIONIARE.QUESTION.TYPE.%1' | fill: question.type }}
 		{{question.min ? 'min: '+question.min :'' }}
 		{{question.min ? 'max: '+question.max :'' }}
 		<span *ngFor =" let option of question.options; last as isLast">
