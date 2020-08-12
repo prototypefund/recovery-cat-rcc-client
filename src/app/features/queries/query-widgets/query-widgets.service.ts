@@ -28,9 +28,7 @@ export class QueryWidgetsService {
 	constructor(
 		@Inject(QUERY_WIDGETS) @Optional()
 		private queryWidgets: QueryWidget[]
-	) { 
-		console.log('QueryWidgetsService.constructor!')
-	}
+	) {}
 
 	public getBestWidgetMatch(question: Question): QueryWidget[] {
 

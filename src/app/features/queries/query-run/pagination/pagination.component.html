@@ -1,0 +1,33 @@
+<ng-container *ngFor	= "let pageHandler of pageHandlers; index as index; first as first; last as last">
+
+	<div 
+		*ngIf		= 	"index != 0"
+		[ngClass]	= 	"{
+							visible		: isVisible(index,activePage), 
+							invisible	: !isVisible(index,activePage), 
+							passed		: activePage >= index, 
+							active		: activePage == index,
+							skip		: !isVisible(index-1,activePage) 
+						}"
+		class 		= 	"connector"		
+	>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+
+
+	<div 
+		[ngClass]	= 	"{
+							visible		: isVisible(index,activePage), 
+							invisible	: !isVisible(index,activePage), 
+							passed		: activePage > index, 
+							active		: activePage == index
+						}"
+		class 		= 	"bullet"		
+		(click)		= 	"pageHandler.handler()"
+	>
+		<div class = "label">{{pageHandler.label || index+1}}</div>
+	</div>
+
+</ng-container>

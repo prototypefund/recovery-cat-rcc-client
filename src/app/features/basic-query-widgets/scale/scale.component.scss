@@ -1,0 +1,47 @@
+.labels {
+	position:			relative;
+}
+
+.labels > * {
+	position:			absolute;	
+	text-align:			center;
+}
+
+.labels > *:first-child {
+	text-align:			left;
+	transform:			translateX(-0.5rem)
+}
+
+.labels > *:last-child {
+	text-align:			right;
+	transform:			translateX(+0.5rem)
+}
+
+
+ion-range {
+	padding-inline-start:		0 !important;
+	padding-inline-end:			0 !important;
+}
+
+/*
+.labels {
+	display:			flex;
+}
+
+.labels > * {
+	flex:				2 0 0;
+	text-align:			center;
+}
+
+.labels > *:first-child {
+	flex:				1 0 0;
+	text-align:			left;
+	margin-left:		-0.5rem
+}
+
+.labels > *:last-child {
+	flex:				1 0 0;
+	text-align:			right;
+	margin-right:		-0.5rem;
+}
+*/

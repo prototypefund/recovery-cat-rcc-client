@@ -5,6 +5,7 @@ import 	{
 		}											from '@angular/core'
 
 import	{	QueriesModule						}	from '@rcc/features/queries'
+import	{	QuestionaireModule					}	from '@rcc/features/questionaire'
 import 	{	ReactiveFormsModule 				} 	from '@angular/forms'
 import 	{ 	SharedModule						} 	from '@rcc/common'
 
@@ -22,12 +23,15 @@ const queryWidgets = 	[
 @NgModule({
 	imports: [
 		SharedModule,
-		ReactiveFormsModule,
-		QueriesModule.forChild(queryWidgets)
+		QuestionaireModule,
+		QueriesModule.forChild(queryWidgets),
 	],
 	declarations:[		
 		...queryWidgets
 	],
+	exports: [
+		...queryWidgets
+	]
 })
 export class FallbackQueryWidgetsModule {}
 

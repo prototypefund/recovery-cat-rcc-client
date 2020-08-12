@@ -1,0 +1,72 @@
+
+<rcc-pagination
+	[pageHandlers] 	= "pageHandlers"
+	[activePage]	= "activePage"
+	class			= "ion-padding"
+>
+</rcc-pagination>
+
+<ion-slides 
+	[pager]					= "false" 
+	[options]				= "slideOpts"
+	(ionSlideDidChange)		= "afterSlideChange()"
+	(ionSlidesDidLoad)		= "afterSlideChange()"
+>
+	<ion-slide 
+		*ngFor = "let query of queries trackBy: trackSlides"			
+	>
+		<ion-content 
+			[fullscreen]	= "true"			
+			class			= "ion-padding"
+		>
+			<rcc-query-widget 
+				*ngIf 	= "query" 
+				[query] = "query">
+			</rcc-query-widget>
+
+			 <ion-fab 
+			 	vertical	=	"bottom" 
+			 	horizontal	=	"center" 
+			 	slot		=	"fixed"
+			 >
+				<ion-fab-button
+					[color]		= "query.complete ? 'primary' : 'dark'"
+					[disabled] 	= "!query?.complete"
+					(click)		= "checkOff(query)"
+					expand		= "block"
+				>			
+					<ion-icon name = "checkmark"></ion-icon>
+				</ion-fab-button>			
+			</ion-fab>
+
+		</ion-content>
+	</ion-slide>
+</ion-slides>
+
+
+<ion-footer color = "primary">
+	<ion-toolbar>
+
+		<ion-button 
+			color		= "light"
+			[disabled] 	= "atStart"
+			(click) 	= "slides.slidePrev()"
+			slot		= "start"
+		>
+			<ion-icon md = "caret-back" ios = "chevron-back-circle-outline"></ion-icon>
+			{{'QUERIES.BACK'| transloco}}
+		</ion-button>
+		
+
+		<ion-button 		
+			color		= "light"
+			[disabled] 	= "atEnd"
+			(click) 	= "slides.slideNext()"
+			slot		= "end"
+		>
+			{{'QUERIES.SKIP'| transloco}}			
+			<ion-icon md = "caret-forward" ios = "chevron-forward-circle-outline"></ion-icon>
+		</ion-button>			
+		
+	</ion-toolbar>	
+</ion-footer>

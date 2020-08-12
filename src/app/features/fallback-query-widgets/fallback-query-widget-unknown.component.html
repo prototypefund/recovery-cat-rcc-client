@@ -1,10 +1,9 @@
- <ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
+ <h1>{{query?.question | translate}}</h1>
 
-	<ion-list-header><ion-label><h1>{{query.question | translate}}</h1></ion-label></ion-list-header>
+ <ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
 
 	<ion-item lines = "full">
 		Unable to load question data for this question.
 	</ion-item>
 
 </ion-list>
-	

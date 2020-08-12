@@ -48,7 +48,7 @@ export class QueryPage implements OnInit {
 
 		this.activatedRoute.paramMap
 		.pipe(
-			mergeMap( 	(params) 					=> params.get('id') ),
+			map( 		(params) 					=> params.get('id') ),
 			mergeMap( 	(id			: string )		=> from(this.questionaire.get([id]) ) ), //TODO: multiple matches?		
 			mergeAll(),
 			take(1),

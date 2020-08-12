@@ -28,7 +28,6 @@ export class Id2QuestionPipe implements PipeTransform {
 }
 
 
-
 @Pipe({
 	name: 'answerTo'
 })

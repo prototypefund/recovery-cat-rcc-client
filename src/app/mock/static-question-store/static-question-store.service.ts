@@ -32,7 +32,7 @@ const configs:QuestionConfig[] = [
 		},
 		{
 			id:				'B',
-			type:			'float',
+			type:			'decimal',
 			meaning:		"asking for current temperature in degree celsius",
 			translations:	{en: "What's your current temperature?"},
 			min:			35,
@@ -92,7 +92,7 @@ const configs:QuestionConfig[] = [
 		},
 		{
 			id:				'F',
-			type:			'float',
+			type:			'decimal',
 			meaning:		"How tall are you?",
 			translations:	{'en': "How tall are you? (rounded down)"},
 			options:		[

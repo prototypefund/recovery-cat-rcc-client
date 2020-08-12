@@ -8,4 +8,8 @@ export * from './reports'
 export * from './entries'
 export * from './transmission'
 export * from './symptom-checks'
+<<<<<<< HEAD
 export * from './due-questions'
+=======
+export * from './basic-query-widgets'
+>>>>>>> 47c126ffd031b54f8ed2968237cdacef1bc68eb0

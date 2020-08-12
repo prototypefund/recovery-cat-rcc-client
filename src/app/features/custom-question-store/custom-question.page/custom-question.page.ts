@@ -11,7 +11,8 @@ import	{
 		}								from '@angular/forms'
 
 import	{	
-			QuestionConfig
+			QuestionConfig,
+			uuidv4
 		}								from '@rcc/core'
 
 import	{
@@ -282,8 +283,9 @@ export class CustomQuestionPage implements OnInit {
 								}as any)[this.questionType.value]					
 
 		//TODO
-		config.id			=	'custom-'+Date.now()
+		config.id			=	'qc-'+uuidv4()
 
+		
 		
 		try{			
 			await this.customQuestionStore.addQuestionConfig(config)
