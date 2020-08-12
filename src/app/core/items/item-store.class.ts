@@ -65,6 +65,14 @@ export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 		return item
 	}
 
+	protected removeItem(item: I): boolean {
+		const id = this.identifyItem(item)
+		if(!this.map.get(id)) return false
+
+		this.map.delete(id)
+		return true
+	}
+
 
 	protected async restoreFromStorage(): Promise<any>{
 		const configs = await this.storage.getAll()

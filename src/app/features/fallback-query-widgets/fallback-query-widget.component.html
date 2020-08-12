@@ -1,6 +1,6 @@
- <ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
+<h1>{{query?.question | translate}}</h1>
 
-	<ion-list-header><ion-label>{{query.question.translations?.en}}</ion-label></ion-list-header>
+ <ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
 
 	<ion-item lines = "full" *ngIf = "query.question.type != 'boolean'">
 		<ion-input			

@@ -29,6 +29,10 @@ export class Journal extends EntryStore {
 		
 	}
 
+	async removeEntry(entry: Entry){
+
+	}
+
 	public exportReportConfig(): ReportConfig {
 		return this.items.map( (entry: Entry) => entry.config )
 	}

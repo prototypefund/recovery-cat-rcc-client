@@ -31,12 +31,13 @@ export class CustomQuestionStore extends QuestionStore {
 				.then( () => question)
 	}
 
-	public async delete(question: Question): Promise<any> {	
-		const id = this.identifyItem(question)
-		if(!this.map.get(id)) return Promise.reject("CustomQuestionStore.delete: Unable to find question with id: "+id)
+	public async delete(question: Question): Promise<any> {			 
 
-		this.map.delete(id)
-		return this.storeAll()
+		if(!this.removeItem(question)) throw "CustomQuestionStore.delete: Unable to delete question with id: "+question.id  
+		
+		
+		return 	this.storeAll()
+				.then( () => question )
 	}
 }
 

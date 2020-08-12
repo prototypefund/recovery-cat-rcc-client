@@ -40,14 +40,11 @@ export class SymptomCheckCustomStore extends SymptomCheckStore {
 	}
 
 
-
-
 	public async delete(symptom_check: SymptomCheck): Promise<any> {	
-		const id = this.identifyItem(symptom_check)
-		if(!this.map.get(id)) throw "CustomSymptomCheckStore.delete: Unable to find symptom check with id: "+id
+		if(!this.removeItem(symptom_check)) throw "CustomSymptomCheckStore.delete: Unable to delete symptom check with id: "+symptom_check.id
 
-		this.map.delete(id)
-		return this.storeAll()
+		return 	this.storeAll()
+				.then( () => symptom_check)
 	}
 }
 

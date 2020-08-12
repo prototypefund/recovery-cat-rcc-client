@@ -2,7 +2,6 @@ import 	{
 			NgModule,
 			Inject,
 			ModuleWithProviders
-			//ComponentFactoryResolver
 		}											from '@angular/core'
 
 import	{	QueriesModule						}	from '@rcc/features/queries'

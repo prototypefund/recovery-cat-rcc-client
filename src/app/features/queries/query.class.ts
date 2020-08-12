@@ -37,5 +37,9 @@ export class Query {
 		return this.formControl.valid
 	}
 
+	public async submit(): Promise<any>{
+		console.log(this.answer) //TODO
+	}
+
 }
 

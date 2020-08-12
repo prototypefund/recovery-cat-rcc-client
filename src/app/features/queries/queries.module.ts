@@ -16,6 +16,8 @@ import	{	QuestionaireModule		}	from '@rcc/features/questionaire'
 import	{	JournalModule			}	from '@rcc/features/entries'
 
 import	{	QueryPage				}	from './query.page/query.page'
+import	{	Pagination				}	from './query-run/pagination/pagination.component'
+import	{	QueryRunComponent		}	from './query-run/query-run.component'
 import	{	
 			QUERY_WIDGETS,
 			QueryWidget,
@@ -56,12 +58,19 @@ const actions		=	[
 		BestWidgetMatchPipe,
 		InjectQueryPipe,
 		QueryPage,
-		QueryWidgetComponent
+		QueryWidgetComponent,
+		QueryRunComponent,
+		Pagination
 	],
 
 	providers: [
 		QueryWidgetsService,
 	],
+
+	exports:[
+		QueryRunComponent,
+		Pagination
+	]
 
 })
 export class QueriesModule {
