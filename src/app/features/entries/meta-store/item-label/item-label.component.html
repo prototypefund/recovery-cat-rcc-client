@@ -1,6 +1,6 @@
 <ng-template let-item> 
 	<h3>{{ (item.questionId | id2Question | async)?.meaning }}</h3>
 	<p>			
-		{{ item.answer | answerTo: item.questionId | async }}
+		{{ item.answer | answerTo: item.questionId | async | translate }}
 	</p>	
 </ng-template>

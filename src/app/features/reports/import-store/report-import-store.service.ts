@@ -1,7 +1,14 @@
-import	{	Injectable				}	from '@angular/core'
+import	{	
+			Injectable,
+			OnDestroy	
+		}								from '@angular/core'
+import	{	SubscriptionLike		}	from 'rxjs'
+import	{	map						}	from 'rxjs/operators'
+import	{	IncomingData			}	from '@rcc/common'
 import 	{	
 			ReportStore,
-			Report				
+			Report,
+			ReportConfig				
 		}								from '@rcc/core'
 
 
@@ -9,24 +16,41 @@ const noStorage = { getAll: () => Promise.resolve([]) }
 
 
 @Injectable()
-export class ReportImportStore extends ReportStore {
+export class ReportImportStore extends ReportStore implements OnDestroy{
 
-	constructor(){
+	private subscriptions: SubscriptionLike[] = []
+
+	constructor(
+		private incomingData: IncomingData
+	){
 		super(noStorage)
+
+		this.listenToIncomingData()
 	}
 
-	public checkClaim(data:any){
-		return	Report.checkConfig(data)
-				?	{
-						label: 	'IMPORTED_REPORT_STORE.CLAIM',
-						icon:	'report',					
-						import:	() => this.import(data)
-					}
-				:	null
+
+	protected listenToIncomingData(){
+		this.subscriptions.push(
+			this.incomingData
+			.pipe(
+				map( (data:any) => {
+					if(Report.acceptsAsConfig(data))	return [data]
+					if(data instanceof Array) 				return data.filter( (item:any) => Report.acceptsAsConfig(item))
+					return[]	
+				})
+			)
+			.subscribe( (reportConfigs: ReportConfig[]) => this.addReportConfig(reportConfigs) )
+		)
 	}
 
-	public import(data:any){
+	public addReportConfig(data:any){
+
+		console.log('##! TODO: IMPORT REPORT')
 		this.addConfig(data)
+	}
+
+	ngOnDestroy(){
+		this.subscriptions.forEach ( sub => sub.unsubscribe() )
 	}
 
 }

@@ -18,9 +18,9 @@ export class QrCodeService {
 	}
 
 
-	public async scan(): Promise<string> {
-		const result = await this.rccQrCodeScanner.scan()					
-		try{
+	public async scan(): Promise<any> {
+		const result = await this.rccQrCodeScanner.scan()	
+		try{			
 			return JSON.parse(result)
 		}catch(e) {
 			return result

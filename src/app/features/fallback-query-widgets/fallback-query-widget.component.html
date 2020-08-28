@@ -1,27 +1,25 @@
-<h1>{{query?.question | translate}}</h1>
-
- <ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
+<ion-list *ngIf = "query && query.question" [inset] = "true" lines = "none">
 
 	<ion-item lines = "full" *ngIf = "query.question.type != 'boolean'">
 		<ion-input			
-			type      		= "text" 
-			[formControl] 	= "query.formControl"
+			[type]      	= "query.question.type == 'string' ? 'text' : 'number'" 
+			[formControl] 	= "query.answerControl"
 			[debounce] 		= "500"
 		></ion-input>  
 	</ion-item>
 	
 	<ion-radio-group 
 		*ngIf 			= "query.question.type == 'boolean'"
-		[formControl] 	= "query.formControl"
+		[formControl] 	= "query.answerControl"
 	>
 
 		<ion-item>
-			<ion-label>yes/true</ion-label>	
+			<ion-label>{{true | translate}}</ion-label>	
 			<ion-radio [value] = "true" slot = "end"></ion-radio>
 		</ion-item>	
 
 		<ion-item>
-			<ion-label>no/false</ion-label>	
+			<ion-label>{{false | translate}}</ion-label>	
 			<ion-radio [value] = "false" slot = "end"></ion-radio>
 		</ion-item>	
 
@@ -43,13 +41,11 @@
 		</ion-note>
 	</ion-item>
 
-	
-
 	<ion-item>		
 		<ion-note 						
 			color 	= "danger" 
 		>
-			{{query.formControl.errors?.questionTypeConstraints?.message || '&nbsp;'}}
+			{{(!query.answerControl.pristine && query.answerControl.errors?.questionTypeConstraints?.message) || '&nbsp;'}}
 		</ion-note>
 	</ion-item>
 

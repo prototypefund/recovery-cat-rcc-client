@@ -1,0 +1,34 @@
+<ion-list *ngFor ="let store of metaStore.stores">
+
+	<ion-list-header>
+		<h2>{{ store.name | translate }}</h2>
+	</ion-list-header>
+
+	<ion-item-group>
+
+		<rcc-store-item 			
+			*ngFor 		= "let item of filterItems(store.items)"
+			[item]		= "item" 		
+			[selected]	= "selected && selected.includes(item)"	
+			(click)		= "toggleSelect(item)"
+		>
+			<ng-container 
+				*ngIf						= "itemLabelTemplate"
+				[ngTemplateOutlet] 			= "itemLabelTemplate" 
+				[ngTemplateOutletContext] 	= "{ item:item }">
+			</ng-container>
+		</rcc-store-item>				
+	</ion-item-group>
+
+	<ion-item 
+		*ngIf = "filterItems(store.items).length == 0"
+		
+	>
+		<ion-label
+			class = "ion-text-center"
+		>
+			{{ 'META_STORE.NO_ITEMS' | translate }}
+		</ion-label>
+	</ion-item>
+
+</ion-list>

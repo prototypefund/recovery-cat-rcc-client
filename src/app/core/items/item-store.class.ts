@@ -50,9 +50,8 @@ export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 
 	protected addConfig( config: C):I {
 		const item  = new this.itemClass(config)
-		const id	= this.identifyItem(item)
 
-		this.map.set(id,item)
+		this.addItem(item)
 
 		return item
 	}

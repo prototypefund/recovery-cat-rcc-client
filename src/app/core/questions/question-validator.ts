@@ -1,4 +1,4 @@
-import	{	QuestionConfig }		from './question-config.interface'
+import	{	QuestionConfig }		from './questions.commons'
 
 
 
@@ -111,25 +111,25 @@ async function integerCheckOptions(value:any, config:QuestionConfig):Promise<obj
 
 
 
-// validators for type = 'float':
+// validators for type = 'decimal':
 
-async function floatCheckType(value:any, config:QuestionConfig):Promise<object|null>{ 
-	if(config.type != 'float') 		return null
-	if(typeof value != 'number')	throw new QuestionValidationError('NOT_A_FLOAT', value, config)
+async function decimalCheckType(value:any, config:QuestionConfig):Promise<object|null>{ 
+	if(config.type != 'decimal') 	return null
+	if(typeof value != 'number')	throw new QuestionValidationError('NOT_A_DECIMAL', value, config)
 
 	return null
 }
 
-async function floatCheckBounds(value:any, config:QuestionConfig):Promise<object|null>{ 
-	if(config.type != 'float') 	return null
+async function decimalCheckBounds(value:any, config:QuestionConfig):Promise<object|null>{ 
+	if(config.type != 'decimal') 	return null
 	if(config.min != undefined && value < config.min) throw new QuestionValidationError('TOO_SMALL', value, config)
 	if(config.max != undefined && value > config.max) throw new QuestionValidationError('TOO_LARGE', value, config)
 
 	return null
 }
 
-async function floatCheckOptions(value:any, config:QuestionConfig):Promise<object|null>{ 
-	if(config.type != 'float') 	return null
+async function decimalCheckOptions(value:any, config:QuestionConfig):Promise<object|null>{ 
+	if(config.type != 'decimal') 		return null
 	if(config.options == undefined)	return null
 	if(!config.options.map( option => option.value).includes(value) ) throw new QuestionValidationError('NOT_AN_OPTION', value, config)
 
@@ -175,9 +175,9 @@ QuestionValidator.register([
 	integerCheckType,
 	integerCheckBounds,
 	integerCheckOptions,
-	floatCheckType,
-	floatCheckBounds,
-	floatCheckOptions,
+	decimalCheckType,
+	decimalCheckBounds,
+	decimalCheckOptions,
 	booleanCheckType,
 	unknownCheck,
 	undefinedCheck

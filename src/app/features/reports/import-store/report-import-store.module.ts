@@ -1,10 +1,16 @@
 import	{	NgModule				}	from '@angular/core'
-import	{	IncomingDataModule		}	from '@rcc/common'
+import	{	
+			IncomingDataModule,
+			TranslationsModule		
+		}								from '@rcc/common'
 import	{	ReportMetaStoreModule	}	from '@rcc/features/reports/meta-store'
 import	{	ReportImportStore		}	from './report-import-store.service'
 import	{	RccToastController		}	from '@rcc/common'
 
 
+
+import en from './i18n/en.json'
+import de from './i18n/de.json'
 
 const itemActions 		= 	[
 								{
@@ -21,10 +27,8 @@ const itemActions 		= 	[
 	declarations: [],
 	imports: [
 		ReportMetaStoreModule.forChild([ReportImportStore], itemActions),
-		IncomingDataModule.forChild({
-			dependencies:	[ReportImportStore],
-			checkClaim: 	(data:any, reportImportStore:ReportImportStore) => reportImportStore.checkClaim(data),			
-		})
+		TranslationsModule.forChild("REPORT_IMPORT", {de,en}),
+		IncomingDataModule
 	],
 	providers: [
 		ReportImportStore

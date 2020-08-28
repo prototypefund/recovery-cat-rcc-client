@@ -61,10 +61,14 @@ export class RccTranslatePipe implements PipeTransform {
 		this.translocoPipe = new  TranslocoPipe(this.translocoService, providerScope, providerLang, cdr)
 	}
 
-	transform(str: string | Translatable) {
-		if(typeof str == 'string') 		return this.translocoPipe.transform(str)
-		if((str as any).translations)	return (str as any).translations[this.translocoService.getActiveLang()] || (str as any).meaning
+	transform(x: Translatable, y?:any): string {		
+
+		if(typeof x == 'string') 		return this.translocoPipe.transform(x, y)
+		if(x instanceof Date)			return x.toLocaleString()
+		if(typeof x == 'boolean')		return this.transform(x?'TRANSLATIONS.TRUE':'TRANSLATIONS.FALSE')
+		if(!x)							return String(x)	
+		if((x as any).translations)	return (x as any).translations[this.translocoService.getActiveLang()] || (x as any).meaning
 			
-		return (str as any).meaning	|| ''
+		return (x as any).meaning	|| String((x as any).value) ||  ''
 	}
 }

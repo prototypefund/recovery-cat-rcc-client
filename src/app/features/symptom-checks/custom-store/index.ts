@@ -1,2 +1,2 @@
-export * from './symptom-check-custom-store.module'
-export * from './symptom-check-custom-store.service'
+export * from './custom-symptom-check-store.module'
+export * from './custom-symptom-check-store.service'

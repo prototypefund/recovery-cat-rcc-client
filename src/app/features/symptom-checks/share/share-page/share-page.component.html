@@ -1,11 +1,10 @@
 
-<ion-content [fullscreen] = "true" class = "ion-padding" *ngIf = "data">
+<ion-content [fullscreen] = "true" class = "ion-padding" *ngIf = "qr_data">
 
 	<div>
+		<rcc-qr-code [data] = "qr_data"></rcc-qr-code>
 
-		<rcc-qr-code [data] = "data"></rcc-qr-code>
-
-		<div *ngIf = "!complete">
+		<div *ngIf = "!complete && !error">
 			<ion-progress-bar type="indeterminate"></ion-progress-bar>
 		</div>
 
@@ -20,7 +19,7 @@
 				size	= "large"
 			></ion-icon>
 			<br/>
-			All data transmitted.
+			{{'All data transmitted.' | translate}}
 		</div>
 
 		<div *ngIf	= "error">
@@ -30,52 +29,11 @@
 				size	= "large"
 			></ion-icon>
 			<br/>
-			Somethig went wrong: {{error}}
+			{{ 'Somethig went wrong:' | translate}} {{error}}
 		</div>
 		
 	</div>
 
+	<div class ="spacer"></div>
+
 </ion-content>
-<!-- 
-<ion-footer class = "ion-no-border">
-
-	<ion-button 
-		*ngIf	= "!complete"
-		color 	= "primary" 
-		expand	= "block"
-		(click)	= "dismiss()"	
-	>
-		Cancel
-	</ion-button>
-
-	<ion-button 
-		*ngIf	= "error"
-		color 	= "primary" 
-		expand	= "block"
-		(click)	= "retry()"	
-	>
-		Retry
-	</ion-button>
-
-	<ion-button 
-		*ngIf	= "error"
-		color 	= "medium" 
-		expand	= "block"
-		(click)	= "dismiss()"	
-	>
-		Cancel
-	</ion-button>
-
-	<ion-button 
-		*ngIf	= "complete"
-		color 	= "success" 
-		expand	= "block"
-		(click)	= "dismiss()"	
-	>
-		Okay
-	</ion-button>
-
-</ion-footer>
-
-
- -->

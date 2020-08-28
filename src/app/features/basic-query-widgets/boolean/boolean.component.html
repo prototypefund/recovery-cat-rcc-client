@@ -1,0 +1,29 @@
+ <div 
+ 	*ngIf 	= "query && query.question" 
+ 	class	= "ion-padding"
+ >
+
+ 	<ion-list>
+ 		<ion-radio-group [formControl] = "query.answerControl">
+
+			<ion-item>
+				<ion-radio 
+					slot	= "end" 
+					[value]	= "true">						
+				</ion-radio>
+				<ion-label>{{ true | translate}}</ion-label>
+			</ion-item>
+
+			<ion-item  lines = "none">
+				<ion-label>{{ false | translate}}</ion-label>
+				<ion-radio 
+					slot	= "end" 
+					[value]	= "false">						
+				</ion-radio>
+			</ion-item>
+
+ 		</ion-radio-group>
+ 	</ion-list>
+
+</div>
+

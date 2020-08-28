@@ -4,15 +4,21 @@ import 	{ 	RouterModule 				}	from '@angular/router'
 
 import	{	
 			SharedModule,
-			MetaStoreModule	
+			MetaStoreModule,
+			TranslationsModule
 		}									from '@rcc/common'
 
 
-import	{	QuestionaireModule			}	from '@rcc/features/questionaire'
+import	{	QuestionaireModule			}	from '@rcc/features/questions'
 
 import	{	SymptomCheckMetaStoreModule	}	from '@rcc/features/symptom-checks/meta-store'
 
 import	{	SymptomCheckViewPage		}	from './view-page/view-page.component'
+
+
+
+import en from './i18n/en.json'
+import de from './i18n/de.json'
 
 
 const routes 		=	[
@@ -22,9 +28,11 @@ const routes 		=	[
 
 const actions		=	[
 							{ 
-								label: 	'VIEW_SYMPTOM_CHECKS.ACTIONS.VIEW',
-								path:	'symptom-checks/:id',
-								icon:	'view'
+								label: 		'SYMPTOM_CHECKS_VIEW.ACTIONS.VIEW',
+								path:		'symptom-checks/:id',
+								icon:		'view',
+								role:		'details' as const,
+								position:	1
 							}
 						]
 
@@ -36,7 +44,8 @@ const actions		=	[
 		SharedModule,
 		QuestionaireModule,
 		RouterModule.forChild(routes),
-		SymptomCheckMetaStoreModule.forChild(null, actions)
+		SymptomCheckMetaStoreModule.forChild(null, actions),
+		TranslationsModule.forChild("SYMPTOM_CHECKS_VIEW", {en, de})
 	],
 	exports: [
 		SymptomCheckViewPage

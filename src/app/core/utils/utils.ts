@@ -26,6 +26,7 @@ export function randomString(length: number): string{
 }
 
 
+
 export function toBase64 (b: ArrayBuffer | Uint8Array): string {
 	return btoa(String.fromCharCode(...new Uint8Array(b)))
 }
@@ -127,6 +128,88 @@ export async function AESdecrypt(b64_cipher:string, b64_key:string, b64_iv:strin
 		return data
 }
 
+
+export interface pseudoSubject {
+	next		:	(value:any) => any
+	subscribe	:	(...args:any[]) => any
+}
+
+
+export function linkSubjects(x:pseudoSubject, y:pseudoSubject): any[] { 
+	const subscriptions	= 	[]
+	let x_value:any  
+	let y_value:any
+
+	const x_obs			=	{
+								value:		undefined as any,
+								next: 		(n:any) => {
+												if(n != y_value){
+													y_value = n
+													y.next(n)
+												} 
+											}
+							}
+	const y_obs			=	{		
+								value:		undefined as any,	
+								next: 		(n:any) => {
+												if(n != x_value){
+													x_value = n
+													x.next(n)
+												} 
+											}
+							}
+
+	subscriptions.push(
+		x.subscribe(x_obs),
+		y.subscribe(y_obs)
+	)
+
+	return subscriptions
+}
+
+
+export function sortByKeyFn(key: string, reverse?		: boolean 						) : (x:any, y:any) => number
+export function sortByKeyFn(key: string, secondary_key?	: string, 	reverse?: boolean 	) : (x:any, y:any) => number
+export function sortByKeyFn(key: string, x?				: any, 		y?		: any		) : (x:any, y:any) => number
+{
+
+	const secondary = 	typeof x == "string" 
+						?	x 
+						:	null
+
+	const reverse 	=	secondary
+						?	!!y
+						:	!!x
+
+	const dir		=	reverse ? -1 : 1
+
+	return 	(item1:any, item2:any) => {
+				const pos1 = (item1 as any)[key]
+				const pos2 = (item2 as any)[key]
+
+				if(pos1 === pos2 ){
+
+					return 	typeof secondary == "string"
+							?	sortByKeyFn(secondary, reverse)(item1, item2)
+							:	0
+
+				}
+
+				if( (pos1<0) && !(pos2<0))	return +1*dir
+				if( (pos2<0) && !(pos1<0))	return -1*dir
+
+				if(pos1 === undefined && (pos2 >= 0) ) return +1*dir
+				if(pos2 === undefined && (pos1 >= 0) ) return -1*dir
+
+
+				return 	pos1 > pos2
+						?	+1*dir
+						:	-1*dir
+			}
+
+}
+
+console.log(sortByKeyFn)
 
 //TODO: Remove when rxjs 7 is released
 

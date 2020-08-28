@@ -1,0 +1,8 @@
+{
+	"ACTIONS":		{
+						"CANCEL": 			"{{CANCEL}}",
+						"FILTER_ITEMS":		"Toggle filter "
+					},
+
+	"NO_ITEMS":		"No items"
+}

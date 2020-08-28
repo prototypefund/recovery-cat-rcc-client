@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "importHelpers": true,
     "baseUrl": "./",
     "paths": {
       "@rcc*": ["src/app*"]

@@ -1,41 +1,67 @@
 import 	{
 			NgModule,
 			Component,
-		}							from '@angular/core'
+			APP_INITIALIZER
+		}										from '@angular/core'
 
-import	{	RouterModule		}	from '@angular/router'
+import	{	RouterModule					}	from '@angular/router'
+
 import	{	
 			SharedModule,
-			MainMenuModule		
-		}							from '@rcc/common'
-import	{	QueriesModule		}	from '@rcc/features/queries'
-import	{	QueryRunPage		}	from './query-run-page/query-run-page.component'
+			MainMenuModule,
+			NotificationModule,
+			TranslationsModule
+		}										from '@rcc/common'
+
+import	{	JournalModule					}	from '@rcc/features/entries'
+import	{	SymptomCheckMetaStoreModule		}	from '@rcc/features/symptom-checks/meta-store'
+
+import	{	DueQuestionsService				}	from './due-questions.service'
+import	{	DueQuestionsOverviewPage		}	from './overview-page/overview-page.component'
+import	{	DueQuestionsHeaderItemComponent	}	from './due-questions-header-item.component'
+import	{	DueQuestionsMenuEntry			}	from './due-questions-menu-entry.component'
+
+import	en from './i18n/en.json'
+import	de from './i18n/de.json'
 
 
 const routes 				=	[
-									{ path: 'due',	component: QueryRunPage	},
+									{ 
+										path: 		'due-questions',	
+										component: 	DueQuestionsOverviewPage 
+									}
 								]
 
-@Component({
-	template:	'<ion-item routerLink = "due"><ion-label>{{ "DUE_QUESTIONS.MENU_ENTRY" | transloco }}</ion-label></ion-item>'
-})
-export class MenuEntryDueQuestions {}
+const notificationConfig 	=	{
+									deps:		[DueQuestionsService],
+									factory:	(dqs: DueQuestionsService) => dqs.count$
+								}
 
 
 @NgModule({
-	declarations: [
-		QueryRunPage,
-		MenuEntryDueQuestions
-	],
 	imports: [
+		JournalModule,
 		SharedModule,
+		SymptomCheckMetaStoreModule,
+		MainMenuModule.forChild([{position:2, component: DueQuestionsMenuEntry}]),
+		NotificationModule.forChild([notificationConfig]),
 		RouterModule.forChild(routes),
-		MainMenuModule.forChild([MenuEntryDueQuestions]),
-		QueriesModule
+		TranslationsModule.forChild("DUE_QUESTIONS", {en, de})		
+
 	],
-	exports: [
-		QueryRunPage,
-		MenuEntryDueQuestions
+	declarations:[
+		DueQuestionsMenuEntry,
+		DueQuestionsOverviewPage,
+		DueQuestionsHeaderItemComponent
+	],
+	providers: [
+		DueQuestionsService,
+		{
+			provide: 		APP_INITIALIZER,
+			useFactory: 	(dq: DueQuestionsService) => () => dq.onStartUp(),
+			deps: 			[DueQuestionsService],
+			multi: 			true
+		}
 	]
 })
 export class DueQuestionsModule { 

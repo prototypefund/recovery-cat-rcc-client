@@ -22,8 +22,9 @@ const routes 		=	[
 @Component({
 	template:	`
 					<ion-item routerLink = "dev">
-						<ion-label>{{ "DEV.MENU_ENTRY" | transloco }}</ion-label>
+						<ion-label>{{ "DEV.MENU_ENTRY" | translate }}</ion-label>
 						<ion-badge color="warning" slot ="end">{{devService.warnings.length}}</ion-badge>
+						<ion-icon [name] = "'dev' | rccIcon" slot = "end"></ion-icon>
 					</ion-item>
 				`
 })
@@ -34,7 +35,7 @@ export class MenuEntryQuestionaire {
 	){}
 }
 
-const menuEntries	=	[MenuEntryQuestionaire]
+const menuEntries	=	[{position: -0.1, component:MenuEntryQuestionaire}]
 
 
 

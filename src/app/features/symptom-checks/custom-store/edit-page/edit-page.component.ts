@@ -19,8 +19,8 @@ import	{
 		}									from 'rxjs/operators'
 
 import	{
-			SymptomCheckCustomStore
-		}									from '../symptom-check-custom-store.service'
+			CustomSymptomCheckStore
+		}									from '../custom-symptom-check-store.service'
 
 
 import	{
@@ -67,7 +67,7 @@ export class SymptomCheckEditPage {
 
 	constructor(
 		public activatedRoute			: ActivatedRoute,
-		public symptomCheckCustomStore	: SymptomCheckCustomStore,
+		public customSymptomCheckStore	: CustomSymptomCheckStore,
 		public metaStoreService			: MetaStoreService,
 		public rccModalController		: RccModalController,
 		public rccToastController		: RccToastController,
@@ -187,15 +187,15 @@ export class SymptomCheckEditPage {
 													questions:	this.questions.map( (question:Question) => question.id)			
 												}
 
-			await this.symptomCheckCustomStore.addSymptomCheckConfig(config)
+			await this.customSymptomCheckStore.addSymptomCheckConfig(config)
 
 		} catch(e) {			
-			return this.rccToastController.failure('CUSTOM_SYMPTOM_CHECKS.EDIT.SAVE_FAILURE')
+			return this.rccToastController.failure('CUSTOM_SYMPTOM_CHECK_STORE.EDIT.SAVE_FAILURE')
 		}
 
 		this.location.back()
 
-		return this.rccToastController.success('CUSTOM_SYMPTOM_CHECKS.EDIT.SAVE_SUCCESS')
+		return this.rccToastController.success('CUSTOM_SYMPTOM_CHECK_STORE.EDIT.SAVE_SUCCESS')
 
 
 	}

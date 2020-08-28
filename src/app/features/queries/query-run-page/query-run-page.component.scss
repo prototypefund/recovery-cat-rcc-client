@@ -1,0 +1,36 @@
+ion-content::part(scroll) {
+	display:			flex;
+	flex-direction:		column;
+}
+
+ion-slides {
+	flex:				1 0 0;
+	width:				100%;
+}
+
+ion-slide {
+	overflow-y:			auto;
+}
+
+rcc-query-widget {
+	height:				100%
+}
+
+
+.fab-footer {
+	display:			flex;
+	position:			fixed;
+	left:				calc(10px + var(--ion-safe-area-left, 0px));
+	right:				calc(10px + var(--ion-safe-area-left, 0px));
+	bottom:				10px;
+	justify-content:	space-between;
+	z-index:			100;
+}
+
+.fab-footer > * {
+	display:			flex;
+	flex:				0 0 auto;
+}
+
+
+

@@ -7,7 +7,7 @@ import	{	Item,
 
 import	{	
 			ItemAction,
-			StoreAction	
+			MetaAction	
 		}							from './meta-store.commons'
 
 
@@ -18,20 +18,22 @@ export abstract	class MetaStore
 					S extends ItemStore<C,I>
 				> {
 
-		public stores			: S[] 					
-		public itemActions		: ItemAction<I>[] 	
-		public storeActions		: StoreAction<S>[]	
+	public name : string 
 
 	constructor(		
-		stores			: S[]				= [],
-		itemActions		: ItemAction<I>[]	= [],
-		storeActions	: StoreAction<S>[]	= []	
+		public stores			: S[]				= [],
+		public itemActions		: ItemAction<I>[]	= [],
+		public metaActions		: MetaAction<I>[]	= []	
 	) {
 
 		this.stores 		= stores 		|| []
-		this.itemActions 	= itemActions 	|| []
-		this.storeActions	= storeActions 	|| []
+		this.itemActions 	= itemActions	|| []
+		this.metaActions	= metaActions	|| []
+	}
 
+	get items(){
+		console.log(this.stores)
+		return this.stores.map( store => store.items).flat()
 	}
 
 
@@ -66,6 +68,16 @@ export abstract	class MetaStore
 
 	public getStore(item: I) : S {
 		return 	this.stores.find( (store: S) =>  store.items.includes(item) )
+	}
+
+
+	async filter( callback: (item :I) => boolean ) : Promise<I[]> {
+		await this.stores.map( store => store.ready)
+
+		return 	this.stores
+				.map( store => store.items.filter(callback) )
+				.flat()
+
 	}
 
 }

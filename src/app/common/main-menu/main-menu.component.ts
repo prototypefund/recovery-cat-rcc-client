@@ -1,23 +1,21 @@
 import	{ 
 			Component, 
-			OnInit,
-			OnDestroy,
 			InjectionToken,
 			Inject,
 			Optional,
-			Type 
+			Type
 		}								from '@angular/core'
 
 import	{	
 			Router,
 			NavigationStart 
 		} 								from '@angular/router'
+import	{	MenuController 			} 	from '@ionic/angular'
+import	{	sortByKeyFn 			}	from '@rcc/core'
 
-import	{	MenuController } 			from '@ionic/angular'
+import	{	Subscription 			}	from 'rxjs'
 
-import	{	Subscription }				from 'rxjs'
-
-import	{	filter }					from 'rxjs/operators'
+import	{	filter 					}	from 'rxjs/operators'
 
 import	{	
 			MainMenuEntries,
@@ -30,7 +28,7 @@ import	{
 	templateUrl: 	'./main-menu.component.html',
 	styleUrls: 		['./main-menu.component.scss'],
 })
-export class MainMenuComponent implements OnInit, OnDestroy {
+export class MainMenuComponent {
 
 
 	public components: Type<any>[]
@@ -44,25 +42,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 		protected	router					: Router,
 		protected	menuController			: MenuController
 	){
+
 		this.components	 = 	entries
-							.sort( (entry1, entry2) => {
-								const pos1 = (entry1 as any).position
-								const pos2 = (entry2 as any).position
-
-								if(!pos1) 	return 1
-								if(!pos2)	return -1
-
-								return 	pos1 > pos2
-										?	-1
-										:	+1
-							})
+							.sort( sortByKeyFn('position') )
 							.map( entry => (entry as any).component || entry)
-	}
 
-	ngOnInit() {
-	}
-
-	ngOnDestroy(){
 	}
 
 }

@@ -2,19 +2,32 @@ import	{
 			NgModule,
 			Component, 
 			ModuleWithProviders,
-		} 								from '@angular/core'
+		} 									from '@angular/core'
 
-import	{	SharedModule 			}	from '../shared.module'
-
-import	{	MainMenuComponent 		}	from './main-menu.component'
+import	{	CommonModule				}	from '@angular/common'
+import	{	TranslationsModule			}	from '@rcc/common/translations'
+import	{	IconsModule					}	from '@rcc/common/icons'
+import 	{ 	IonicModule 				}	from '@ionic/angular'
+import	{	MainHeaderModule			}	from '@rcc/common/main-header'
+import	{	NotificationModule			}	from '@rcc/common/notifications'
+import	{	MainMenuComponent 			}	from './main-menu.component'
+import	{	MainMenuHeaderItemComponent	}	from './header-item/header-item.component'
 
 import	{	
 			MainMenuEntries,
 			MainMenuEntry, 
 			MAIN_MENU_COMPONENT,
 			MAIN_MENU_CONFIG
-		}								from './main-menu.commons'
+		}									from './main-menu.commons'
 
+
+
+import en from './i18n/en.json'
+import de from './i18n/de.json'
+
+const mainHeaderConfig = 	[
+								{component: MainMenuHeaderItemComponent, position: 1}
+							]
 
 
 
@@ -34,14 +47,21 @@ export function provideEntries(entries: MainMenuEntry[]){
 @NgModule({
 	declarations: [
 		MainMenuComponent,
+		MainMenuHeaderItemComponent
 	],
 
-	imports: 			[
-		SharedModule
+	imports: [
+		CommonModule,
+		IonicModule,
+		TranslationsModule.forChild("MAIN_MENU", {en, de}),
+		IconsModule,
+		NotificationModule,
+		MainHeaderModule.forChild(mainHeaderConfig)
 	],
 	
 	exports: [
 		MainMenuComponent,
+		MainMenuHeaderItemComponent
 	],
 
 	providers: [
@@ -66,7 +86,7 @@ export class MainMenuModule {
 
 	}
 
-	static forChild(entries: MainMenuEntry[] = [] ): ModuleWithProviders<MainMenuModule> {
+	static forChild(entries: MainMenuEntry[] = []): ModuleWithProviders<MainMenuModule> {
 
 		return	{
 			ngModule: 	MainMenuModule,

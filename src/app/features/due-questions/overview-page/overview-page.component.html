@@ -1,0 +1,53 @@
+<ion-content [fullscreen] = true>
+
+	<div *ngIf = "questionIds?.length == 0">
+		<h1 class = "ion-padding">{{'DUE_QUESTIONS.NOTHING_DUE'| translate}}</h1>
+	</div>
+
+	<div *ngIf = "questionIds?.length > 0">
+
+		<h1 class = "ion-padding">{{'DUE_QUESTIONS.DUE_FOR' | translate}}</h1>
+
+		<ion-list>
+			<rcc-store-item 
+				*ngFor 				= "let symptomCheck of symptomChecks"
+				[item]				= "symptomCheck"
+				[itemActionRoles]	= "['details']"
+			>				
+			</rcc-store-item>
+		</ion-list>	
+
+	</div>
+		
+	<ion-fab 
+		vertical	= "bottom" 
+		horizontal	= "start" 
+		slot		= "fixed" 		
+	>
+		<ion-fab-button 
+			routerLink 	= "/" 
+			color 		= "medium"
+			size 		= "small"
+		>
+			<ion-icon [name] = "'close' | rccIcon">
+			</ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+
+	<div class ="spacer">
+	</div>
+
+	<ion-fab vertical="bottom" horizontal = "center" slot="fixed">
+		<ion-fab-button  
+			color 		= "primary"
+			routerLink 	= "/query-run" 
+			[state]		= "{ids:questionIds}"
+		>
+			<ion-icon 
+				[name] 		= "'next' | rccIcon"
+			>
+			</ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+
+</ion-content>

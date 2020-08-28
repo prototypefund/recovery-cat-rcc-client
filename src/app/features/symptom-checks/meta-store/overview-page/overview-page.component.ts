@@ -22,20 +22,10 @@ import	{
 })
 export class SymptomCheckMetaStorePage {
 
-	public searchControl 	:FormControl	= new FormControl()
-	//public filterFn			:(item: SymptomCheck)=>boolean
+	public filterControl 	: FormControl	= new FormControl()
 
 	constructor(
 		public symptomCheckMetaStore: SymptomCheckMetaStore
 	) { }
-
-	ngOnInit() {
-
-		// this.searchControl.valueChanges
-		// .pipe(debounceTime(200))
-		// .subscribe(search => {
-		// 	this.filterFn = (item: SymptomCheck) => !!item.meaning.match(new RegExp(search,'gi')) //TODO translation and options
-		// })
-	}
 
 }

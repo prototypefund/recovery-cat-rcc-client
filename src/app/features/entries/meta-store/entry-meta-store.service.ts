@@ -7,7 +7,8 @@ import 	{
 
 import	{	
 			MetaStore,
-			ItemAction			
+			ItemAction,
+			MetaAction			
 		}								from '@rcc/common'
 
 import	{	
@@ -18,19 +19,26 @@ import	{
 
 import	{	
 			ENTRY_STORES,
-			ENTRY_ACTIONS
+			ENTRY_ACTIONS,
+			ENTRY_META_ACTIONS
 		}								from './entry-meta-store.commons'
 
 @Injectable()
 export class EntryMetaStore extends MetaStore<EntryConfig, Entry, EntryStore>{
+
+	public readonly name = "ENTRIES_META_STORE.NAME"
 
 	constructor(
 		@Optional() @Inject(ENTRY_STORES) 
 		stores		: EntryStore[],
 
 		@Optional() @Inject(ENTRY_ACTIONS) 
-		itemActions	: ItemAction<Entry>[]
+		itemActions	: ItemAction<Entry>[],
+
+		@Optional() @Inject(ENTRY_META_ACTIONS) 
+		metaActions	: MetaAction<Entry>[]
+
 	) {
-		super(stores, itemActions)				
+		super(stores, itemActions, metaActions)				
 	}
 }

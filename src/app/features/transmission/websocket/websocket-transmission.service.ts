@@ -2,29 +2,31 @@ import 	{
 			Injectable,
 			Inject,
 			Optional
-		} 								from '@angular/core'
+		} 									from '@angular/core'
 import	{	
 			Observable,
-		}								from 'rxjs'
-import	{	firstValueFrom			}	from '@rcc/core'		//TODO replace when rxjs 7 is ready
-import	{	webSocket				}	from 'rxjs/webSocket'
+		}									from 'rxjs'
+import	{	firstValueFrom				}	from '@rcc/core'		//TODO replace when rxjs 7 is ready
+import	{	webSocket					}	from 'rxjs/webSocket'
 
 import	{	
 			filter,
 			map,
 			take
-		}								from 'rxjs/operators'
+		}									from 'rxjs/operators'
 import	{	
 			randomString,
 			AESprepare,
 			AESencrypt,
-			AESdecrypt			
-		}								from '@rcc/core'		
+			AESdecrypt,						
+		}									from '@rcc/core'
 import	{	
-			Claim,
-			IncomingData	
-		}								from '@rcc/common'
-import	{	WEBSOCKET_DEFAULT_URL	}	from './websocket-transmisson.commons'
+			IncomingData,
+			AbstractTransmissionService,
+			RccTransmission
+		}									from '@rcc/common'
+
+import	{	WEBSOCKET_DEFAULT_URL		}	from './websocket-transmisson.commons'
 
 
 export interface claimConfig {
@@ -43,12 +45,7 @@ export interface shareConfig {
 
 
 
-
-//TODO turn into Factory, handle request and offers! maybe .prepare .send. .read
-
-
-
-export class Transmission {
+export class Transmission implements RccTransmission{
 
 	public channel	: string
 	public url		: string
@@ -88,10 +85,13 @@ export class Transmission {
 
 		const cipher		= 	await AESencrypt(data, this.key, this.iv)
 
-		const ws 			=  	webSocket(url)
-		const message$		=	ws.asObservable()
 
-		ws.subscribe()		//needs at list one subscription or .next() wont work
+		const ws 			=  	webSocket(url)
+
+		ws.subscribe({ 
+			next: 	x => console.log(x),
+			error:	e => {throw e}
+		})		//needs at least one subscription or .next() wont work
 
 		const secondParty	=	firstValueFrom(
 									ws.pipe(
@@ -126,8 +126,6 @@ export class Transmission {
 
 		await receipt
 
-		console.log('got receipt')
-
 		ws.complete()
 	}
 
@@ -138,23 +136,45 @@ export class Transmission {
 
 
 @Injectable()
-export class WebsocketTransmissionService {
+export class WebsocketTransmissionService extends AbstractTransmissionService {
+
+
+
 
 	constructor(
 		@Optional() @Inject(WEBSOCKET_DEFAULT_URL)
 		public defaultUrl	: string,
 		public incomingData	: IncomingData
-	){}
+	){
+		super()
+	}
 
 
-	public async open(url?:string) : Promise<Transmission> {
-		if(!url && !this.defaultUrl)	throw "WebsocketTransmissionService.open(): missing url and defaultUrl. Please use WebsocketTransmissionModule.forRoot(url) to set defaultUrl."		
+
+	public claimsAsConfig(data:any) {
+
+		if(data.type != 'WebsocketTransmission') 	return false
+
+		if(!data.url)								return false
+		if(typeof data.url.match != 'function')		return false
+		if(!data.url.match(/^wss:/)) 				return false
+
+		if(typeof data.channel 	!= 'string')		return false
+		if(typeof data.key 		!= 'string')		return false
+		if(typeof data.iv		!= 'string')		return false
+
+		return true
+	}
+
+
+	public async setup() : Promise<Transmission> {
+		if(!this.defaultUrl)	throw "WebsocketTransmissionService.open(): missing defaultUrl. Please use WebsocketTransmissionModule.forRoot(url) to set defaultUrl."		
 
 		const secret = await AESprepare()
 
 
 		const shareConfig = {
-								url:		url||this.defaultUrl,
+								url:		this.defaultUrl,
 								channel:	randomString(20),
 								key:		secret.key,
 								iv:			secret.iv
@@ -166,7 +186,9 @@ export class WebsocketTransmissionService {
 
 
 
-	public async read(config: claimConfig) : Promise<any> {
+	public async receive(config: claimConfig) : Promise<any> {
+
+		console.log('receiving', config)
 
 		const ws 		= 	webSocket(config.url)
 		const data 		= 	firstValueFrom(
@@ -176,43 +198,23 @@ export class WebsocketTransmissionService {
 								)
 							)
 
-		ws.subscribe()	//needs at list one subscription or .next() wont work
+		//TODO: unsubscribe!
+
+		ws.subscribe( x => console.log(x))	//needs at least one subscription or .next() wont work
 
 		ws.next({type:'join', channel:config.channel})	
 
 		const cipher	= 	await data
 		const result 	=	await AESdecrypt(cipher, config.key, config.iv)
 
-		ws.next({type:'receipt', receipt:"data" })
+
+		ws.next({type:'receipt', receipt: "data" })
+
 
 		ws.complete()
 
 		return result
 
-	}
-
-
-	public checkClaim(data:any): Claim | null {
-
-		if(data.type != 'WebsocketTransmission') 	return null
-
-		if(!data.url)								return null 
-		if(typeof data.url.match != 'function')		return null
-		if(!data.url.match(/^wss:/)) 				return null
-
-		if(typeof data.channel 	!= 'string')		return null
-		if(typeof data.key 		!= 'string')		return null
-		if(typeof data.iv		!= 'string')		return null
-
-		return 	{
-					label: 	"WEBSOCKET_TRANSMISSIOM.CLAIM",
-					import: () => 	{
-										console.log('claimed websocket transmission')
-										this.read(data)
-										.then( (result:any) => this.incomingData.announce(result))
-										
-									}
-				}
 	}
 	
 }

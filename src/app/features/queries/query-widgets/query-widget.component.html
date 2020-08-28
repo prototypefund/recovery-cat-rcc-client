@@ -1,13 +1,25 @@
+
+<ion-text color="dark" class = "ion-padding"><h1>{{query.question | translate }} <span *ngIf = "query.question.unit">({{query.question.unit}})</span></h1></ion-text>
+
+
 <ng-container 
 	[ngComponentOutlet] 			= "query | bestWidgetMatch" 
 	[ngComponentOutletInjector] 	= "query | injectQuery"
 ></ng-container>    
 
-<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+
+<div class = "spacer"></div>
+
+<ion-fab 
+	*ngIf		= "submitButton"
+	vertical	= "bottom" 
+	horizontal	= "end" 
+	slot		= "fixed"
+>
 	<ion-fab-button 
-		color 		= "light"
+		color 		= "primary"
 		[disabled]	= "!query || !query.complete"
-		(click)		= "submit()"
+		(click)		= "query.submit()"
 	>
 		<ion-icon name="checkmark-outline"></ion-icon>
 	</ion-fab-button>

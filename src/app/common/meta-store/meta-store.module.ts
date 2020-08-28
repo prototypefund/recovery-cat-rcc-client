@@ -5,8 +5,7 @@ import 	{
 		} 									from '@angular/core'
 
 import	{	SharedModule 				}	from '../shared.module'
-
-
+import	{	TranslationsModule			}	from '../translations'
 import	{	StoreItemComponent			}	from './store-item/store-item.component'
 
 
@@ -16,17 +15,16 @@ import	{
 			ItemAction,
 		}									from './meta-store.commons'
 
-import	{
-			MetaStoreComponent
-		}									from './meta-store.component/meta-store.component'
+import	{	MetaStoreService			}	from './meta-store.service'
+import	{	MetaStoreModal				}	from './modal/meta-store.modal'
+import	{	MetaStoreComponent			}	from './content/meta-store.component'
+import	{	
+			HeaderComponent,
+			PopoverComponent				
+		}									from './header/header.component'
 
-import	{
-			MetaStoreService
-		}									from './meta-store.service'
-
-import	{
-			MetaStoreModal
-		}									from './meta-store.modal/meta-store.modal'
+import en from './i18n/en.json'
+import de from './i18n/de.json'
 
 
 @NgModule({
@@ -34,16 +32,20 @@ import	{
 		StoreItemComponent,
 		MetaStoreComponent,
 		MetaStoreModal,
+		HeaderComponent,
+		PopoverComponent
 	],
 
 	imports: [
-		SharedModule
+		SharedModule,
+		TranslationsModule.forChild("META_STORE", {en, de})
 	],
 
 	exports: [
 		StoreItemComponent,
 		MetaStoreComponent,
 		MetaStoreModal,
+		HeaderComponent
 	],
 	providers:[
 		MetaStoreService

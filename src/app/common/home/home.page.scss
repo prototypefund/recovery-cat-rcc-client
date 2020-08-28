@@ -1,0 +1,20 @@
+.spacer{
+	flex:				0 1 0;
+	height:				10rem;
+	min-height:			2rem;
+}
+
+ion-list {
+	margin:				auto;
+	max-width:			24rem;
+}
+
+ion-content::part(scroll) {
+	display:			flex;
+	flex-direction:		column;
+	justify-content:	flex-start;
+}
+
+ion-item::part(native) {
+	padding:			var(--ion-padding,16px);
+}

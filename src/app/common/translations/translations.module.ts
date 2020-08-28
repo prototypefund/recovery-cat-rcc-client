@@ -2,6 +2,8 @@ import 	{
 			ModuleWithProviders
 		} 								from '@angular/core'
 
+import	{	SETTING_CONFIGS			}	from '@rcc/common/settings/settings.commons'
+
 import 	{
 			Translation,
 			TranslocoLoader,
@@ -19,27 +21,23 @@ import 	{
 import	{	
 			RccTranslatePipe,
 			FillPipe				
-		}								from './translations.pipes'
+		}									from './translations.pipes'
 
-import 	{ 
-			environment 
-		} 								from '../../../environments/environment'
+import 	{	environment 				}	from '../../../environments/environment'
 
-import	{
-			RccTranslationLoader
-		}								from './translation.loader'
+import	{	RccTranslationLoader		}	from './translation.loader'
 
-import	{
-			SCOPED_TRANSLATION_TABLES
-		}								from './translations.commons'
+import	{	SCOPED_TRANSLATION_TABLES	}	from './translations.commons'
 
-import	{
-			RccTranslationService
-		}								from './translation.service'
+import	{	RccTranslationService		}	from './translation.service'
 
 
-import en from '../i18n/en.json'
-import de from '../i18n/de.json'
+//TODO should be configurable; forRoot?:
+import global_en from '../i18n/en.json'
+import global_de from '../i18n/de.json'
+
+import en from './i18n/en.json'
+import de from './i18n/de.json'
 
 
 @NgModule({
@@ -72,8 +70,30 @@ import de from '../i18n/de.json'
 			provide:	SCOPED_TRANSLATION_TABLES,
 			useValue:	{
 							scope: 	null,
-							map:	{en,de}
+							map:	{en:global_en, de: global_de}
 						},
+			multi:		true
+		},
+		{
+			provide: 	SCOPED_TRANSLATION_TABLES,
+			useValue:	{
+							scope:	"TRANSLATIONS", 
+							map:	{en, de}
+						},
+			multi:		true
+		},
+
+		//cannot use SettingsModule.forChild() due to circular dependencies.
+		{
+			provide: 	SETTING_CONFIGS,
+			deps:		[RccTranslationService],
+			useFactory:	( rccTranslationService : RccTranslationService ) => ({
+							label: 		'TRANSLATIONS.ACTIVE_LANGUAGE',
+							options:	rccTranslationService.getAvailableLanguages()
+										.map( (lang: string) => ({ value: lang, label: "TRANSLATIONS.LANGUAGES."+lang.toUpperCase() }) ) ,
+							change$: 	rccTranslationService.activeLanguageChange$,
+							next: 		(value: any) => rccTranslationService.setActiveLanguage(value)
+						}),
 			multi:		true
 		}
 	]

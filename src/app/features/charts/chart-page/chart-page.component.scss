@@ -1,0 +1,11 @@
+ion-content::part(scroll) {
+	display: 			flex;
+	flex-direction:		column;
+	justify-content: 	space-between;
+}
+
+.spacer {
+	flex:				0 1 0;
+	height:				10rem;
+	min-height:			5rem;
+}

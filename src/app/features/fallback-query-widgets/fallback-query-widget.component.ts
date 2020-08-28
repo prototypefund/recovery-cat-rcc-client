@@ -27,13 +27,13 @@ export class FallbackQueryWidgetComponent implements OnDestroy {
 	){
 
 		this.query 			= query
-		this.subscription 	= query.formControl.valueChanges.subscribe({
+		this.subscription 	= query.answerControl.valueChanges.subscribe({
 			next : value => {
 
 
-				if(query.question.type == 'string' 	&& typeof value != 'string') 	this.query.formControl.setValue(String(value))
-				if(query.question.type == 'float'	&& typeof value != 'number') 	this.query.formControl.setValue(Number(value)||0)
-				if(query.question.type == 'integer'	&& typeof value != 'number') 	this.query.formControl.setValue(Number(value)||0)				
+				if(query.question.type == 'string' 	&& typeof value != 'string') 	this.query.answerControl.setValue(String(value))
+				if(query.question.type == 'decimal'	&& typeof value != 'number') 	this.query.answerControl.setValue(Number(value)||0)
+				if(query.question.type == 'integer'	&& typeof value != 'number') 	this.query.answerControl.setValue(Number(value)||0)				
 
 			}
 		})

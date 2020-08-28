@@ -7,8 +7,9 @@ import	{
 import	{
 			QuestionConfig,
 			QuestionConfigOption,
-			TranslationMap
-		}								from "./question-config.interface"
+			TranslationMap,
+			isQuestionConfig
+		}								from "./questions.commons"
 
 import	{	
 			QuestionValidator,
@@ -50,6 +51,9 @@ export class Question extends Item<QuestionConfig> {
 	public tags					: string[]
 	public unit					: string
 
+	static acceptsAsConfig(x:any): boolean {
+		return isQuestionConfig(x)
+	}
 	
 
 	constructor(id:string)  

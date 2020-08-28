@@ -1,3 +1,32 @@
+:host {
+	padding:			1rem 0;
+	touch-action:		none;
+}
+
+.values {
+	display:			flex;
+	justify-content:	space-between;
+}
+
+.values > * {
+	position:			relative;
+	flex:				0 0 0;
+}
+
+.values > * > * {
+	position:			absolute;
+	width:				2rem;
+	left:				-1rem;
+	bottom:				0;
+	text-align:			center;
+	font-size:			0.8em;
+	color:				var(--ion-color-medium);
+}
+
+.values > .active > * {
+	color:				var(--ion-color-dark);
+}
+
 .labels {
 	position:			relative;
 }
@@ -5,23 +34,72 @@
 .labels > * {
 	position:			absolute;	
 	text-align:			center;
+	font-size:			0.8em;
 }
 
 .labels > *:first-child {
 	text-align:			left;
-	transform:			translateX(-0.5rem)
+	transform:			translateX(-0.25rem);
 }
 
 .labels > *:last-child {
 	text-align:			right;
-	transform:			translateX(+0.5rem)
+	transform:			translateX(+0.25rem);
 }
 
 
 ion-range {
+	padding-top:				0;
+	padding-bottom:				0;
 	padding-inline-start:		0 !important;
 	padding-inline-end:			0 !important;
+
+	
 }
+
+ion-range::part(knob) {
+	--knob-size: 				calc(var(--bar-height)*15);
+}
+
+
+ion-range.ng-pristine::part(knob) {
+	display:					none;
+}
+
+ion-range.ng-pristine::part(tick-active) {
+	background-color:			var(--ion-color-medium);
+}
+
+
+
+
+ion-range::part(pin) {
+	top:						calc(var(--height)/-8);
+}
+
+ion-range::part(tick-active),
+ion-range::part(tick) {
+	position: 					absolute;
+	top: 						calc((var(--height) - var(--bar-height)*4) / 2);
+	width: 						calc(var(--bar-height)*4);
+	height: 					calc(var(--bar-height)*4);
+	margin-left:				calc(var(--bar-height)*-4/2);
+	background: 				var(--bar-background-active);
+	z-index: 					1;
+	pointer-events: 			none;
+	border-radius: 				100%;
+}
+
+ion-range::part(bar-active),
+ion-range::part(tick-active) {
+	background-color:			var(--ion-color-primary);
+}
+
+ion-range::part(bar),
+ion-range::part(tick) {
+	background-color:			var(--ion-color-medium);
+}
+
 
 /*
 .labels {

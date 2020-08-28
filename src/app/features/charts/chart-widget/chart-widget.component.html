@@ -1,0 +1,37 @@
+
+<div class ="chart-container">
+	<ngx-charts-bar-vertical-normalized
+		*ngIf = "ready && (_question?.type == 'string' && _question?.options.length > 1) || _question?.type == 'boolean'"
+
+		[scheme]="colorScheme"
+		[results]="data"
+		[gradient]="false"
+		[xAxis]="true"
+		[yAxis]="true"
+		[legend]="true"
+		[showXAxisLabel]="false"
+		[showYAxisLabel]="false"
+		[xAxisLabel]="'xAxisLabel'"
+		[yAxisLabel]="'yAxisLabel'"
+		[legendPosition]="'below'"
+	 >
+	</ngx-charts-bar-vertical-normalized>
+
+	
+
+	<ngx-charts-line-chart
+		*ngIf				= "ready && (_question?.type == 'integer') || (_question?.type == 'decimal')"
+
+		[legend]			= "false"
+		[showXAxisLabel]	= "false"
+		[showYAxisLabel]	= "false"
+		[xAxis]				= "xAxis"
+		[yAxis]				= "yAxis"
+		[yScaleMin]			= "yScaleMin"
+		[yScaleMax]			= "yScaleMax"
+		[timeline]			= "false"
+		[results]			= "data"
+	>
+	</ngx-charts-line-chart>
+	
+</div>

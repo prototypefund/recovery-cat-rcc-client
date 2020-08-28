@@ -5,45 +5,45 @@
 		</ion-buttons>
 
 		<ion-title>
-			{{symptom_check?.meta.source}}
+			{{'SYMPTOM_CHECKS_VIEW.DETAILS.TITLE' | translate}}
 		</ion-title>
 
 		<ion-buttons slot="end">
-			<!-- <ion-button [routerLink] = "['edit']">
-				<ion-icon name="create-outline"></ion-icon>
-			</ion-button> -->
-		</ion-buttons>
+			<ion-button>
+				<ion-icon
+					slot 	= "icon-only"
+					[name]	= "'actions' | rccIcon"
+				></ion-icon>
+			</ion-button>
+		</ion-buttons>		
 
 	</ion-toolbar>
 </ion-header>
+
 
 <ion-content 
 	[fullscreen] = "true"
 	*ngIf = "symptom_check"
 >
+
+	<h1 class ="ion-padding">{{symptom_check?.meta.source}}</h1>
+
 	<ion-list>
-		<ion-list-header>
-			{{symptom_check?.meta.source}}
-		</ion-list-header>
 		<ion-item>
 			<ion-label>				
 				<p>
-					{{'VIEW_SYMPTOM_CHECK.DETAILS.CREATION_DATE' | transloco }}: 
+					{{'SYMPTOM_CHECKS_VIEW.DETAILS.CREATION_DATE' | translate }}: 
 					{{symptom_check.meta.creationDate}}
-				</p>
-				<p 
-					*ngIf ="symptom_check.meta.start"
-				>
-					{{'VIEW_SYMPTOM_CHECK.DETAILS.START' | transloco }}: 
-					{{symptom_check.meta.start}}
-				</p>				
+				</p>								
 
 				<p>
-					{{symptom_check.meta.defaultSchedule}}
+					{{'SYMPTOM_CHECKS_VIEW.DETAILS.SCHEDULE' | translate}}: 
+					{{symptom_check.meta.defaultSchedule.toText()}}
 				</p>
 
 				<p>
-					{{'VIEW_SYMPTPM_CHECK.DETAILS.PAUSED_%1' | fill : (symptom_check.meta.paused ? 'TRUE' : 'FALSE') | transloco }}
+					 
+					
 				</p>
 			</ion-label>
 
@@ -54,12 +54,33 @@
 			</ion-buttons>
 
 		</ion-item>
+
+		<ion-item [button] = "true" (click) = "symptom_check.togglePause()">
+
+			<ion-label>
+				<h3>{{"SYMPTOM_CHECKS_VIEW.DETAILS.STATUS" | translate }}</h3>
+				<p>
+					<ion-text
+						[color]	= "(symptom_check.meta.paused ? 'secondary' : 'primary') "
+					> 
+						{{'SYMPTOM_CHECKS_VIEW.DETAILS.PAUSED_%1' | fill : (symptom_check.meta.paused ? 'TRUE' : 'FALSE') | translate }}
+					</ion-text>
+				</p>
+			</ion-label>
+
+			<ion-icon 
+				[name] 	= "(symptom_check.meta.paused ? 'pause'	: 'active') | rccIcon"
+				slot	= "end"
+			></ion-icon>
+
+		</ion-item>
+
 	</ion-list>
 
 	<ion-list>
 
 		<ion-list-header>
-			{{'VIEW_SYMPTOM_CHECK.DETAILS.QUESTIONS' | transloco}}
+			<h2>{{'SYMPTOM_CHECKS_VIEW.DETAILS.QUESTIONS' | translate}}:</h2>
 		</ion-list-header>
 
 		<rcc-store-item

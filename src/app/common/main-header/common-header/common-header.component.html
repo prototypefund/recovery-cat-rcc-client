@@ -1,0 +1,9 @@
+<ion-buttons>
+	<ng-container 
+		*ngFor				= "let template of templates"
+		[ngTemplateOutlet] 	= "template">
+	</ng-container>	
+
+	<ng-content></ng-content>
+
+</ion-buttons>

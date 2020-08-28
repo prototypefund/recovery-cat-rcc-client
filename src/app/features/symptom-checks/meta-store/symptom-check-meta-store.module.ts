@@ -3,7 +3,8 @@ import 	{
 			Component,
 			InjectionToken,
 			ModuleWithProviders,
-			Type		
+			Type,
+			APP_INITIALIZER 
 		} 									from '@angular/core'
 
 import 	{ 	RouterModule 			}		from '@angular/router'
@@ -14,6 +15,8 @@ import	{
 			BaseMetaStoreModule,
 			MetaStoreModule,
 			ItemAction,
+			MetaAction,
+			TranslationsModule
 		}									from '@rcc/common'
 
 import	{	
@@ -27,12 +30,16 @@ import	{	SymptomCheckMetaStore		}	from './symptom-check-meta-store.service'
 
 import	{	
 			SYMPTOM_CHECK_STORES,
-			SYMPTOM_CHECK_ACTIONS			
+			SYMPTOM_CHECK_ACTIONS,
+			SYMPTOM_CHECK_META_ACTIONS			
 		}									from './symptom-check-meta-store.commons'
 
 import	{	SymptomCheckMetaStorePage 	}	from './overview-page/overview-page.component'
 import	{	SymptomCheckLabelComponent	}	from './item-label/item-label.component'
 
+
+import en from './i18n/en.json'
+import de from './i18n/de.json'
 
 const routes 			=	[
 								{ path: 'symptom-checks',	component: SymptomCheckMetaStorePage	},
@@ -47,7 +54,12 @@ const metaStoreConfig 	=	{
 
 
 @Component({
-	template:	'<ion-item routerLink = "symptom-checks"><ion-label>{{ "SYMPTOM_CHECKS.MENU_ENTRY" | transloco }}</ion-label></ion-item>'
+	template:	`
+					<ion-item routerLink = "symptom-checks">
+						<ion-label>{{ "SYMPTOM_CHECKS_META_STORE.MENU_ENTRY" | translate }}</ion-label>
+						<ion-icon [name] = "'symptom-check' | rccIcon " slot = "end"></ion-icon>
+					</ion-item>
+				`
 })
 export class MenuEntrySymptomCheckMetaStore {}
 
@@ -58,31 +70,33 @@ export class MenuEntrySymptomCheckMetaStore {}
 	declarations: [
 		MenuEntrySymptomCheckMetaStore,
 		SymptomCheckMetaStorePage,
+		SymptomCheckLabelComponent
 	],
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
 		MainMenuModule.forChild([MenuEntrySymptomCheckMetaStore]),
-		MetaStoreModule.forChild(metaStoreConfig)
+		MetaStoreModule.forChild(metaStoreConfig),
+		TranslationsModule.forChild("SYMPTOM_CHECKS_META_STORE", {en, de})
 	],
 
 	exports: [
-		MenuEntrySymptomCheckMetaStore,
-		SymptomCheckMetaStorePage,
-		MetaStoreModule					//this is important so anything importing SymptomCheckMetaStoreModule can use the componets of MetaStoreModule too
+		MetaStoreModule //So other Module need not import this specifically
 	],
-	providers:[
+
+	providers:[	
 		SymptomCheckMetaStore,
 	]
 })
 export class SymptomCheckMetaStoreModule extends BaseMetaStoreModule {
 
 	static 	forChild(
-				stores		: Type<SymptomCheckStore>[]		= [],
-				actions		: ItemAction<SymptomCheck>[]	= []
+				stores?			: Type<SymptomCheckStore>[],
+				itemActions?	: ItemAction<SymptomCheck>[],
+				metaActions?	: MetaAction<SymptomCheck>[]
 			): ModuleWithProviders<SymptomCheckMetaStoreModule> {
 
-		const mwp = BaseMetaStoreModule.getModuleWithProviders(this, stores, actions, SYMPTOM_CHECK_STORES, SYMPTOM_CHECK_ACTIONS)
+		const mwp = BaseMetaStoreModule.getModuleWithProviders(this, stores, itemActions, metaActions, SYMPTOM_CHECK_STORES, SYMPTOM_CHECK_ACTIONS, SYMPTOM_CHECK_META_ACTIONS)
 		return mwp
 	}
 

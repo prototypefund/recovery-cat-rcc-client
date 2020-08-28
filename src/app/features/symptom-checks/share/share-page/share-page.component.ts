@@ -1,26 +1,27 @@
 import 	{ 	
 			Component, 
 			OnInit
-		}									from '@angular/core'
+		}										from '@angular/core'
 
 import	{
 			mergeMap
-		}									from 'rxjs/operators'
+		}										from 'rxjs/operators'
 
 import	{
 			Router,
 			ActivatedRoute,
 			ParamMap
-		}									from '@angular/router'							
+		}										from '@angular/router'							
 
 import	{	
 			SymptomCheckMetaStore
-		}									from '@rcc/features/symptom-checks/meta-store'
+		}										from '@rcc/features/symptom-checks/meta-store'
 
 import	{
 			SymptomCheck
-		}									from '@rcc/core'
+		}										from '@rcc/core'
 
+import	{	Questionaire					}	from '@rcc/features/questions'
 import	{	WebsocketTransmissionService	}	from '@rcc/features/transmission'
 
 @Component({
@@ -31,7 +32,7 @@ export class SymptomCheckSharePage  implements OnInit {
 
 
 	public symptom_check	:	SymptomCheck
-	public data				:	string
+	public qr_data			:	string
 	public error			:	string
 	public complete			:	boolean
 	public id				:	string
@@ -41,7 +42,7 @@ export class SymptomCheckSharePage  implements OnInit {
 		private activatedRoute					: ActivatedRoute,		
 		private symptomCheckMetaStore			: SymptomCheckMetaStore,
 		private websocketTransmissionService	: WebsocketTransmissionService,
-
+		private questionaire					: Questionaire
 	){}
 
 
@@ -52,7 +53,7 @@ export class SymptomCheckSharePage  implements OnInit {
 			mergeMap( 	(params	: ParamMap) => (this.id = params.get('id')) && this.symptomCheckMetaStore.get(this.id) )
 		)
 		.subscribe({		
-			next:	(sc		: SymptomCheck)	=> 	this.setup(sc),  
+			next:	(sc		: SymptomCheck)	=> 	this.setup(sc).catch( e => this.error = e),  
 			error:	(e:any)					=>  this.router.navigateByUrl(this.router.url.replace(this.id, 'null'))
 		})
 
@@ -61,13 +62,22 @@ export class SymptomCheckSharePage  implements OnInit {
 
   	public async setup(symptom_check: SymptomCheck){
 
-  		this.symptom_check 	= symptom_check 
+  		this.symptom_check 	= symptom_check
 
-  		const transmission 	= await this.websocketTransmissionService.open()
+  		const questions		= await this.questionaire.get( symptom_check.questions.map( q => q.id) )
 
-  		const receipt 		= transmission.send(symptom_check.config)
+  		const data			= 	[
+  									symptom_check.config,
+  									questions.map( question => question.config)
+  								]
 
-  		this.data = JSON.stringify(transmission.meta)
+  		console.log(data)
+
+  		const transmission 	= await this.websocketTransmissionService.setup()
+
+  		const receipt 		= transmission.send(data)
+
+  		this.qr_data = JSON.stringify(transmission.meta)
 
   		await receipt
 

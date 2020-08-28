@@ -4,6 +4,7 @@ import	{
 		}										from '@angular/core'
 import	{	
 			DevModule,
+			TransmissionModule,
 			IncomingDataModule			
 		}										from '@rcc/common'
 import	{	WebsocketTransmissionService	}	from './websocket-transmission.service'
@@ -22,17 +23,14 @@ import	{
 
 
 @NgModule({
-	declarations: [],
-	imports: [
-		DevModule.note('WebsocketTransmissionModule'),
-		IncomingDataModule.forChild({
-			dependencies:	[WebsocketTransmissionService],
-			checkClaim:		(data:any, websocketTransmissionService: WebsocketTransmissionService) => websocketTransmissionService.checkClaim(data)			
-		})
-	],
 	providers: [
 		WebsocketTransmissionService
-	]
+	],
+	imports: [
+		DevModule.note('WebsocketTransmissionModule'),
+		TransmissionModule.forChild(WebsocketTransmissionService),
+		IncomingDataModule
+	],
 })
 export class WebsocketTransmissionModule { 
 

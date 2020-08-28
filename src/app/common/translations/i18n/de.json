@@ -1,0 +1,9 @@
+{
+	"ACTIVE_LANGUAGE":		"Sprache",
+	"LANGUAGES":			{
+								"EN":	"English",
+								"DE": 	"Deutsch"
+							},
+	"TRUE":					"Ja",
+	"FALSE":				"Nein"
+}

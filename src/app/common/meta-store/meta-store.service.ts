@@ -24,7 +24,7 @@ import	{
 
 import	{	MetaStore				}	from './meta-store.class'
 
-import	{	MetaStoreModal			}	from './meta-store.modal/meta-store.modal'
+import	{	MetaStoreModal			}	from './modal/meta-store.modal'
 
 @Injectable()
 export class MetaStoreService {
@@ -54,9 +54,6 @@ export class MetaStoreService {
 		
 		if(!config) throw "MetaStoreConfig missing for "+value.name	
 		return config
-
-
-
 	}
 
 	getMetaStore<I extends Item<any>>(item: 		I)				: MetaStore<any,I,any>

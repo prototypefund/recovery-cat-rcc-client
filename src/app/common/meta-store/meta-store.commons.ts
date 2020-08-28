@@ -12,26 +12,36 @@ import	{
 
 import	{	MetaStore			}	from './meta-store.class'
 
-
+export type ActionRole = undefined | "details" | "destructive" | "productive"
 
 
 export interface ItemAction<I extends Item<any>> {
 	label			: string,
+	role?			: ActionRole
 	icon?			: string,
-	path?			: string,
+	path?			: string,			//use ":id" for item id
+	position?		: number,
 	store?			: Type<ItemStore<any, I>>,
-	handler?		: (item: I, store? :ItemStore<any,I>, ...dependencies: any[]) => any,
-	dependencies?	: any, 
+	deps?			: any, 
+	handlerFactory?	: (...dependencies: any[]) => (item: I, store? :ItemStore<any,I>) => any,
+	handler?		: (item: I, store? :ItemStore<any,I>) => any, 
 	successMessage?	: string,
 	failureMessage?	: string
 
 }
 
-export interface StoreAction<S extends ItemStore<any,any>>{
-	label		: string,
-	icon?		: string,
-	path?		: string,
-	handler?	: () => any 		
+export interface MetaAction<I extends Item<any>>{
+	label			: string,
+	role?			: ActionRole
+	icon?			: string,
+	path?			: string,			
+	position?		: number,
+	store?			: Type<ItemStore<any, I>>,
+	deps?			: any, 
+	handlerFactory?	: (...dependencies: any[]) => () => any,
+	handler?		: () => any, 
+	successMessage?	: string,
+	failureMessage?	: string
 }
 
 

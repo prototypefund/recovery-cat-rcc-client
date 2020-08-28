@@ -1,28 +1,33 @@
 import	{	
 			Component,
-			Input
+			Input,
 		}							from '@angular/core'
 
-import	{	Journal				}	from '@rcc/features/entries'
 import	{	Query				}	from '../query.class'
-
+import	{	RccToastController	}	from '@rcc/common'
 
 @Component({
 	selector:     'rcc-query-widget',
 	templateUrl:   './query-widget.component.html',
-	styleUrls:     []
+	styleUrls:     ['./query-widget.component.scss']
 })
 export class QueryWidgetComponent {
 	@Input() 
 	query: Query
 
+	@Input()
+	submitButton: boolean
+
+
 	constructor(
-		private journal: Journal
-	){ }
+		public rccToastController: RccToastController
+	){}
 
-
-	submit():void{
-		if(!this.query.complete) return null
-		this.journal.log(this.query.question.id, this.query.answer)
+	submit(query: Query):void{
+		this.query.submit()
+		.then( 
+			() => this.rccToastController.success("QUERIES.SUBMISSION.SUCESS"),
+			() => this.rccToastController.failure("QUERIES.SUBMISSION.FAILURE"),
+		)
 	}
 }

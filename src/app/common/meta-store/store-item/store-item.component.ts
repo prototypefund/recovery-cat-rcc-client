@@ -33,6 +33,7 @@ import	{
 import	{	Item,
 			ItemConfig,
 			ItemStore,	
+			sortByKeyFn
 		}								from '@rcc/core'
 
 import	{	MetaStore				}	from '../meta-store.class'
@@ -88,8 +89,15 @@ export 	class StoreItemComponent
 		this.localItemActions = itemActions
 	}
 
+	@Optional() @Input('itemActionRoles') 
+	set itemActionRoles( roles: string []){
+		this.setRoleItemActions(roles)
+	}
+	
+
+
 	@Optional() @Input()
-	selected	: boolean|null 	= null
+	public selected				: boolean|null 		= null
 
 
 	private _item				: I
@@ -102,10 +110,10 @@ export 	class StoreItemComponent
 	public itemLabelComponent	: Type<any>
 	public itemLabelContext		: any
 	public itemIcon				: string
-	public localItemActions		: ItemAction<I>[]
-	public globalItemActions	: ItemAction<I>[]
+	public localItemActions		: ItemAction<I>[] 
+	public globalItemActions	: ItemAction<I>[] 
+	public roleItemActions		: ItemAction<I>[] 
 	public itemLabelTemplate	: TemplateRef<any>
-
 
 	constructor(		
 		public	metaStoreService			: MetaStoreService,
@@ -170,13 +178,20 @@ export 	class StoreItemComponent
 		.then( item => this.setItem(item) )
 	}
 
+	public setRoleItemActions( roles: string[]) {
+		this.roleItemActions = 	roles
+								.map( role => 	this.globalItemActions.filter( itemAction => itemAction.role == role) )
+								.flat()
+	}
 
 
+	get itemActions(): ItemAction<I>[] {
 
-	get itemActions(){
-		return 	this.localItemActions && this.localItemActions.length > 0
-				?	this.localItemActions 
-				:	this.globalItemActions	|| []
+		const itemActions 	= 	this.localItemActions 
+								?	[...this.localItemActions, ...(this.roleItemActions||[])]
+								:	this.roleItemActions || this.globalItemActions	|| []
+
+		return itemActions.sort(sortByKeyFn('position'))
 	}
 
 	get mode(): string {
@@ -188,14 +203,13 @@ export 	class StoreItemComponent
 	}
 
 
+	//TODO: abstract, same thing for metaActions...
 	public getHandler(itemAction: ItemAction<I>): () => any {
 		let handler: () => any = () => null
 
 		if(itemAction.handler) {
 		
-			const resolved_dependencies = (itemAction.dependencies ||[] ).map( (dep: any) => this.injector.get(dep) )
-
-			return 	() =>	Promise.resolve(itemAction.handler(this._item, this.store, ...resolved_dependencies))
+			return 	() =>	Promise.resolve(itemAction.handler(this._item, this.store))
 							.then( 
 								(result:any) => {
 									itemAction.successMessage

@@ -24,8 +24,8 @@ import	de	from './i18n/de.json'
 @Component({
 	template:	`
 					<ion-item [button] = "true" (click) = "scan()">
-						<ion-icon [name] = "'qr-code' | rccIcon" slot = "start"></ion-icon>
-						<ion-label>{{ "QRCODE.SCAN" | transloco }}</ion-label>
+						<ion-label>{{ "QRCODE.SCAN" | translate }}</ion-label>
+						<ion-icon [name] = "'qr-code' | rccIcon" slot = "end"></ion-icon>
 					</ion-item>
 				`
 })
@@ -39,7 +39,7 @@ export class MenuEntryQrCode {
 	public scan(){
 		Promise.resolve()
 		.then(	()			=> this.qrCodeService.scan() )
-		.then(	(data:any) 	=> this.incomingData.announce(data) )
+		.then(	(data:any) 	=> this.incomingData.next(data) )
 	}
 
 }

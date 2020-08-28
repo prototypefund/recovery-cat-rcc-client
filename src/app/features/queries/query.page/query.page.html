@@ -1,19 +1,18 @@
-<ion-header [translucent]="true">
+<ion-header>
 	<ion-toolbar>
-		 <ion-buttons slot="start">
-			<ion-menu-button>
-			</ion-menu-button>
-		</ion-buttons>
+		<rcc-common-header slot = "start">
+		</rcc-common-header>
 		<ion-title>
-			{{ "QUERIES.HEADER" | transloco }}
+			{{ "QUERIES.HEADER" | translate }}
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class ="ion-padding">
 	<rcc-query-widget 
-		*ngIf 	= "query" 
-		[query] = "query"
+		*ngIf 			= "query" 
+		[query] 		= "query"
+		[submitButton] 	= "true"
 	>
 	</rcc-query-widget>
 </ion-content>

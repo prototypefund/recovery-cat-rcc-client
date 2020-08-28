@@ -3,7 +3,7 @@
 	<ion-toolbar>
 
 		<ion-title>			
-			{{'SYMPTOM_CHECKS_CUSTOM.SCHEDULE_MODAL.HEADER' | transloco}}
+			{{'CUSTOM_SYMPTOM_CHECK_STORE.SCHEDULE_MODAL.HEADER' | translate}}
 		</ion-title>
 
 		<ion-buttons slot="end">
@@ -12,7 +12,7 @@
 				fill	= "solid"
 				(click) = "cancel()"
 			>
-				{{'CANCEL' | transloco }}
+				{{'CANCEL' | translate }}
 			</ion-button>
 
 			<ion-button 
@@ -20,7 +20,7 @@
 				fill	= "solid"
 				(click) = "accept()"
 			>
-				{{'APPLY' | transloco }}
+				{{'APPLY' | translate }}
 			</ion-button>
 		</ion-buttons>		
 
@@ -36,7 +36,7 @@
 		<ion-item>
 
 			<ion-label text-wrap>
-				<h3>{{ 'SYMPTOM_CHECKS_CUSTOM.SCHEDULE_MODAL.PREVIEW_LABEL' | transloco }}</h3>
+				<h3>{{ 'CUSTOM_SYMPTOM_CHECK_STORE.SCHEDULE_MODAL.PREVIEW_LABEL' | translate }}</h3>
 				<p>{{dummy_schedule.toText()}}</p>
 			</ion-label>
 
@@ -47,7 +47,7 @@
 			<ion-item>
 
 				<ion-label>
-					{{ 'SYMPTOM_CHECKS_CUSTOM.SCHEDULE_MODAL.DAILY' | transloco }}
+					{{ 'CUSTOM_SYMPTOM_CHECK_STORE.SCHEDULE_MODAL.DAILY' | translate }}
 				</ion-label>
 			
 				<ion-radio value = "daily" slot = "end"></ion-radio>
@@ -58,7 +58,7 @@
 			<ion-item>
 
 				<ion-label>
-					{{ 'SYMPTOM_CHECKS_CUSTOM.SCHEDULE_MODAL.WEEKLY' | transloco }}
+					{{ 'CUSTOM_SYMPTOM_CHECK_STORE.SCHEDULE_MODAL.WEEKLY' | translate }}
 				</ion-label>
 			
 				<ion-radio value = "weekly" slot = "end"></ion-radio>
@@ -71,7 +71,7 @@
 			<ion-item >
 
 				<ion-label>
-					{{ 'SYMPTOM_CHECKS_CUSTOM.SCHEDULE_MODAL.RESTRICT_DAYS' | transloco }}
+					{{ 'CUSTOM_SYMPTOM_CHECK_STORE.SCHEDULE_MODAL.RESTRICT_DAYS' | translate }}
 				</ion-label>
 			
 				<ion-toggle [formControl] = "restrict_to_days" slot = "end"></ion-toggle>
@@ -88,7 +88,7 @@
 				<ion-item *ngFor = "let day of ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']; index as index">
 
 					<ion-label>
-						<h3>{{'DAYS.LONG.%1' | fill: day | transloco}}</h3>
+						<h3>{{'DAYS.LONG.%1' | fill: day | translate}}</h3>
 					</ion-label>
 
 					<ion-checkbox [formControl] = "dayControls[index]"></ion-checkbox>
@@ -101,7 +101,7 @@
 
 		<ion-item>
 			<ion-label>
-				{{ 'SYMPTOM_CHECKS_CUSTOM.SCHEDULE_MODAL.MANUAL' | transloco }}
+				{{ 'CUSTOM_SYMPTOM_CHECK_STORE.SCHEDULE_MODAL.MANUAL' | translate }}
 			</ion-label>
 			<ion-toggle [formControl] = "manual" slot = "end"></ion-toggle>
 

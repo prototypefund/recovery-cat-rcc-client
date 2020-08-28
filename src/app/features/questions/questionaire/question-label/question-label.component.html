@@ -1,0 +1,19 @@
+<ng-template let-question>
+	<h3>
+		{{question | translate}}
+		<span *ngIf = "question.unit">
+			({{question.unit}})
+		</span>
+	</h3>
+	<p>			
+		{{ 'QUESTIONAIRE.QUESTION.TYPE.%1' | fill: question.type | translate }};
+		{{question.min ? 'min: '+question.min :'' }}
+		{{question.min ? 'max: '+question.max :'' }}
+
+		<span 
+			*ngFor =" let translatable of (question | options2Translatables); last as $last"			
+		>
+			{{ translatable | translate }} {{$last ? '' : ','}}
+		</span>	
+	</p>	
+</ng-template>						

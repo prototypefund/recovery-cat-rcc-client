@@ -1,0 +1,6 @@
+ion-content::part(scroll) {
+	display:				flex;
+	flex-direction:			column;
+	justify-content:		space-bewteen;
+	align-items:			center;
+}

@@ -1,0 +1,17 @@
+{	
+	"ACTIONS": 	{
+					"VIEW":				"Details"
+				},
+
+	"DETAILS":	{
+					"TITLE":			"{{SYMPTOM_CHECK}}",
+					"CREATION_DATE":	"Created at",
+					"SCHEDULE":			"Frequency",
+					"PAUSED_TRUE":		"paused",
+					"PAUSED_FALSE":		"active",
+					"STATUS":			"Status",
+					"QUESTIONS":		"Questions included"
+
+				}
+
+}

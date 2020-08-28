@@ -8,9 +8,13 @@ import	{
 			ActivatedRoute
 		}						from '@angular/router'
 
-import	{	Question		}	from '@rcc/core'
+import	{	
+			Question,
+			Entry	
+		}						from '@rcc/core'
+import	{	Journal			}	from '@rcc/features/entries'
 
-import	{	Questionaire	}	from '@rcc/features/questionaire'
+import	{	Questionaire	}	from '@rcc/features/questions'
 
 import	{
 			mergeMap,
@@ -19,14 +23,10 @@ import	{
 			map		
 		}						from 'rxjs/operators'
 
-import	{
-			from
-		}						from 'rxjs'
+import	{	from			}	from 'rxjs'
 
 import	{	Query			}	from '../query.class'
 
-
-//TODO: Reports! and Query +submit
 
 
 @Component({
@@ -41,18 +41,24 @@ export class QueryPage implements OnInit {
 	constructor(
 		private	activatedRoute		: ActivatedRoute,
 		private questionaire		: Questionaire,
-		private	cd					: ChangeDetectorRef
+		private	cd					: ChangeDetectorRef,
+		private journal				: Journal
 	){}
 
 	ngOnInit() {
 
 		this.activatedRoute.paramMap
 		.pipe(
-			map( 		(params) 					=> params.get('id') ),
-			mergeMap( 	(id			: string )		=> from(this.questionaire.get([id]) ) ), //TODO: multiple matches?		
+			map( 		(params) 					=> 	params.get('id') ),
+			mergeMap( 	(id			: string )		=> 	from(this.questionaire.get([id]) ) ), //TODO: multiple matches?		
 			mergeAll(),
 			take(1),
-			map(		(question	: Question)		=> new Query(question) )
+			map(		(question	: Question)		=> 	new Query(
+																question, 
+																(id:string, answer:string, note:string)	=> this.journal.log(id,answer,note), 
+																(entry: Entry)							=> this.journal.removeEntry(entry)
+														)
+			)
 		)
 		.subscribe({
 			next: query => 	{
@@ -62,5 +68,4 @@ export class QueryPage implements OnInit {
 		})
 
 	}
-
 }

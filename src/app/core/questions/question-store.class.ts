@@ -6,7 +6,7 @@ import	{
 
 import	{
 			QuestionConfig,
-		}								from "./question-config.interface"
+		}								from "./questions.commons"
 
 import	{
 			Question

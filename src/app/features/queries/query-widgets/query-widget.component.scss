@@ -1,0 +1,11 @@
+:host {
+	display:				flex;
+	min-height:				100%;
+	flex-direction:			column;
+	justify-content:		space-between;	
+}
+
+.spacer {
+	flex:					0 1 10rem;
+}
+

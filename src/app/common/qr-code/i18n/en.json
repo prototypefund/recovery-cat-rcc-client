@@ -1,3 +1,4 @@
 {
-	"SCAN" : "Scan"
+	"SCAN": 			"Scan QR code",
+	"DESCRIPTION":		"Scan for new symptom checks or data requests."
 }

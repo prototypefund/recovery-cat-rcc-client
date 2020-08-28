@@ -3,16 +3,16 @@ import 	{
 			Type,
 			ModuleWithProviders 			
 
-		}								from '@angular/core'
+		}									from '@angular/core'
 
 import	{	
 			TRANSMISSION_SERVICE,	
-			RccTransmissionService
-		}								from './transmission.common'
+			AbstractTransmissionService
+		}									from './transmission.common'
 
 import	{	
-			RccTransmissions	
-		}								from './transmission.service'
+			RccTransmissionService	
+		}									from './transmission.service'
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import	{
 })
 export class TransmissionModule { 
 
-	static forRoot(transmissionServiceClass: Type<RccTransmissionService>): ModuleWithProviders<TransmissionModule>{
+	static forChild( transmissionServiceClass: Type<AbstractTransmissionService> ): ModuleWithProviders<TransmissionModule>{
 		return 	{
 					ngModule: TransmissionModule,
 					providers: 	[

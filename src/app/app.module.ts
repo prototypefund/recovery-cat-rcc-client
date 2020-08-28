@@ -20,17 +20,22 @@ import	{
 
 import	{	
 			LocalStorageModule,
-			CustomQuestionsModule,
+			CustomQuestionStoreModule,
 			FallbackQueryWidgetsModule,
 			BasicQueryWidgetsModule,
 			QueriesModule,
 			CustomSymptomCheckStoreModule,
+
 			SymptomCheckViewModule,
 			SymptomCheckShareModule,
+			ImportSymptomCheckStoreModule,
+
 			QrCodeScannerModule,
 			ReportImportStoreModule,
 			WebsocketTransmissionModule,
-			DueQuestionsModule
+			DueQuestionsModule,
+			ChartsModule,
+			DemoScanModule
 		}									from '@rcc/features'
 
 import	{
@@ -42,6 +47,7 @@ import	{
 
 			StaticQuestionStoreModule,
 			StaticSymptomCheckStoreModule,
+			StaticEntryStoreModule
 		}									from '@rcc/mock'
 
 
@@ -63,18 +69,24 @@ import	{
 							// All following modules should be removable without causing any errors
 							HomePageModule,
 							LocalStorageModule,
-							StaticQuestionStoreModule,
 							BasicQueryWidgetsModule,
-							CustomQuestionsModule,
+							CustomQuestionStoreModule,
 							FallbackQueryWidgetsModule,
-							StaticSymptomCheckStoreModule,
 							CustomSymptomCheckStoreModule,
+							ImportSymptomCheckStoreModule,
 							SymptomCheckViewModule,
 							SymptomCheckShareModule,
 							QrCodeScannerModule,
-							ReportImportStoreModule,
-							WebsocketTransmissionModule.forRoot("wss://signal.recoverycat.de"),
+							//ReportImportStoreModule,
 							DueQuestionsModule,
+							ChartsModule,
+							WebsocketTransmissionModule.forRoot("wss://signal.recoverycat.de"),
+
+							DemoScanModule,
+
+							StaticQuestionStoreModule,
+							StaticEntryStoreModule,
+							StaticSymptomCheckStoreModule,
 							///
 							AppRoutingModule,
 						],

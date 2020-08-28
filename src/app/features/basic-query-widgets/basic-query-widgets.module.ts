@@ -1,11 +1,15 @@
 import	{	NgModule 					}	from '@angular/core'
 import	{	SharedModule 				}	from '@rcc/common'
-import	{	QuestionaireModule			}	from '@rcc/features/questionaire'
 import	{	QueriesModule				}	from '@rcc/features/queries'
+import	{	QuestionaireModule			}	from '@rcc/features/questions'
 import	{	ScaleQueryWidgetComponent	}	from './scale/scale.component'
+import	{	SelectQueryWidgetComponent	}	from './select/select.component'
+import	{	BooleanQueryWidgetComponent	}	from './boolean/boolean.component'
 
 const widgets 	=	[
-						ScaleQueryWidgetComponent
+						ScaleQueryWidgetComponent,
+						SelectQueryWidgetComponent,
+						BooleanQueryWidgetComponent
 					]
 
 @NgModule({

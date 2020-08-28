@@ -1,5 +1,8 @@
 import	{	InjectionToken		}		from '@angular/core'
 
+export interface WithValue {
+	value:			any
+}
 
 export interface WithMeaning {
 	meaning:		string
@@ -9,7 +12,7 @@ export interface WithTranslations {
 	translations:	string[]
 }
 
-export type Translatable = WithMeaning | WithTranslations
+export type Translatable = WithMeaning | WithTranslations | WithValue | Date | boolean | string
 
 export interface ScopedTranslationTable {
 	scope: 			string

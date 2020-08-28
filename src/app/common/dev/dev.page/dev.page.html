@@ -1,11 +1,9 @@
 <ion-header [translucent]="true">
 	<ion-toolbar>
-		 <ion-buttons slot="start">
-			<ion-menu-button>
-			</ion-menu-button>
-		</ion-buttons>
+		<rcc-common-header slot = "start">
+		</rcc-common-header>
 		<ion-title>
-			{{ 'DEV.PAGE' | transloco }}	
+			{{ 'DEV.PAGE' | translate }}	
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
@@ -15,7 +13,7 @@
 	<ion-list>
 
 		<ion-list-header>
-			<ion-label>{{ 'DEV.WARNINGS' | transloco }}</ion-label>
+			<ion-label>{{ 'DEV.WARNINGS' | translate }}</ion-label>
 		</ion-list-header>
 
 		<ion-item *ngFor = "let warning of warnings">

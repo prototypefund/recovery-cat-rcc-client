@@ -1,7 +1,7 @@
 import	{
 			Component,
 			Input,
-			OnDestroy
+			HostListener
 		}							from '@angular/core'
 
 import	{
@@ -17,19 +17,26 @@ import	{
 	templateUrl: 	'./scale.component.html',
 	styleUrls: 		['./scale.component.scss'],
 })
-export class ScaleQueryWidgetComponent  implements OnDestroy {
+export class ScaleQueryWidgetComponent {
 	
 	static widgetMatch(question: Question): number{
 
-		console.log(question)
-
-		return 	question.tags.includes('scale')
-				?	1
+		return 	question.tags && question.tags.includes('scale')
+				?	2
 				:	-1
 	}
 
 
-	public subscription: any
+
+	//prevent other slide effects when handling the scale
+	@HostListener('mousedown', ['$event'])
+	@HostListener('touchstart', ['$event'])
+	@HostListener('pointerdown', ['$event'])
+	onTouch(event: any){
+		event.stopPropagation()
+	}
+
+
 
 	public min: 		number
 	public max: 		number
@@ -42,23 +49,19 @@ export class ScaleQueryWidgetComponent  implements OnDestroy {
 		public 	query		: Query,
 	){
 
-		this.query 			= query
-		this.subscription 	= query.formControl.valueChanges.subscribe({
-			next : value => {
-			}
-		})
+		this.query 			= query		
 
+		const originalOptions = this.query.question.options || []
 
-		//TODO: meaning -> wording
-
-		this.min = this.query.question.min || Math.min(...this.query.question.options.map( option => option.value as number ) )
-		this.max = this.query.question.max || Math.max(...this.query.question.options.map( option => option.value as number ) )
+		
+		this.min = this.query.question.min || Math.min(...originalOptions.map( option => option.value as number ) )
+		this.max = this.query.question.max || Math.max(...originalOptions.map( option => option.value as number ) )
 		
 		this.options = new Array(this.max-this.min+1)
 		this.options.fill(0)
 		this.options = this.options.map( 
 			(x:any, index:number) => 
-				this.query.question.options.find( option => option.value == this.min+index ) 
+				originalOptions.find( option => option.value == this.min+index ) 
 				|| 
 				{ value : this.min + index, meaning: ''}
 		)
@@ -66,7 +69,6 @@ export class ScaleQueryWidgetComponent  implements OnDestroy {
 		this.length 		= 	this.max-this.min+1
 		this.label_count 	=	this.options.filter(this.hasLabel).length 
 
-		console.log(this.options)
 
 	}
 
@@ -85,11 +87,7 @@ export class ScaleQueryWidgetComponent  implements OnDestroy {
 		let left 	= index/(this.length-1) - width/2
 		let right 	= index/(this.length-1) + width/2
 
-		if(!this.hasLabel(option))
-
-		console.log(index, 0)
 		if(index == 0){
-			console.log('index is 0')
 			left 	= 0
 			right 	= width 
 		}
@@ -99,8 +97,6 @@ export class ScaleQueryWidgetComponent  implements OnDestroy {
 			right	= 0
 		}
 
-		console.log(index, left, this.length-1)
-
 		return 	{
 					left:			left*100+'%',
 					right:			right*100+'%',
@@ -108,8 +104,5 @@ export class ScaleQueryWidgetComponent  implements OnDestroy {
 				}
 	}
 
-	ngOnDestroy(){
-		this.subscription.unsubscribe()
-	}
 
 }

@@ -1,4 +1,4 @@
-import 	{ 	Injectable 			} 		from '@angular/core'
+import 	{ 	Injectable 				} 	from '@angular/core'
 
 import	{	
 			ItemStore,
@@ -10,13 +10,13 @@ import	{
 		}								from '@rcc/core/utils'
 
 import	{	
+			DueData,
 			SymptomCheck
 		}								from './symptom-check.class'
 
 import	{	
-			SymptomCheckConfig,		
+			SymptomCheckConfig	
 		}								from './symptom-checks.commons'
-
 
 
 function identifyItemBy(item:SymptomCheck){
@@ -26,6 +26,8 @@ function identifyItemBy(item:SymptomCheck){
 	return item.id = adHocId()
 	
 }
+
+
 
 export class SymptomCheckStore extends ItemStore<SymptomCheckConfig, SymptomCheck>{
 
@@ -38,5 +40,31 @@ export class SymptomCheckStore extends ItemStore<SymptomCheckConfig, SymptomChec
 			storage,
 		})
 	}
+
+
+	public async getDue(date_1	: Date, 	date_2		: Date, 			include_paused? : boolean											): Promise<DueData[]> 
+	public async getDue(date		: Date, 	plus_minus	: number,			include_paused? : boolean										): Promise<DueData[]>
+	public async getDue(date		: Date, 	minus		: number,			plus			: number, 			include_paused? : boolean	): Promise<DueData[]>
+	public async getDue(date		: Date, 	x			: any, 				y?				: any, 				z? 				: boolean	): Promise<DueData[]>
+	{
+		
+		await this.ready
+
+		let include_paused: boolean 	
+
+		if(typeof z == 'boolean') include_paused = z
+		if(typeof y == 'boolean') include_paused = y
+
+
+		return 	this.items
+				.filter(	symptomCheck => include_paused || !symptomCheck.meta.paused)
+				.map( 		symptomCheck => ({
+												symptomChecks: 	[symptomCheck],
+												questionIds: 	symptomCheck.getDueQuestionIds(date, x, typeof y == 'number' ? y : undefined) 
+											})
+				)
+
+	}
+
 
 }

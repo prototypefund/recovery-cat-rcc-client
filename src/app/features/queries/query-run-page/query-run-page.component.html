@@ -1,0 +1,100 @@
+<ion-content>
+
+	<ion-list *ngIf = "invalid">
+		<ion-item >
+			<ion-label>
+				<h3>{{ 'QUERIES.QUERYRUN.INVALID'| translate }}</h3>
+				<p>{{ 'QUERIES.QUERYRUN.CLICK_TO_GO_BACK'| translate}}</p>
+			</ion-label>
+
+			<ion-buttons slot="start">
+				<ion-back-button defaultHref = ".."></ion-back-button>
+			</ion-buttons>
+
+		</ion-item>
+	</ion-list>
+
+
+	<div class =" ion-horizontal-padding">
+		<rcc-pagination
+			[pageHandlers] 	= "pageHandlers"
+			[activePage]	= "activePage"
+			class			= "ion-padding"
+		>
+		</rcc-pagination>
+	</div>
+
+
+
+
+
+	<ion-slides 
+		[pager]					= "false" 
+		[options]				= "slideOpts"
+		(ionSlideDidChange)		= "afterSlidesDidChange()"
+		(ionSlidesDidLoad)		= "afterSlidesDidChange()"
+	>
+
+	
+		<ion-slide 
+			*ngFor  = "let query of queries trackBy: trackSlides"			
+			class	= "ion-padding"
+		>
+			<rcc-query-widget 
+				*ngIf 	= "query" 
+				[query] = "query">
+			</rcc-query-widget>			 
+
+		</ion-slide>
+
+
+	</ion-slides>
+
+
+
+
+
+
+	<div class = "fab-footer">
+		<div>
+			<ion-fab-button
+				color		= "medium"
+				routerLink	= "/"
+				size		= "small"
+			>
+				<ion-icon  [name] = "'close' | rccIcon"></ion-icon>
+			</ion-fab-button>	
+
+			<ion-fab-button
+				color		= "medium"
+				(click)		= "slides.slidePrev()"
+				[disabled] 	= "atStart"
+				size		= "small"
+			>
+				<ion-icon  [name] = "'previous' | rccIcon"></ion-icon>
+			</ion-fab-button>			
+
+			<ion-fab-button
+				color		= "medium"				
+				(click)		= "slides.slideNext()"
+				[disabled] 	= "atEnd"
+				size		= "small"
+			>
+				<ion-icon [name] = "'next' | rccIcon"></ion-icon>
+			</ion-fab-button>			
+		</div>
+
+		<div>
+			<ion-fab-button
+				color		= "primary"
+				(click)		= "checkOff(activeQuery)"
+				[disabled]	= "!activeQuery?.complete"
+			>
+				<ion-icon name = "checkmark"></ion-icon>
+			</ion-fab-button>			
+		</div>
+	</div>
+
+
+
+</ion-content>

@@ -1,9 +1,0 @@
-{
-	"MENU_ENTRY"	: 	"Questionaire",
-	"QUESTION"		: 	{
-							"TYPE": {
-										"INTEGER":	"Integer",
-										"DECIMAL":	"Decimal"
-									}
-						}
-}

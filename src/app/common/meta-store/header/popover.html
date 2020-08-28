@@ -1,0 +1,19 @@
+<ion-list (click) = "popoverController.dismiss()">
+	<ion-item
+		*ngFor		= "let action of actions"		
+		[button]	= "true"
+		(click)		= "action.handler()"
+	>
+
+		<ion-icon 
+			[name] 	= "action.icon | rccIcon"
+			slot	= "start"
+		>
+		</ion-icon>
+
+		<ion-label>
+			{{ action.label | translate}}
+		</ion-label>
+
+	</ion-item>
+</ion-list>

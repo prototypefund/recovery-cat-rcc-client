@@ -1,19 +1,23 @@
 
 
-import	{	
-			Item
-		}							from '@rcc/core/items'
+import	{	Item				}	from '@rcc/core/items'
 
 import	{	Schedule			}	from '@rcc/core/schedules'
 
+import	{	Subject				}	from 'rxjs'
+
 import	{
-			SymptomCheckConfig
+			SymptomCheckConfig,
+			isSymptomCheckConfig
 		}							from './symptom-checks.commons'
 
 
 //TODO Dates, timestamps and RRULE timezones
 
-
+export interface DueData {
+	symptomChecks:		SymptomCheck[]
+	questionIds:		string[]
+}
 
 
 export class SymptomCheck extends Item<SymptomCheckConfig> {
@@ -32,6 +36,14 @@ export class SymptomCheck extends Item<SymptomCheckConfig> {
 									id: 		string, 
 									schedule: 	Schedule 
 								}[]
+
+	public changes			= new Subject<any>()
+	public change$			= this.changes.asObservable()
+
+
+	static acceptsAsConfig(x:any): boolean {
+		return isSymptomCheckConfig(x)
+	}
 
 
 	set config(config: SymptomCheckConfig){
@@ -55,6 +67,7 @@ export class SymptomCheck extends Item<SymptomCheckConfig> {
 
 
 	}
+
 
 	get config(){ 
 
@@ -83,13 +96,32 @@ export class SymptomCheck extends Item<SymptomCheckConfig> {
 		return 	{ meta, questions }
 	}
 
-	getDue(date_1:Date, date_2:Date): string[]{
-		return 	this.questions
-				.map( 		(item: any) => item.schedule.dueBetween(date_1, date_2, true).length > 0 && item.id )
-				.filter( 	(item: any) => typeof item == 'string')
+	public togglePause(){
+		this.meta.paused = !this.meta.paused
+		this.changes.next('meta.paused')
 	}
 
-	addQuestion(id: string, schedule: Schedule){
+	public coversQuestionIds(ids: string[]) {
+		return !!this.questions.find( item => ids.find( id => item.id == id) )
+	}
+
+
+	public getDueQuestionIds(date		: 	Date, plus_minus	: number							): string[]
+	public getDueQuestionIds(date		: 	Date, minus			: number,		plus	: number	): string[]
+	public getDueQuestionIds(date_1		:	Date, date_2		: Date								): string[] 
+	public getDueQuestionIds(date		:	Date, x				: any, 			y?		: number	): string[] 
+	{
+
+		return 	Array.from( new Set(
+					this.questions
+					.filter(	(item) 			=> item.schedule.dueBetween(date, x, y).length > 0)
+					.map(		(item) 			=> item.id)
+				))
+
+
+	}
+
+	public addQuestion(id: string, schedule: Schedule){
 		this.questions.push({id: id, schedule: schedule || this.meta.defaultSchedule})
 	}
 

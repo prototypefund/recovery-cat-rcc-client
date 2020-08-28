@@ -24,3 +24,17 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+//ad hoc:
+h1, h2 {
+	font-weight:	400;
+}
+
+
+
+//TODO
+g.line-chart > g:last-of-type > g:nth-child(n) g.line-series > path {
+	stroke-width: 		3;
+	stroke:				var(--ion-color-primary);	
+}

@@ -4,7 +4,8 @@ import	{
 			EntryStore,
 			Entry,
 			EntryConfig,
-			ReportConfig			
+			ReportConfig,
+			Schedule			
 		}							from '@rcc/core'
 
 import	{	RccStorage			}	from '@rcc/common'
@@ -13,16 +14,23 @@ import	{	RccStorage			}	from '@rcc/common'
 @Injectable()
 export class Journal extends EntryStore {
 
+	public name = "JOURNAL.NAME"
+
 	constructor(
 		rccStorage: RccStorage
 	) { 
 		super(rccStorage.createItemStorage('rcc-journal'))
+
+		console.log(Schedule)
 	}
 
-	async log(id : string, value : string|number, timestamp? : number, note? : string ): Promise<Entry> {
-		timestamp = timestamp || Date.now()
+	async log(id : string, value : string|number, note? : string, date? : string ): Promise<Entry> {
+		
+		await this.ready 
 
-		const entry = this.addConfig([id, value, timestamp, note])
+		date = Schedule.localToString(Date.now())
+
+		const entry = this.addConfig([id, value, date, note])
 
 		return 	this.storeAll()
 				.then( () => entry )
@@ -30,12 +38,28 @@ export class Journal extends EntryStore {
 	}
 
 	async removeEntry(entry: Entry){
+		await this.ready
 
+		this.removeItem(entry)
+
+		await this.storeAll()
+
+		return entry
 	}
 
-	public exportReportConfig(): ReportConfig {
+	public async getMostRecentEntry( questionId: string ): Promise<Entry | null> {
+
+		await this.ready
+		return 	this.items
+				.filter( entry 		=> entry.questionId == questionId )
+				.sort( 	(e1, e2)	=> (e1.date.getTime() > e2.date.getTime()) ? 1 : -1 )
+				[0] || null
+	}
+
+/*	public async exportReportConfig(): Promise<ReportConfig> {
+		await this.ready
 		return this.items.map( (entry: Entry) => entry.config )
-	}
+	}*/
 }
 
 // private reports:Report[] = []

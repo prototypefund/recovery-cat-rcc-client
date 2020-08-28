@@ -28,8 +28,8 @@ const routes 		=	[
 
 const	actions	=	[
 						{ 	
-								label: 			'SYMPTOM_CHECK_SHARING.SHARE', 
-								icon: 			'share',
+								label: 			'SYMPTOM_CHECK_SHARE.ACTIONS.SHARE', 
+								icon: 			'qr-code',
 								path:			'/symptom-checks/:id/share',
 						},
 					]

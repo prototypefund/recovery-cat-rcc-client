@@ -3,21 +3,22 @@ import 	{
 			ModuleWithProviders, 
 			Type,
 			Inject,
-			Optional
+			Optional,
+			Component
 		} 								from '@angular/core'
 
-import 	{	CommonModule 			}	from '@angular/common'
 import	{	RouterModule			}	from '@angular/router'
 
 
 import	{	SharedModule			}	from '@rcc/common'
 
-import	{	QuestionaireModule		}	from '@rcc/features/questionaire'
+import	{	QuestionaireModule		}	from '@rcc/features/questions'
 import	{	JournalModule			}	from '@rcc/features/entries'
 
 import	{	QueryPage				}	from './query.page/query.page'
-import	{	Pagination				}	from './query-run/pagination/pagination.component'
-import	{	QueryRunComponent		}	from './query-run/query-run.component'
+import	{	Pagination				}	from './query-run-page/pagination/pagination.component'
+import	{	QueryRunPage			}	from './query-run-page/query-run-page.component'
+import	{	QueryRunService			}	from './query-run.service'
 import	{	
 			QUERY_WIDGETS,
 			QueryWidget,
@@ -33,6 +34,10 @@ const routes 		=	[
 								path: 		'query/:id',	
 								component: 	QueryPage 
 							},
+							{
+								path:		'query-run',
+								component:	QueryRunPage
+							}
 						]
 
 const actions		=	[
@@ -44,14 +49,13 @@ const actions		=	[
 						]
 
 
-
 @NgModule({
 
 	imports: [
 		SharedModule,
 		RouterModule.forChild(routes),
 		QuestionaireModule.forChild(null, actions),
-		JournalModule
+		JournalModule,
 	],
 
 	declarations: [
@@ -59,16 +63,17 @@ const actions		=	[
 		InjectQueryPipe,
 		QueryPage,
 		QueryWidgetComponent,
-		QueryRunComponent,
-		Pagination
+		QueryRunPage,
+		Pagination,
 	],
 
 	providers: [
+		QueryRunService, 
 		QueryWidgetsService,
 	],
 
 	exports:[
-		QueryRunComponent,
+		QueryRunPage,
 		Pagination
 	]
 

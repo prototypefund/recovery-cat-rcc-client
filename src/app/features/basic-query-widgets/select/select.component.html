@@ -1,0 +1,22 @@
+ <div 
+ 	*ngIf 	= "query && query.question" 
+ 	class	= "ion-padding"
+ >
+
+ 	<ion-list>
+ 		<ion-radio-group [formControl] = "query.answerControl">
+			<ion-item 
+				*ngFor = "let option of query.question.options; last as $last"	
+				[lines] = "$last ? 'none' : 'full'"
+			>
+				<ion-radio 
+					slot	= "end" 
+					[value]	= "option.value">						
+				</ion-radio>
+				<ion-label>{{option | translate}}</ion-label>
+			</ion-item>
+ 		</ion-radio-group>
+ 	</ion-list>
+
+</div>
+

@@ -1,51 +1,66 @@
 import	{	
 			Injectable,
 			Inject,
-			Optional
+			Optional,
+			OnDestroy,
+			Type
 		}								from '@angular/core'
+
+import	{	SubscriptionLike		}	from 'rxjs'
 
 import	{	
 			RccTransmission,
-			RccTransmissionService,	
+			AbstractTransmissionService,	
 			TRANSMISSION_SERVICE
 		}								from './transmission.common'
 
+import	{	IncomingData			}	from '@rcc/common/incoming-data'
 
-// export class EncryptedTransmission implements RccTransmission {
-
-
-// 	public key: string
-
-// 	constructor(){
-
-// 	}
-
-// 	public async send(data:any) : Promise<any> {
-		
-		
-		
-// 	}
-
-
-
-// }
 
 @Injectable()
-export class RccTransmissions {
+export class RccTransmissionService extends AbstractTransmissionService implements OnDestroy {
+
+	protected subscriptions : SubscriptionLike [] = []
 
 	constructor(
 		@Optional() @Inject(TRANSMISSION_SERVICE)
-		public transmissionServices: RccTransmissionService[]
-	){}
-
-	public open(){
-		const ts = this.transmissionServices.pop() //TODO: choose from settings
-
-		return 
+		public 	transmissionServices	: RccTransmissionService[],
+		private	incomingData			: IncomingData
+	){
+		super()
+		this.listenToIncomingData()
 	}
 
-	public read(){
 
+	protected listenToIncomingData(){
+
+		this.subscriptions.push(
+			this.incomingData
+			.subscribe( this.receive.bind(this) )			
+		)
+
+		this.transmissionServices
+	}
+
+	public async setup(): Promise<RccTransmission> {
+
+		const ts = this.transmissionServices.pop() //TODO: choose from settings
+
+		return ts.setup()
+	}
+
+	public async receive(meta:any): Promise<any> {
+		//TODO: maybe multiple transmission services can claim the config?
+		//use settings to turn off transmission services
+
+		return 	this.transmissionServices
+				.find( transmissionService => transmissionService.claimsAsConfig(meta) )
+				.receive(meta)
+				.then( result => { this.incomingData.next(result); return result })
+	}
+
+	ngOnDestroy(){
+		this.subscriptions.forEach( sub => sub.unsubscribe() )
 	}
 
 }

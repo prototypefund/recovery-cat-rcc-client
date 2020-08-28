@@ -1,0 +1,12 @@
+{
+	"MENU_ENTRY"	: 	"Questionaire",
+	"NAME"			:	"Questionaire",
+	"QUESTION"		: 	{
+							"TYPE": {
+										"INTEGER":	"Integer",
+										"DECIMAL":	"Decimal",
+										"STRING":	"Text",
+										"BOOLEAN":	"Yes-No"
+									}
+						}
+}

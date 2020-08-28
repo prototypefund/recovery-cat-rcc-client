@@ -5,7 +5,7 @@
 		</ion-buttons>
 
 		<ion-title>
-			{{ 'SYMPTOM_CHECKS_CUSTOM.EDIT.HEADER_%1' | fill: 'new' | translate }}
+			{{ 'CUSTOM_SYMPTOM_CHECK_STORE.EDIT.HEADER_%1' | fill: 'new' | translate }}
 		</ion-title>
 
 		<ion-buttons slot="end">
@@ -15,7 +15,7 @@
 				fill	= "solid"
 				(click) = "save()"
 			>
-				{{'SYMPTOM_CHECKS_CUSTOM.EDIT.SAVE' | translate }}
+				{{'CUSTOM_SYMPTOM_CHECK_STORE.EDIT.SAVE' | translate }}
 			</ion-button>
 
 		</ion-buttons>
@@ -30,7 +30,7 @@
 		<ion-item>
 
 			<ion-label position = "stacked">
-				{{'SYMPTOM_CHECKS_CUSTOM.EDIT.SOURCE'  | translate}}
+				{{'CUSTOM_SYMPTOM_CHECK_STORE.EDIT.SOURCE'  | translate}}
 			</ion-label>
 
 			<ion-input [formControl] = "source"></ion-input>
@@ -42,7 +42,7 @@
 			(click)		= "editSchedule(this.defaultSchedule)"
 		>
 			<ion-label> 
-				<h3>{{'SYMPTOM_CHECKS_CUSTOM.EDIT.SCHEDULE'|translate}} </h3>
+				<h3>{{'CUSTOM_SYMPTOM_CHECK_STORE.EDIT.SCHEDULE'|translate}} </h3>
 				<p>{{this.defaultSchedule.toText()}}</p>
 			</ion-label>
 			
@@ -54,7 +54,7 @@
 
 		<ion-list-header>
 			<ion-label>
-				{{'SYMPTOM_CHECKS_CUSTOM.EDIT.QUESTIONS' | translate}}
+				{{'CUSTOM_SYMPTOM_CHECK_STORE.EDIT.QUESTIONS' | translate}}
 			</ion-label>
 
 		</ion-list-header>
@@ -65,7 +65,7 @@
 		>
 
 			<ion-label>
-				{{'SYMPTOM_CHECKS_CUSTOM.EDIT.SELECT_QUESTIONS' | translate}}
+				{{'CUSTOM_SYMPTOM_CHECK_STORE.EDIT.SELECT_QUESTIONS' | translate}}
 			</ion-label>
 
 			<ion-icon [name] = " 'select-items' | rccIcon" slot = "end" ></ion-icon>

@@ -1,4 +1,7 @@
-import 	{	Component } 			from '@angular/core'
+import 	{	Component 			}	from '@angular/core'
+import	{	MenuController		}	from '@ionic/angular'
+import	{	NotificationService }	from '@rcc/common/notifications'
+import	{	QrCodeService		}	from '@rcc/common/qr-code'
 
 
 @Component({
@@ -8,6 +11,14 @@ import 	{	Component } 			from '@angular/core'
 })
 export class HomePage {
 
-	constructor() {}
+	constructor(
+		public menuController		: MenuController,
+		public notificationService	: NotificationService,
+		public qrCodeService		: QrCodeService
+	) {}
 
+
+	public toggleMenu(){
+		this.menuController.toggle()
+	}
 }

@@ -13,7 +13,9 @@ import	{
 			MainMenuModule, 		
 			BaseMetaStoreModule,
 			MetaStoreModule,
+			TranslationsModule,
 			ItemAction,
+			MetaAction
 		}									from '@rcc/common'
 
 import	{	
@@ -22,20 +24,22 @@ import	{
 			EntryStore,
 		}									from '@rcc/core'
 
-import	{	QuestionaireModule			}	from '@rcc/features/questionaire'
+import	{	QuestionaireModule			}	from '@rcc/features/questions'
 
 import	{	EntryMetaStore				}	from './entry-meta-store.service'
 
 import	{	
 			ENTRY_STORES,
-			ENTRY_ACTIONS			
+			ENTRY_ACTIONS,
+			ENTRY_META_ACTIONS			
 		}									from './entry-meta-store.commons'
 
 import	{	EntryMetaStorePage 			}	from './overview-page/overview-page.component'
 import	{	EntryLabelComponent			}	from './item-label/item-label.component'
 
 
-
+import en from './i18n/en.json'
+import de from './i18n/de.json'
 
 const routes 			=	[
 								{ path: 'entries',	component: EntryMetaStorePage	},
@@ -50,7 +54,12 @@ const metaStoreConfig 	=	{
 
 
 @Component({
-	template:	'<ion-item routerLink = "entries"><ion-label>{{ "ENTRYS.MENU_ENTRY" | transloco }}</ion-label></ion-item>'
+	template:	`
+					<ion-item routerLink = "entries">
+						<ion-label>{{ "ENTRIES_META_STORE.MENU_ENTRY" | translate }}</ion-label>
+						<ion-icon [name] ="'entry' | rccIcon" slot = "end"></ion-icon>
+					</ion-item>
+				`
 })
 export class MenuEntryEntryMetaStore {}
 
@@ -67,6 +76,7 @@ export class MenuEntryEntryMetaStore {}
 		RouterModule.forChild(routes),
 		MainMenuModule.forChild([MenuEntryEntryMetaStore]),
 		MetaStoreModule.forChild(metaStoreConfig),
+		TranslationsModule.forChild("ENTRIES_META_STORE", {en, de}),
 		QuestionaireModule
 	],
 
@@ -82,11 +92,12 @@ export class MenuEntryEntryMetaStore {}
 export class EntryMetaStoreModule extends BaseMetaStoreModule {
 
 	static 	forChild(
-				stores		: Type<EntryStore>[]		= [],
-				actions		: ItemAction<Entry>[]		= []
+				stores?			: Type<EntryStore>[],
+				itemActions?	: ItemAction<Entry>[],
+				metaActions?	: MetaAction<Entry>[]
 			): ModuleWithProviders<EntryMetaStoreModule> {
 
-		const mwp = BaseMetaStoreModule.getModuleWithProviders(this, stores, actions, ENTRY_STORES, ENTRY_ACTIONS)
+		const mwp = BaseMetaStoreModule.getModuleWithProviders(this, stores, itemActions, metaActions, ENTRY_STORES, ENTRY_ACTIONS, ENTRY_META_ACTIONS)
 		return mwp
 	}
 

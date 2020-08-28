@@ -1,0 +1,24 @@
+<ion-header>
+	<ion-buttons>
+		<rcc-common-header>
+		</rcc-common-header>
+	</ion-buttons>
+</ion-header>
+
+<ion-content 
+	[fullscreen] 	= "true"	
+	class			= "ion-padding"
+>
+
+	<h1>{{question | translate}}</h1>
+
+
+	<rcc-chart-widget
+		[question] 	= "question"
+		[report]	= "report"
+	>
+	</rcc-chart-widget>
+
+	<div class ="spacer"></div>
+
+</ion-content>
