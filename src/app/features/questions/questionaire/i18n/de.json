@@ -1,3 +1,12 @@
 {
-	"MENU_ENTRY"	: "Fragenkatalog"
+    "MENU_ENTRY": "Fragenkatalog",
+    "NAME": null,
+    "QUESTION": {
+        "TYPE": {
+            "INTEGER": null,
+            "DECIMAL": null,
+            "STRING": null,
+            "BOOLEAN": null
+        }
+    }
 }

@@ -1,3 +1,7 @@
 {
-	
+    "ACTIONS": {
+        "CANCEL": null,
+        "FILTER_ITEMS": null
+    },
+    "NO_ITEMS": null
 }

@@ -1,3 +1,14 @@
 {
-	
+    "ACTIONS": {
+        "VIEW": null
+    },
+    "DETAILS": {
+        "TITLE": null,
+        "CREATION_DATE": null,
+        "SCHEDULE": null,
+        "PAUSED_TRUE": null,
+        "PAUSED_FALSE": null,
+        "STATUS": null,
+        "QUESTIONS": null
+    }
 }

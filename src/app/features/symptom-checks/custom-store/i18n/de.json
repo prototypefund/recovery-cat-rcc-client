@@ -1,3 +1,30 @@
 {
-	"EDIT": "bearbeiten"
+    "MENU_ENTRY": null,
+    "NAME": null,
+    "ACTIONS": {
+        "CREATE": null,
+        "CREATE_NEW_FROM": null,
+        "EDIT": null,
+        "DELETE": null,
+        "DELETE_SUCCESS": null
+    },
+    "SCHEDULE_MODAL": {
+        "HEADER": null,
+        "PREVIEW_LABEL": null,
+        "RESTRICT_DAYS": null,
+        "DAILY": null,
+        "WEEKLY": null,
+        "MANUAL": null
+    },
+    "EDIT": {
+        "HEADER_NEW": null,
+        "HEADER_UPDATE": null,
+        "SAVE": null,
+        "SAVE_SUCCESS": null,
+        "SAVE_FAILURE": null,
+        "SOURCE": null,
+        "SCHEDULE": null,
+        "QUESTIONS": null,
+        "SELECT_QUESTIONS": null
+    }
 }

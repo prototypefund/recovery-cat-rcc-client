@@ -123,7 +123,7 @@ function spreadTranslations(translations, src){
 	.forEach( ({scope, map }) => {		
 
 		Object.keys(translations).forEach( lang => {			
-			console.log(map[lang])
+			fs.writeFileSync(map[lang], JSON.stringify(translations[lang][scope], null, 4), 'utf-8')
 		})
 	})
 }
@@ -139,7 +139,7 @@ function mergeKeys(objects){
 
 	var 	skeleton 	= 	{}
 	const	keys		= 	Array.from(new Set(
-								objects.map( o => typeof o == 'string' ? null : Object.keys(o) )
+								objects.map( o => typeof o == 'object' ? (o && Object.keys(o)) : null )
 								.flat().filter( x => !!x ) 
 							) )
 
@@ -155,6 +155,8 @@ function mergeKeys(objects){
 
 function fillKeys(obj, skeleton){
 
+	obj = obj || {}
+
 	if(!skeleton) return null
 
 	const 	keys 	= Object.keys(skeleton)
@@ -162,7 +164,7 @@ function fillKeys(obj, skeleton){
 
 
 	keys.forEach( key => {
-		result[key] = 	(typeof obj[key] == 'object' && obj[key])
+		result[key] = 	(typeof skeleton[key] == 'object' && skeleton[key])
 						?	fillKeys(obj[key], skeleton[key])
 						:	obj[key] || null
 	})
@@ -187,6 +189,7 @@ function importTranslations(path){
 
 
 var translations = {}
+
 
 
 if(import_translations){

@@ -1,8 +1,7 @@
 {
-	"ACTIONS":		{
-						"CANCEL": 			"{{CANCEL}}",
-						"FILTER_ITEMS":		"Toggle filter "
-					},
-
-	"NO_ITEMS":		"No items"
+    "ACTIONS": {
+        "CANCEL": "{{CANCEL}}",
+        "FILTER_ITEMS": "Toggle filter "
+    },
+    "NO_ITEMS": "No items"
 }

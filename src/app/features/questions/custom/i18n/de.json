@@ -1,3 +1,50 @@
 {
-	
+    "MENU_ENTRY": null,
+    "NAME": null,
+    "ACTIONS": {
+        "CREATE": null
+    },
+    "EDIT": {
+        "HEADER_NEW": null,
+        "SAVE": null,
+        "SAVE_SUCCESS": null,
+        "SAVE_FAILURE": null,
+        "TEXT": null,
+        "QUESTION_TYPE": null,
+        "QUESTION_TYPES": {
+            "YES_NO": null,
+            "SELECT": null,
+            "SCALE_DISCRETE": null,
+            "SCALE_CONTINUOUS": null,
+            "INPUT": null
+        },
+        "ANSWER_TYPE": null,
+        "ANSWER_TYPES": {
+            "STRING": null,
+            "INTEGER": null,
+            "DECIMAL": null
+        },
+        "UNIT": null,
+        "ADD_OPTION": null,
+        "OPTIONS": {
+            "VALUE": null,
+            "LABEL": null
+        },
+        "MIN": null,
+        "MAX": null,
+        "USE_STEPS": null,
+        "SIZE": null,
+        "VALIDATION": {
+            "QUESTION_EMPTY": null,
+            "QUESTION_TYPE_UNKNOWN": null,
+            "MIN_NAN": null,
+            "MAX_NAN": null,
+            "STEP_NAN": null,
+            "STEP_LTE_ZERO": null,
+            "OPT_COUNT": null,
+            "OPT_VALUE_MISSING": null,
+            "OPT_VALUE_NAN": null,
+            "OPT_LABEL_MISSING": null
+        }
+    }
 }

@@ -1,12 +1,11 @@
 {
-	"NAME":			"Imported symptom checks",
-	"ACTIONS":		{
-						"DELETE":		"{{DELETE}}"
-					},
-
-	"SUCCESS":		{
-						"HEADER":		"Symptom check imported",
-						"OKAY":			"{{OKAY}}",
-						"GOTO":			"inspect"
-					}
+    "NAME": "Imported symptom checks",
+    "ACTIONS": {
+        "DELETE": "{{DELETE}}"
+    },
+    "SUCCESS": {
+        "HEADER": "Symptom check imported",
+        "OKAY": "{{OKAY}}",
+        "GOTO": "inspect"
+    }
 }

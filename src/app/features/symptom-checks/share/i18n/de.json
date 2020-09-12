@@ -1,3 +1,16 @@
 {
-	
+    "TITLE": null,
+    "CANCEL": null,
+    "DONE": null,
+    "CLOSE": null,
+    "RETRY": null,
+    "INVALID": null,
+    "ACTIONS": {
+        "SHARE": null
+    },
+    "TRANSMISSION": {
+        "SUCCESS": null,
+        "FAILURE": null,
+        "CANCELLED": null
+    }
 }

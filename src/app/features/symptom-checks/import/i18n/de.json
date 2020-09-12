@@ -1,3 +1,11 @@
 {
-	
+    "NAME": null,
+    "ACTIONS": {
+        "DELETE": null
+    },
+    "SUCCESS": {
+        "HEADER": null,
+        "OKAY": null,
+        "GOTO": null
+    }
 }

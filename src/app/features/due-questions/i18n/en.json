@@ -1,6 +1,6 @@
 {
-	"MENU_ENTRY":	"Due Questions",
-	"NOTHING_DUE":	"You already provided all the answers to due questions.",
-	"DUE_FOR": 		"Please answer the question of these due sympton checks:",
-	"DESCRIPTION":	"{{count}} due questions are waiting for you to answer them."
+    "MENU_ENTRY": "Due Questions",
+    "NOTHING_DUE": "You already provided all the answers to due questions.",
+    "DUE_FOR": "Please answer the question of these due sympton checks:",
+    "DESCRIPTION": "{{count}} due questions are waiting for you to answer them."
 }

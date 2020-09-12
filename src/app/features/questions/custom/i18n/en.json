@@ -1,55 +1,50 @@
 {
-	"MENU_ENTRY":		"Create new question",
-	"NAME":				"Custom questions",
-
-	"ACTIONS":			{
-							"CREATE":			"New question"
-						},
-
-	"EDIT":				{
-							"HEADER_NEW": 		"New question",
-							"SAVE":				"{{SAVE}}",
-							"SAVE_SUCCESS":		"New question stored.",
-							"SAVE_FAILURE":		"Unable to store new question",
-							"TEXT":				"Wording",
-							"QUESTION_TYPE":	"Question type",
-							"QUESTION_TYPES":	{
-													"YES_NO":			"Yes-No-Question",
-													"SELECT":			"Choice",
-													"SCALE_DISCRETE":	"Discrete scale",
-													"SCALE_CONTINUOUS":	"Continuous scale",
-													"INPUT":			"Text input"	
-												},
-							"ANSWER_TYPE":		"Answer type",
-							"ANSWER_TYPES":		{
-													"STRING":			"Text",
-													"INTEGER":			"Integer",
-													"DECIMAL":			"Decimal"
-												},
-
-							"UNIT":				"Unit",
-							"ADD_OPTION":		"Add option",
-							"OPTIONS":			{
-													"VALUE":			"Value",
-													"LABEL":			"Label"
-												},
-							"MIN":				"Minimum",
-							"MAX":				"Maximum",
-							"USE_STEPS":		"Value gaps",
-							"SIZE":				"Size",
-							"VALIDATION":		{
-													"QUESTION_EMPTY"		: "Wording cannot be empty.",
-													"QUESTION_TYPE_UNKNOWN"	: "Invalid Question Type.",
-													"MIN_NAN"				: "Minimum must be a number.",
-													"MAX_NAN"				: "Maximum must be a number.",
-													"STEP_NAN"				: "Step size must be a number.",
-													"STEP_LTE_ZERO"			: "Step size must be positive.",
-													"OPT_COUNT"				: "Too few options (<2).",
-													"OPT_VALUE_MISSING"		: "Option value missing.",
-													"OPT_VALUE_NAN"			: "Each option value must be a number.",
-													"OPT_LABEL_MISSING"		: "Option label missing."
-												}
-						}
-
+    "MENU_ENTRY": "Create new question",
+    "NAME": "Custom questions",
+    "ACTIONS": {
+        "CREATE": "New question"
+    },
+    "EDIT": {
+        "HEADER_NEW": "New question",
+        "SAVE": "{{SAVE}}",
+        "SAVE_SUCCESS": "New question stored.",
+        "SAVE_FAILURE": "Unable to store new question",
+        "TEXT": "Wording",
+        "QUESTION_TYPE": "Question type",
+        "QUESTION_TYPES": {
+            "YES_NO": "Yes-No-Question",
+            "SELECT": "Choice",
+            "SCALE_DISCRETE": "Discrete scale",
+            "SCALE_CONTINUOUS": "Continuous scale",
+            "INPUT": "Text input"
+        },
+        "ANSWER_TYPE": "Answer type",
+        "ANSWER_TYPES": {
+            "STRING": "Text",
+            "INTEGER": "Integer",
+            "DECIMAL": "Decimal"
+        },
+        "UNIT": "Unit",
+        "ADD_OPTION": "Add option",
+        "OPTIONS": {
+            "VALUE": "Value",
+            "LABEL": "Label"
+        },
+        "MIN": "Minimum",
+        "MAX": "Maximum",
+        "USE_STEPS": "Value gaps",
+        "SIZE": "Size",
+        "VALIDATION": {
+            "QUESTION_EMPTY": "Wording cannot be empty.",
+            "QUESTION_TYPE_UNKNOWN": "Invalid Question Type.",
+            "MIN_NAN": "Minimum must be a number.",
+            "MAX_NAN": "Maximum must be a number.",
+            "STEP_NAN": "Step size must be a number.",
+            "STEP_LTE_ZERO": "Step size must be positive.",
+            "OPT_COUNT": "Too few options (<2).",
+            "OPT_VALUE_MISSING": "Option value missing.",
+            "OPT_VALUE_NAN": "Each option value must be a number.",
+            "OPT_LABEL_MISSING": "Option label missing."
+        }
+    }
 }
-

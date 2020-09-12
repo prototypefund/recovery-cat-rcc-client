@@ -1,3 +1,11 @@
 {
-	
+    "QUERY_RUN": {
+        "INVALID": null,
+        "CLICK_TO_GO_BACK": null,
+        "WRAP_UP": null,
+        "ALL_DONE": null,
+        "ANSWERED": null,
+        "DONE": null,
+        "GO_BACK_TO_EDIT": null
+    }
 }
