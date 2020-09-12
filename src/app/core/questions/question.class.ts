@@ -68,6 +68,7 @@ export class Question extends Item<QuestionConfig> {
 	}
 
 	set config(config: QuestionConfig){
+		if( !Question.acceptsAsConfig(config) ) throw new Error("Invalid Question config.")
 		QuestionProperties.forEach( (key:string) => (this as any)[key] = (config as any)[key] )
 	}
 

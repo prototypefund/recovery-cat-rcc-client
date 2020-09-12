@@ -12,7 +12,7 @@ import	{
 
 import	{	MetaStore			}	from './meta-store.class'
 
-export type ActionRole = undefined | "details" | "destructive" | "productive"
+export type ActionRole = undefined | "details" | "destructive" | "productive" | "share"
 
 
 export interface ItemAction<I extends Item<any>> {

@@ -17,10 +17,14 @@ import	{
 
 @NgModule({
 	providers: [
-		
+		RccTransmissionService
 	]
 })
 export class TransmissionModule { 
+
+	constructor(
+		rccTransmissionService	: RccTransmissionService
+	){}
 
 	static forChild( transmissionServiceClass: Type<AbstractTransmissionService> ): ModuleWithProviders<TransmissionModule>{
 		return 	{

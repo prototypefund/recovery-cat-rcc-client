@@ -10,7 +10,10 @@ import 	{
 import	{	RouterModule			}	from '@angular/router'
 
 
-import	{	SharedModule			}	from '@rcc/common'
+import	{	
+			TranslationsModule,
+			SharedModule			
+		}								from '@rcc/common'
 
 import	{	QuestionaireModule		}	from '@rcc/features/questions'
 import	{	JournalModule			}	from '@rcc/features/entries'
@@ -27,6 +30,10 @@ import	{
 			QueryWidgetComponent,
 			QueryWidgetsService		
 		}								from './query-widgets'
+
+import en from './i18n/en.json'
+import de from './i18n/de.json'
+
 
 
 const routes 		=	[
@@ -55,6 +62,7 @@ const actions		=	[
 		SharedModule,
 		RouterModule.forChild(routes),
 		QuestionaireModule.forChild(null, actions),
+		TranslationsModule.forChild('QUERIES', {en, de}),
 		JournalModule,
 	],
 

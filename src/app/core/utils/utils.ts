@@ -209,26 +209,28 @@ export function sortByKeyFn(key: string, x?				: any, 		y?		: any		) : (x:any, y
 
 }
 
-console.log(sortByKeyFn)
 
 //TODO: Remove when rxjs 7 is released
 
 import { Observable, EmptyError, Subscription } from 'rxjs'
 
 export function firstValueFrom<T>(source$: Observable<T>) {
-  return new Promise<T>((resolve, reject) => {
-	const subs = new Subscription();
-	subs.add(
-	  source$.subscribe({
-		next: value => {
-		  resolve(value);
-		  subs.unsubscribe();
-		},
-		error: reject,
-		complete: () => {
-		  reject(new EmptyError());
-		},
-	  })
-	);
-  });
+
+	return 	new Promise<T>( (resolve, reject) => {
+
+				const subs = new Subscription()
+				
+				subs.add(
+					source$.subscribe({
+						next: value => {
+							resolve(value);
+							subs.unsubscribe();
+						},
+						error: reject,
+						complete: () => {
+							reject(new EmptyError());
+						},
+					})
+				)
+			})
 }

@@ -4,12 +4,14 @@
 
 	"SAVE": 				"Save",
 	"DELETE":				"Delete",
-	"REMOVE":				"Eemove",
+	"REMOVE":				"Remove",
 	"EDIT":					"Edit",
-
+	"DONE":					"Done",
 	"OKAY":					"Okay",
 	"CANCEL":				"Cancel",
 	"APPLY":				"Apply",
+	"CLOSE":				"Close",
+	"RETRY":				"Retry",
 
 	"DAYS": 				{
 								"SHORT": 		{
@@ -36,7 +38,8 @@
 
 
 	"SYMPTOM_CHECK":		"Symptom check",
-	"SCHEDULE":				"Schedule"
+	"SCHEDULE":				"Schedule",
+	"QUESTION":				"Question"
 					
 
 

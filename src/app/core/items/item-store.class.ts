@@ -1,13 +1,32 @@
-//TODO: filter!
-
-
-
 import	{
 			ItemConfig,
-			Item,
-			ItemStorage,
-			ItemStoreConfig,
-		}						from './items.commons'
+			Item
+		}							from './item.class'
+
+import	{
+			Subject,
+			merge
+		}							from 'rxjs'
+
+
+
+
+export interface ItemStorage<C extends ItemConfig, I extends Item<C>> {
+	getAll			: () 				=> Promise<C[]>
+	store?			: (items: (I|C)[])	=> Promise<any>
+	
+}
+
+
+export interface ItemStoreConfig<I extends Item<C>, C> {
+	itemClass		: new (config: C) => I,
+	storage			: ItemStorage<C,I>,
+	identifyItemBy?	: string | ( (item: Item<C>) => string),
+}
+
+
+
+
 
 
 export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
@@ -15,40 +34,57 @@ export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 	protected	itemClass		: new (config:C) => I
 	protected	map				: Map<string,I>				= new Map()	
 	protected	storage			: ItemStorage<C,I>
+
 	protected	identifyItem	: (item: I) => string
-	protected	resolveReady	: (result: any) => void
-	protected	rejectReady		: (reason: any) => void
 
-	public		ready			: Promise<any>				= new Promise( (s,j) => { this.resolveReady = s; this.rejectReady = j })
+	public		ready			: Promise<any>
 
-	constructor( config: ItemStoreConfig<I,C> ){
-		this.initialize(config)
-		.then( 
-			this.resolveReady,
-			this.rejectReady
-		)
+
+	private		itemAddition$	= new Subject<I>()
+	private		itemRemoval$	= new Subject<I>()
+	private		itemUpdate$		= new Subject<I>()
+	private		itemChange$		= merge(this.itemAddition$, this.itemRemoval$, this.itemUpdate$)
+
+
+
+
+	constructor( config: ItemStoreConfig<I,C> ) {
+
+		this.ready = this.init(config)		
+
 	}
 
-	protected async initialize(config: ItemStoreConfig<I,C>): Promise<void>{
+	protected async init(config: ItemStoreConfig<I,C>): Promise<void> {
+
 		this.itemClass 			= config.itemClass
 		this.storage			= config.storage
 
-		this.identifyItem		= this.getIdentifyItemFn(config.identifyItemBy).bind(this)
+		this.identifyItem		= this.getIdentifyItemFn(config.identifyItemBy)
 
-		return this.restoreFromStorage()
+		await this.restoreFromStorage()
+		
 	}
 
 
 	protected getIdentifyItemFn(identifyItemBy: any): (item:I) => string {
 		if(!identifyItemBy) 						return (item:I) => item.id
 		if(typeof identifyItemBy == 'string')		return (item:I) => (item as any)[identifyItemBy]
-		if(typeof identifyItemBy == 'function') 	return identifyItemBy
+		if(typeof identifyItemBy == 'function') 	return identifyItemBy.bind(this)
 
 		throw "ItemSource.getIdentifyItemFn: invalid identifyItemConfig"	
 	}
 
 
-	protected addConfig( config: C):I {
+
+	protected async restoreFromStorage(): Promise<any>{
+		const configs = await this.storage.getAll()
+
+		configs.forEach( (config:C) => this.addConfig(config))
+	}
+
+
+
+	protected addConfig( config: C): I {
 		const item  = new this.itemClass(config)
 
 		this.addItem(item)
@@ -57,27 +93,32 @@ export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 	}
 
 
-	protected addItem(item: I):I{
-		const id	= this.identifyItem(item)
+	protected addItem(item: I): I {
+
+		const id = this.identifyItem(item)
+	
 		this.map.set(id, item)
+
+		this.itemAddition$.next(item)
 
 		return item
 	}
 
-	protected removeItem(item: I): boolean {
+
+	protected  removeItem(item: I): any {
 		const id = this.identifyItem(item)
-		if(!this.map.get(id)) return false
+		if(!this.map.delete(id)) throw "item not found"
 
-		this.map.delete(id)
-		return true
+		this.itemRemoval$.next(item)
+
+		return item
 	}
 
 
-	protected async restoreFromStorage(): Promise<any>{
-		const configs = await this.storage.getAll()
 
-		configs.forEach( (config:C) => this.addConfig(config))
-	}
+
+
+
 
 	protected async storeAll(): Promise<any> {
 		if(!this.storage.store) throw "ItemStore.storage.store() not implemented: "+ (typeof this)
@@ -98,6 +139,7 @@ export abstract class ItemStore<C extends ItemConfig, I extends Item<C>>{
 		
 		return ready_items
 	}
+
 
 	public get items(){
 		return Array.from(this.map.values())

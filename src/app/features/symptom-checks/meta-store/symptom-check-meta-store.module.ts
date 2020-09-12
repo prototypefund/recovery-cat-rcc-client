@@ -31,7 +31,8 @@ import	{	SymptomCheckMetaStore		}	from './symptom-check-meta-store.service'
 import	{	
 			SYMPTOM_CHECK_STORES,
 			SYMPTOM_CHECK_ACTIONS,
-			SYMPTOM_CHECK_META_ACTIONS			
+			SYMPTOM_CHECK_META_ACTIONS,
+			SymptomCheckHomePath			
 		}									from './symptom-check-meta-store.commons'
 
 import	{	SymptomCheckMetaStorePage 	}	from './overview-page/overview-page.component'
@@ -41,8 +42,9 @@ import	{	SymptomCheckLabelComponent	}	from './item-label/item-label.component'
 import en from './i18n/en.json'
 import de from './i18n/de.json'
 
+
 const routes 			=	[
-								{ path: 'symptom-checks',	component: SymptomCheckMetaStorePage	},
+								{ path: SymptomCheckHomePath,	component: SymptomCheckMetaStorePage },
 							]
 
 const metaStoreConfig 	=	{
@@ -55,7 +57,7 @@ const metaStoreConfig 	=	{
 
 @Component({
 	template:	`
-					<ion-item routerLink = "symptom-checks">
+					<ion-item routerLink = "${SymptomCheckHomePath}">
 						<ion-label>{{ "SYMPTOM_CHECKS_META_STORE.MENU_ENTRY" | translate }}</ion-label>
 						<ion-icon [name] = "'symptom-check' | rccIcon " slot = "end"></ion-icon>
 					</ion-item>

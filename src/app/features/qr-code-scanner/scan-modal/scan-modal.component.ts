@@ -44,7 +44,7 @@ export class QrCodeScanModal implements OnInit {
 	}
 
 	
-	ngOnInit(): void {
+	ngOnInit(){
 
 
 		this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {			

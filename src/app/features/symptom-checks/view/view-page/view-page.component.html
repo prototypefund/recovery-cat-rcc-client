@@ -84,8 +84,9 @@
 		</ion-list-header>
 
 		<rcc-store-item
-			*ngFor 			= "let item of symptom_check.questions"			
-			[item]			= "item.id | id2Question | async"
+			*ngFor 				= "let item of symptom_check.questions"			
+			[item]				= "item.id | id2Question | async"
+			[itemActionRoles]	= "['details']"
 		>
 		</rcc-store-item>
 

@@ -16,6 +16,8 @@ import	{
 
 			HomePageModule, 
 			MainMenuModule,
+
+			DebugModule
 		}									from '@rcc/common'
 
 import	{	
@@ -25,6 +27,7 @@ import	{
 			BasicQueryWidgetsModule,
 			QueriesModule,
 			CustomSymptomCheckStoreModule,
+			ImportQuestionStoreModule,
 
 			SymptomCheckViewModule,
 			SymptomCheckShareModule,
@@ -71,6 +74,7 @@ import	{
 							LocalStorageModule,
 							BasicQueryWidgetsModule,
 							CustomQuestionStoreModule,
+							ImportQuestionStoreModule,
 							FallbackQueryWidgetsModule,
 							CustomSymptomCheckStoreModule,
 							ImportSymptomCheckStoreModule,
@@ -87,6 +91,7 @@ import	{
 							StaticQuestionStoreModule,
 							StaticEntryStoreModule,
 							StaticSymptomCheckStoreModule,
+							DebugModule,
 							///
 							AppRoutingModule,
 						],

@@ -20,8 +20,6 @@ export class Journal extends EntryStore {
 		rccStorage: RccStorage
 	) { 
 		super(rccStorage.createItemStorage('rcc-journal'))
-
-		console.log(Schedule)
 	}
 
 	async log(id : string, value : string|number, note? : string, date? : string ): Promise<Entry> {

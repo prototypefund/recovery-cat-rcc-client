@@ -2,8 +2,9 @@ import	{	InjectionToken			}	from '@angular/core'
 
 
 export interface RccTransmission {
-	send	: (data: any) => Promise<any>
-	meta	: any
+	send		: (data: any) 	=> Promise<any>
+	cancel		: ()			=> void
+	meta		: any
 }
 
 

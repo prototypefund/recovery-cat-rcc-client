@@ -229,7 +229,7 @@ export class CustomQuestionEditPage implements OnInit {
 		//needs this.question != ''
 
 		config.meaning 		= 	this.question.value
-		config.translations	= 	{ 'en-US': this.question.value }
+		config.translations	= 	{ en: this.question.value }
 
 
 
@@ -272,7 +272,7 @@ export class CustomQuestionEditPage implements OnInit {
 
 		config.options		=	({
 									yes_no:				undefined,
-									select:				this.selectOptions.value,		  //needs selectOptions to count at least 2
+									select:				this.selectOptions.value.map( (entry:any)  => ({...entry, translations: {en: entry.meaning}})),		  //needs selectOptions to count at least 2
 									scale_discrete:		this.scaleOptions.value, //needs scaleOptions to count at least 3
 									scale_continuous:	config.type.value == 'integer'
 														?	[...Array(Math.floor((config.max - config.min)/this.step.value)+1)]

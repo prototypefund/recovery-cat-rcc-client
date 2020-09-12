@@ -1,39 +1,128 @@
+<ion-header>
+	<ion-toolbar>
 
-<ion-content [fullscreen] = "true" class = "ion-padding" *ngIf = "qr_data">
+		<ion-buttons slot = "start">
+			<ion-back-button defaultHref = "..">
+			</ion-back-button>
+		</ion-buttons>
 
-	<div>
-		<rcc-qr-code [data] = "qr_data"></rcc-qr-code>
-
-		<div *ngIf = "!complete && !error">
-			<ion-progress-bar type="indeterminate"></ion-progress-bar>
-		</div>
-
-		<!-- <div>
-			{{connection.status}}
-		</div> -->
-
-		<div *ngIf = "complete" >
-			<ion-icon 
-				color 	= "success" 
-				name 	= "checkmark-circle-outline"
-				size	= "large"
-			></ion-icon>
-			<br/>
-			{{'All data transmitted.' | translate}}
-		</div>
-
-		<div *ngIf	= "error">
-			<ion-icon 
-				color 	= "danger" 
-				name 	= "alert-circle-outline"
-				size	= "large"
-			></ion-icon>
-			<br/>
-			{{ 'Somethig went wrong:' | translate}} {{error}}
-		</div>
+		<ion-title>{{'SYMPTOM_CHECK_SHARE.TITLE' | translate}}</ion-title>
 		
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen] = "true"  *ngIf = "qr_data">
+
+	<ion-list>
+		<rcc-store-item
+			[item] 			= "symptomCheck"
+			[itemActions] 	= "[]"
+		>
+		</rcc-store-item>
+	</ion-list>
+
+
+	<rcc-qr-code 
+		[data] 			= "qr_data"
+		[color]			= "complete && 'primary' || failed && 'medium' || 'secondary'"		
+	></rcc-qr-code>
+
+
+
+	<div 
+		*ngIf = "!complete && !failed" 
+		class = "feedback"
+	>
+		<ion-spinner></ion-spinner>
+	</div>
+
+
+
+	<!-- <div>
+		{{connection.status}}
+	</div> -->
+
+
+
+	<div
+		*ngIf 		= "complete"
+		class		= "feedback" 
+	>
+		<ion-icon 
+			color 	= "success" 
+			name 	= "checkmark-circle-outline"
+			size	= "large"
+		></ion-icon>
+		<br/>
+		{{'SYMPTOM_CHECK_SHARE.TRANSMISSION.SUCCESS' | translate}}
+	</div>
+
+
+
+	<div
+		*ngIf	= "failed"
+		class	= "feedback"
+	>
+		<ion-icon 
+			color 	= "danger" 
+			name 	= "alert-circle-outline"
+			size	= "large"
+		></ion-icon>	
+		<br/>	
+		{{'SYMPTOM_CHECK_SHARE.TRANSMISSION.FAILURE' | translate}}
+	</div>
+
+
+	
+	<div class ="ion-text-center">
+
+		<ion-button
+			*ngIf	= "!complete && !failed"
+			color 	= "secondary"
+			(click)	= "cancel()"
+			fill	= "solid"
+
+		>
+			{{'SYMPTOM_CHECK_SHARE.CANCEL' | translate}}
+		</ion-button>	
+
+		<ion-button
+			*ngIf	= "complete"
+			color 	= "primary"
+			(click)	= "done()"
+			fill	= "solid"
+
+		>
+			{{'SYMPTOM_CHECK_SHARE.DONE' | translate}}
+		</ion-button>	
+
+
+		<div *ngIf ="failed">
+			
+			<ion-button			
+				color 	= "medium"
+				(click)	= "done()"
+				fill	= "solid"
+
+			>
+				{{'SYMPTOM_CHECK_SHARE.CLOSE' | translate}}
+			</ion-button>	
+
+			<ion-button			
+				color 	= "primary"
+				(click)	= "retry()"
+				fill	= "solid"
+
+			>
+				{{'SYMPTOM_CHECK_SHARE.RETRY' | translate}}
+			</ion-button>	
+
+
+		</div>
+
 	</div>
 
 	<div class ="spacer"></div>
+
 
 </ion-content>

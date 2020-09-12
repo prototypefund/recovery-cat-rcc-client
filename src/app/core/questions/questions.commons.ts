@@ -78,7 +78,6 @@ export function isQuestionConfig(x:any): x is QuestionConfig {
 	if(!isQuestionType(x.type))				return false
 	if(!isTranslationMap(x.translations))	return false	
 
-
 	if(x.options){
 
 		if( ['decimal', 'integer'].includes(x.type)	&& !x.options.every( isNumberOptionConfig) )	return false

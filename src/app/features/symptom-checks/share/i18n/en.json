@@ -1,5 +1,19 @@
 {
-	"ACTIONS":	{
-					"SHARE":	"Share"
-				}
+
+	"TITLE":		"Share symptom check",
+	"CANCEL":		"{{CANCEL}}",
+	"DONE":			"{{DONE}}",
+	"CLOSE":		"{{CLOSE}}",
+	"RETRY":		"{{RETRY}}",
+	"INVALID":		"No matching symptom check found.",
+
+	"ACTIONS":		{
+						"SHARE":	"Share"
+					},
+
+	"TRANSMISSION":	{
+						"SUCCESS":		"Symptomcheck sent.",
+						"FAILURE":		"Transmission failed.",
+						"CANCELLED":	"Transmission cancelled."
+					}
 }

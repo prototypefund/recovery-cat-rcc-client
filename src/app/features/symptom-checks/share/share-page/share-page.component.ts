@@ -1,87 +1,135 @@
 import 	{ 	
 			Component, 
-			OnInit
+			OnInit,
+			OnDestroy,
+			Injectable
 		}										from '@angular/core'
+
+import	{	Location						}	from '@angular/common'
 
 import	{
 			mergeMap
 		}										from 'rxjs/operators'
 
-import	{
-			Router,
+import	{	
 			ActivatedRoute,
-			ParamMap
+			ActivatedRouteSnapshot,
+			Router				
 		}										from '@angular/router'							
 
 import	{	
+			SymptomCheckHomePath,
 			SymptomCheckMetaStore
 		}										from '@rcc/features/symptom-checks/meta-store'
 
 import	{
-			SymptomCheck
+			SymptomCheck,
+			firstValueFrom
 		}										from '@rcc/core'
+
+import	{
+			RccTransmission,
+			RccToastController,
+		}										from '@rcc/common'
 
 import	{	Questionaire					}	from '@rcc/features/questions'
 import	{	WebsocketTransmissionService	}	from '@rcc/features/transmission'
+
+
+
+
+@Injectable()
+export class SymptomCheckResolver {
+
+	constructor( 
+		private symptomCheckMetaStore	: SymptomCheckMetaStore,
+		private router					: Router,
+		private rccToastController		: RccToastController
+	){}
+
+	async resolve( route: ActivatedRouteSnapshot): Promise<any> {
+		try {
+			return	await this.symptomCheckMetaStore.get(route.params.id)		
+		} catch(e) {
+			this.rccToastController.failure('SYMPTOM_CHECK_SHARE.INVALID')
+			this.router.navigate([SymptomCheckHomePath])			
+			return 	false
+		}
+	}
+}
+
 
 @Component({
 	templateUrl: 	'./share-page.component.html',
 	styleUrls: 		['./share-page.component.scss'],
 })
-export class SymptomCheckSharePage  implements OnInit {
+export class SymptomCheckSharePage  implements OnDestroy {
 
 
-	public symptom_check	:	SymptomCheck
-	public qr_data			:	string
-	public error			:	string
-	public complete			:	boolean
+	public symptomCheck		:	SymptomCheck
+	public transmission		:	RccTransmission
 	public id				:	string
+	public qr_data			:	string
+	public invalid			:	boolean				= false
+	public failed			:	boolean				= false
+	public complete			:	boolean				= false
 
 	constructor(
-		private router							: Router,
-		private activatedRoute					: ActivatedRoute,		
-		private symptomCheckMetaStore			: SymptomCheckMetaStore,
+		private activatedRoute					: ActivatedRoute,
 		private websocketTransmissionService	: WebsocketTransmissionService,
-		private questionaire					: Questionaire
-	){}
+		private questionaire					: Questionaire,
+		private rccToastController				: RccToastController,
+		private location						: Location
+	){
+		this.symptomCheck = activatedRoute.snapshot.data.symptomCheck
+		this.setup()
+	}
 
 
-	ngOnInit() {
 
-		this.activatedRoute.paramMap
-		.pipe(
-			mergeMap( 	(params	: ParamMap) => (this.id = params.get('id')) && this.symptomCheckMetaStore.get(this.id) )
-		)
-		.subscribe({		
-			next:	(sc		: SymptomCheck)	=> 	this.setup(sc).catch( e => this.error = e),  
-			error:	(e:any)					=>  this.router.navigateByUrl(this.router.url.replace(this.id, 'null'))
-		})
 
-		//will unsubscribe automaticcaly as part of route
+  	ngOnDestroy() {  		
+  		if(!this.transmission) return;
+  		this.transmission.cancel()
+  		this.rccToastController.info('SYMPTOM_CHECK_SHARE.TRANSMISSION.CANCELLED')
   	}
 
-  	public async setup(symptom_check: SymptomCheck){
 
-  		this.symptom_check 	= symptom_check
 
-  		const questions		= await this.questionaire.get( symptom_check.questions.map( q => q.id) )
+  	public async setup(){
 
+  		const questions		= 	await this.questionaire.get( this.symptomCheck.questions.map( q => q.id) )
   		const data			= 	[
-  									symptom_check.config,
+  									this.symptomCheck.config,
   									questions.map( question => question.config)
   								]
 
-  		console.log(data)
+  		this.transmission 	= 	await this.websocketTransmissionService.setup()
+  		this.qr_data 		= 	JSON.stringify(['rcc-wst',"scan-demo", "iWBMT2yPFYFqbbbiSpXCLPnRoBVzJb8G+npEFV4tWA0=","SUTBklneWT6akoHn"]) //JSON.stringify(this.transmission.meta)
 
-  		const transmission 	= await this.websocketTransmissionService.setup()
+  		try {  			
 
-  		const receipt 		= transmission.send(data)
+  			const receipt 		= 	this.transmission.send(data)
+  			await receipt
+  			this.complete 		= 	true
 
-  		this.qr_data = JSON.stringify(transmission.meta)
+  		} catch(e) {  			
+  			this.failed = true
+  		}
+  	}
 
-  		await receipt
 
-  		this.complete = true
 
+  	public retry() {
+  		this.setup()
+  	}
+
+  	public done() {
+  		delete this.transmission
+  		this.location.back()
+  	}
+
+  	public cancel(){
+  		this.location.back()  		  	
   	}
 }

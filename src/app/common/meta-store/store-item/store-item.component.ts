@@ -179,8 +179,8 @@ export 	class StoreItemComponent
 	}
 
 	public setRoleItemActions( roles: string[]) {
-		this.roleItemActions = 	roles
-								.map( role => 	this.globalItemActions.filter( itemAction => itemAction.role == role) )
+		this.roleItemActions = 	(roles||[])
+								.map( role => 	(this.globalItemActions||[]).filter( itemAction => itemAction.role == role) )
 								.flat()
 	}
 

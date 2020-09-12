@@ -1,0 +1,12 @@
+{
+	"QUERY_RUN":		{
+							"INVALID": 				"This query run is no longer valid.",
+							"CLICK_TO_GO_BACK":		"Click to go back.",
+							"WRAP_UP":				"Wrapping up ...",
+							"ALL_DONE":				"All Done!",
+							"ANSWERED":				"You answered {{count}} of {{total}} questions.",
+							"DONE":					"{{DONE}}",
+							"GO_BACK_TO_EDIT":		"Go back back to add answers to open questions or change the ones you already gave."
+						}
+
+}

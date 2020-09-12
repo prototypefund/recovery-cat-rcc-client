@@ -53,9 +53,10 @@ const itemActions 		= 	[
 								{
 									label: 			'CUSTOM_SYMPTOM_CHECK_STORE.ACTIONS.DELETE',
 									store: 			CustomSymptomCheckStore,
-									handler: 		(item: any, store: any) => store.delete(item),
-									icon:			'remove',
-									successMessage:	'CUSTOM_SYMPTOM_CHECK_STORE.ACTIONS.DELETE_SUCCESS'
+									handler: 		(item: any, store: any) => store.deleteSymptomCheck(item),
+									icon:			'delete',
+									successMessage:	'CUSTOM_SYMPTOM_CHECK_STORE.ACTIONS.DELETE_SUCCESS',
+									role:			'destructive' as const
 
 								},
 								{

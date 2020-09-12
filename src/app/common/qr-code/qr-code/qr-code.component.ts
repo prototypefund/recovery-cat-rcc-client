@@ -4,19 +4,22 @@ import	{
 			Input
 		} 							from '@angular/core'
 
+import	{
+			QRCodeComponent
+		}							from 'angularx-qrcode'
 
 @Component({
 	selector: 		'rcc-qr-code',
 	templateUrl: 	'./qr-code.component.html',
 	styleUrls:		 ['./qr-code.component.scss'],
 })
-export class QrCodeComponent implements OnInit {
+export class QrCodeComponent extends QRCodeComponent {
 
 	@Input()
-	public data : any
+	set data(data:any){
+		this.qrdata = data
+	}
 
-	constructor() { }
-
-	ngOnInit() {}
-
+	@Input() 
+	color : string
 }

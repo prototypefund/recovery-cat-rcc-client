@@ -7,6 +7,10 @@ import	{
 		}								from '@angular/core'
 
 import	{	SubscriptionLike		}	from 'rxjs'
+import	{	
+			filter,
+			tap					
+		}								from 'rxjs/operators'
 
 import	{	
 			RccTransmission,
@@ -35,8 +39,12 @@ export class RccTransmissionService extends AbstractTransmissionService implemen
 	protected listenToIncomingData(){
 
 		this.subscriptions.push(
+
 			this.incomingData
-			.subscribe( this.receive.bind(this) )			
+			.pipe(
+				filter( this.isTransmissionConfig.bind(this) )
+			)
+			.subscribe( this.receiveAndAnnounce.bind(this))			
 		)
 
 		this.transmissionServices
@@ -49,14 +57,35 @@ export class RccTransmissionService extends AbstractTransmissionService implemen
 		return ts.setup()
 	}
 
+	public isTransmissionConfig(data:any){
+		return !!this.getMatchingTransMissionService(data)
+	}
+
+	public getMatchingTransMissionService(data: any){
+		return this.transmissionServices.find( ts => ts.claimsAsConfig(data) )
+	}
+
+
+
 	public async receive(meta:any): Promise<any> {
 		//TODO: maybe multiple transmission services can claim the config?
 		//use settings to turn off transmission services
 
-		return 	this.transmissionServices
-				.find( transmissionService => transmissionService.claimsAsConfig(meta) )
-				.receive(meta)
-				.then( result => { this.incomingData.next(result); return result })
+		const matching_transmission_service = this.getMatchingTransMissionService(meta)
+
+		if(!matching_transmission_service) throw new Error('RccTransmissionService.receive() not mathcing TransmissionService found.')
+
+		const result						= await matching_transmission_service.receive(meta)
+
+		return result
+	}
+
+
+
+	public async receiveAndAnnounce(meta:any){
+		const result = await this.receive(meta)
+
+		this.incomingData.next(result)
 	}
 
 	ngOnDestroy(){

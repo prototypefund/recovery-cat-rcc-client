@@ -31,8 +31,8 @@ export class QueryRunPage implements OnDestroy{
 
 
 
-	@ViewChild(IonSlides,	{static:true}) 	
-	slides		: IonSlides
+	@ViewChild(IonSlides) 	
+	public slides		: IonSlides
 
 
 	public slideOpts = 	{
@@ -55,7 +55,7 @@ export class QueryRunPage implements OnDestroy{
 
 	private subscriptions		: SubscriptionLike [] = []
 
-	public invalid				: boolean
+	public 	invalid				: boolean
 
 	constructor(
 		public queryRunService		: QueryRunService,
@@ -85,7 +85,7 @@ export class QueryRunPage implements OnDestroy{
 				this.queryRun 		= queryRun
 				this.pageHandlers 	= queryRun.queries.map( (query: Query, index: number) => ({ handler:  () => this.slides.slideTo(index) }))
 				this.activePage		= index || 0
-				this.updateLocationState(true) 			
+				this.updateLocationState(true) 		
 			},
 			reason => {
 				this.invalid = true
@@ -100,6 +100,10 @@ export class QueryRunPage implements OnDestroy{
 
 
 	get queries(){ return this.queryRun && this.queryRun.queries || [] }
+
+	get numberOfAnsweredQueries(){
+		return this.queries.filter( query => query.entry).length
+	}
 
 
 	private updateLocationState(replace?: boolean){
@@ -134,13 +138,7 @@ export class QueryRunPage implements OnDestroy{
 	}
 
 
-	// public afterSlidesDidLoad(){
-	// 	this.slides.slideTo(this.activePage)
-	// }
-
-
-
-	public afterSlidesDidChange(){
+	public onSlideChange(){
 
 		this.slides.isBeginning()
 		.then( result => this.atStart 	= result )
@@ -152,7 +150,7 @@ export class QueryRunPage implements OnDestroy{
 		.then( index => {
 			this.activeQuery 	= this.queryOnSlide[index] 
 			this.activePage		= this.activePage = index
-		
+
 			
 			this.updateLocationState()
 		})

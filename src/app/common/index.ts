@@ -13,8 +13,12 @@ export * from './modals-provider'
 export * from './icons'
 export * from './incoming-data'
 
+
+export * from './debug'
+
 export * from './interfaces'
 export * from './shared.module'
+
 
 
 

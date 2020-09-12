@@ -12,10 +12,21 @@ ion-slide {
 	overflow-y:			auto;
 }
 
-rcc-query-widget {
+rcc-query-widget,
+.done {
 	height:				100%
 }
 
+.done {
+	display:			flex;
+	flex-direction:		column;
+	justify-content:	space-between;
+}
+
+
+.spacer {
+	flex:				0 1 10rem;
+}
 
 .fab-footer {
 	display:			flex;

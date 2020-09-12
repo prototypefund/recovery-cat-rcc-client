@@ -1,18 +1,19 @@
-<ion-content>
+<ion-list *ngIf = "invalid">
+	<ion-item >
+		<ion-label>
+			<h3>{{ 'QUERIES.QUERY_RUN.INVALID'| translate }}</h3>
+			<p>{{ 'QUERIES.QUERY_RUN.CLICK_TO_GO_BACK'| translate}}</p>
+		</ion-label>
 
-	<ion-list *ngIf = "invalid">
-		<ion-item >
-			<ion-label>
-				<h3>{{ 'QUERIES.QUERYRUN.INVALID'| translate }}</h3>
-				<p>{{ 'QUERIES.QUERYRUN.CLICK_TO_GO_BACK'| translate}}</p>
-			</ion-label>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref = ".."></ion-back-button>
+		</ion-buttons>
 
-			<ion-buttons slot="start">
-				<ion-back-button defaultHref = ".."></ion-back-button>
-			</ion-buttons>
+	</ion-item>
+</ion-list>
 
-		</ion-item>
-	</ion-list>
+<ion-content *ngIf = "!invalid">
+
 
 
 	<div class =" ion-horizontal-padding">
@@ -26,13 +27,11 @@
 
 
 
-
-
 	<ion-slides 
 		[pager]					= "false" 
 		[options]				= "slideOpts"
-		(ionSlideDidChange)		= "afterSlidesDidChange()"
-		(ionSlidesDidLoad)		= "afterSlidesDidChange()"
+		(ionSlideWillChange)	= "onSlideChange()"
+		(ionSlidesDidLoad)		= "onSlideChange()"
 	>
 
 	
@@ -47,6 +46,31 @@
 
 		</ion-slide>
 
+
+		<ion-slide
+			class = "ion-padding"
+		>
+			<div class ="done">
+				<ion-text color="dark" class = "ion-padding">
+					<h1 *ngIf = "numberOfAnsweredQueries != queries.length">{{'QUERIES.QUERY_RUN.WRAP_UP' | translate}}</h1>
+					<h1 *ngIf = "numberOfAnsweredQueries == queries.length">{{'QUERIES.QUERY_RUN.ALL_DONE' | translate}}</h1>
+				</ion-text>
+
+				<div>
+					<p *ngIf = "numberOfAnsweredQueries != queries.length">	
+						{{'QUERIES.QUERY_RUN.ANSWERED' | translate : {count: numberOfAnsweredQueries, total: queries.length} }}	
+					</p>
+
+					<p>	
+						{{'QUERIES.QUERY_RUN.GO_BACK_TO_EDIT' | translate }}
+					</p>
+				</div>
+
+				<div class ="spacer"></div>
+
+			</div>
+
+		</ion-slide>	
 
 	</ion-slides>
 
@@ -85,16 +109,27 @@
 		</div>
 
 		<div>
+
 			<ion-fab-button
+				*ngIf		= "!atEnd"
 				color		= "primary"
 				(click)		= "checkOff(activeQuery)"
 				[disabled]	= "!activeQuery?.complete"
 			>
 				<ion-icon name = "checkmark"></ion-icon>
 			</ion-fab-button>			
+
+			<ion-button
+				*ngIf		= "atEnd"
+				color		= "primary"
+				routerLink	= "/"
+			>
+				{{'QUERIES.QUERY_RUN.DONE' | translate}}
+			</ion-button>
+
+
 		</div>
 	</div>
-
 
 
 </ion-content>

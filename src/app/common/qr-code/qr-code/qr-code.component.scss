@@ -1,8 +1,43 @@
 :host {
 	display:			block;	
-	text-align:			center;
+	position:			relative;
+	border-width:		0.2rem;
+	border-style:		solid;
+	border-color:		var(--ion-color-secondary);
+	border-radius:		1rem;
+	overflow:			hidden;
+	margin:				auto;
+	height:				15rem;
+	width:				15rem;
 }
 
-qrcode {
-	display:			inline-block;
+:host([ng-reflect-color="primary"]) {
+	border-color:		var(--ion-color-primary);
 }
+
+:host([ng-reflect-color="secondary"]) {
+	border-color:		var(--ion-color-secondary);
+}
+
+:host([ng-reflect-color="dark"]) {
+	border-color:		var(--ion-color-dark);
+}
+
+:host([ng-reflect-color="medium"]) {
+	border-color:		var(--ion-color-medium);
+}
+
+:host([ng-reflect-color="light"]) {
+	border-color:		var(--ion-color-light);
+}
+
+canvas {
+	position:			absolute;
+	top:				0;
+	left:				0;
+	width:				100% !important;
+	height:				100% !important;
+	image-rendering:	pixelated;
+	image-rendering:	crisp-edges;
+}
+

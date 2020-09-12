@@ -27,7 +27,12 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen] = "true" >	
+
+<ion-content
+	[scrollX]	= "false"
+	[scrollY]	= "false"
+>	
+
 	<div 
 		class = "spin-wrapper"
 		*ngIf = "initializing"
@@ -35,17 +40,13 @@
 		<ion-spinner></ion-spinner>
 	</div>	
 
-	<div
-		class		= "scanner-shell" 		
-	>
-		
-		<zxing-scanner #scanner 
-			[enable]	= "scannerEnabled"
-			[device] 	= "currentDevice.value"
-			[autostart]	= "false"			
-		></zxing-scanner>
+			
+	<zxing-scanner #scanner 
+		[enable]	= "scannerEnabled"
+		[device] 	= "currentDevice.value"
+		[autostart]	= "false"			
+	></zxing-scanner>
 
-	</div>
 
 	<div 
 		*ngIf = "cameraNotFound"

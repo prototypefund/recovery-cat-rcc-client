@@ -37,9 +37,7 @@ export class MenuEntryQrCode {
 	){}
 
 	public scan(){
-		Promise.resolve()
-		.then(	()			=> this.qrCodeService.scan() )
-		.then(	(data:any) 	=> this.incomingData.next(data) )
+		this.qrCodeService.scanAndAnnounce()
 	}
 
 }
