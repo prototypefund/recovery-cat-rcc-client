@@ -1,5 +1,5 @@
-import	{	Item				}	from '@rcc/core/items'
-import	{	Schedule			}	from '@rcc/core/schedules'
+import	{	Item				}	from '../items'
+import	{	Schedule			}	from '../schedules'
 
 export type EntryConfig = [
 	//[index:number]: string|number|boolean

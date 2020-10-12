@@ -1,8 +1,8 @@
 
 
-import	{	Item				}	from '@rcc/core/items'
+import	{	Item				}	from '../items'
 
-import	{	Schedule			}	from '@rcc/core/schedules'
+import	{	Schedule			}	from '../schedules'
 
 import	{	Subject				}	from 'rxjs'
 

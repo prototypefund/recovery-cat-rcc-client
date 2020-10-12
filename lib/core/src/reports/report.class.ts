@@ -1,4 +1,4 @@
-import	{	Item				}	from '@rcc/core/items'
+import	{	Item				}	from '../items'
 import	{	
 			Entry,
 			EntryConfig 				

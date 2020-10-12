@@ -2,9 +2,9 @@ import 	{ 	Injectable 			} 	from '@angular/core'
 import	{	
 			ItemStore,
 			ItemStorage
-		}							from '@rcc/core/items'
+		}							from '../items'
 
-import	{	adHocId				}	from '@rcc/core/utils'
+import	{	adHocId				}	from '../utils'
 
 import	{	
 			Entry,

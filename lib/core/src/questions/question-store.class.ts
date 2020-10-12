@@ -2,7 +2,7 @@ import	{
 			Item,
 			ItemStore,
 			ItemStorage
-		}								from "@rcc/core/items"
+		}								from "../items"
 
 import	{
 			QuestionConfig,
