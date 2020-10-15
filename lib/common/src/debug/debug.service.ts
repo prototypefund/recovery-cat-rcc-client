@@ -3,7 +3,7 @@ import	{
 			OnDestroy
 		}								from '@angular/core'
 import	{	SubscriptionLike		}	from 'rxjs'
-import	{	IncomingData			}	from '@rcc/common/incoming-data'
+import	{	IncomingData			}	from '../incoming-data'
 
 
 @Injectable()

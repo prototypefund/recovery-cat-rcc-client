@@ -15,7 +15,7 @@ import	{
 			ItemStore
 		}								from '@rcc/core'
 
-import	{	RccModalController		}	from '@rcc/common/modals-provider'
+import	{	RccModalController		}	from '../modals-provider'
 
 import	{
 			MetaStoreConfig, 

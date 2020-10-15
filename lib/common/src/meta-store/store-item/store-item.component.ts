@@ -28,7 +28,7 @@ import	{
 
 import	{
 			IconsService
-		}								from '@rcc/common/icons'
+		}								from '../../icons'
 
 import	{	Item,
 			ItemConfig,
@@ -46,8 +46,8 @@ import	{
 			ItemAction,
 		}								from '../meta-store.commons'
 
-import	{	RccTranslationService 	}	from '@rcc/common/translations'
-import	{	RccToastController		}	from '@rcc/common/modals-provider'
+import	{	RccTranslationService 	}	from '../../translations'
+import	{	RccToastController		}	from '../../modals-provider'
 
 
 

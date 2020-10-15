@@ -13,7 +13,7 @@ import	{	Location					}	from '@angular/common'
 import	{	IonSearchbar				}	from '@ionic/angular'
 import	{	PopoverController 			}	from '@ionic/angular'
 import	{	SubscriptionLike			}	from 'rxjs'
-import	{	RccToastController			}	from '@rcc/common/modals-provider'
+import	{	RccToastController			}	from '../../modals-provider'
 import	{	MetaStore					}	from '../meta-store.class'
 import	{	MetaAction					}	from '../meta-store.commons'
 

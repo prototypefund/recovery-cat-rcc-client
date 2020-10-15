@@ -5,13 +5,13 @@ import	{
 			ModuleWithProviders,
 		}							from '@angular/core'
 import	{	QRCodeModule 		}	from 'angularx-qrcode'
-import	{	MainMenuModule		}	from '@rcc/common/main-menu'
-import	{	SharedModule		}	from '@rcc/common/shared.module'
+import	{	MainMenuModule		}	from '../main-menu'
+import	{	SharedModule		}	from '../shared.module'
 import	{	
 			IncomingDataModule,
 			IncomingData		
-		}							from '@rcc/common/incoming-data'
-import	{	TranslationsModule	}	from '@rcc/common/translations'
+		}							from '../incoming-data'
+import	{	TranslationsModule	}	from '../translations'
 import	{	QrCodeComponent		}	from './qr-code/qr-code.component'
 import	{	RccQrCodeScanner	}	from './qr-code.commons'
 import	{	QrCodeService		}	from './qr-code.service'

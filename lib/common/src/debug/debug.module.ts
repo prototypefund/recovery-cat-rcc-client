@@ -1,5 +1,5 @@
 import 	{	NgModule 						} 	from '@angular/core'
-import	{	DevModule						}	from '@rcc/common/dev'
+import	{	DevModule						}	from '../dev'
 import	{	DebugService					}	from './debug.service'
 
 

@@ -4,13 +4,6 @@
     "importHelpers": true,
     "baseUrl": "./",
     "paths": {
-      "@rcc/core*": [
-        "lib/core/dist*"
-      ],
-      "my-lib": [
-        "dist/my-lib/my-lib",
-        "dist/my-lib"
-      ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

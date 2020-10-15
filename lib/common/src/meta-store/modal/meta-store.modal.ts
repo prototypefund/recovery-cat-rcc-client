@@ -6,7 +6,7 @@ import	{
 		} 							from '@angular/core'
 
 
-import	{	RccModalController	}	from '@rcc/common/modals-provider'
+import	{	RccModalController	}	from '../../modals-provider'
 
 import	{	MetaStore			}	from '../meta-store.class'
 

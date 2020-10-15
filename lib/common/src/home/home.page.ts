@@ -1,7 +1,7 @@
 import 	{	Component 			}	from '@angular/core'
 import	{	MenuController		}	from '@ionic/angular'
-import	{	NotificationService }	from '@rcc/common/notifications'
-import	{	QrCodeService		}	from '@rcc/common/qr-code'
+import	{	NotificationService }	from '../notifications'
+import	{	QrCodeService		}	from '../qr-code'
 
 
 @Component({

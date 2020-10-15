@@ -2,7 +2,7 @@ import 	{
 			ModuleWithProviders
 		} 								from '@angular/core'
 
-import	{	SETTING_CONFIGS			}	from '@rcc/common/settings/settings.commons'
+import	{	SETTING_CONFIGS			}	from '../settings/settings.commons'
 
 import 	{
 			Translation,
@@ -22,8 +22,6 @@ import	{
 			RccTranslatePipe,
 			FillPipe				
 		}									from './translations.pipes'
-
-import 	{	environment 				}	from '../../../environments/environment'
 
 import	{	RccTranslationLoader		}	from './translation.loader'
 
@@ -59,7 +57,7 @@ import de from './i18n/de.json'
 							availableLangs: 		['en', 'de'],
 							defaultLang: 			'en',							
 							reRenderOnLangChange: 	true,
-							prodMode: 				environment.production,
+							prodMode: 				true //TODO
 						})
 		},
 		{ 
