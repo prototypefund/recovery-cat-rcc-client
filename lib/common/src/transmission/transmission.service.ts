@@ -18,7 +18,7 @@ import	{
 			TRANSMISSION_SERVICE
 		}								from './transmission.common'
 
-import	{	IncomingData			}	from '@rcc/common/incoming-data'
+import	{	IncomingData			}	from '../incoming-data'
 
 
 @Injectable()

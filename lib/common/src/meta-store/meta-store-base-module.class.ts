@@ -3,7 +3,7 @@ import	{	ItemStore			}	from '@rcc/core'
 import	{	
 			ItemAction,			
 			MetaAction
-		}							from '@rcc/common'
+		}							from '..'
 
 export class BaseMetaStoreModule {
 

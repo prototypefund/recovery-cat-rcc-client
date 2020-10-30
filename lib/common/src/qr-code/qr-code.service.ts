@@ -1,6 +1,6 @@
 import 	{	Injectable 					} 	from '@angular/core'
-import	{	RccModalController			}	from '@rcc/common/modals-provider'
-import	{	IncomingData				}	from '@rcc/common/incoming-data'
+import	{	RccModalController			}	from '../modals-provider'
+import	{	IncomingData				}	from '../incoming-data'
 import	{	RccQrCodeScanner			}	from './qr-code.commons'
 
 @Injectable()

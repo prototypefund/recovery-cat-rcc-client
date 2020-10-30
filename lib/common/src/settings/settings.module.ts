@@ -7,10 +7,10 @@ import	{	CommonModule				}	from '@angular/common'
 import 	{ 	RouterModule 				}	from '@angular/router'
 import	{	ReactiveFormsModule			}	from '@angular/forms'
 
-import	{	MainMenuModule				}	from '@rcc/common/main-menu'
-import	{	MainHeaderModule			}	from '@rcc/common/main-header'
-import	{	TranslationsModule			}	from '@rcc/common/translations'
-import	{	IconsModule					}	from '@rcc/common/icons'
+import	{	MainMenuModule				}	from '../main-menu'
+import	{	MainHeaderModule			}	from '../main-header'
+import	{	TranslationsModule			}	from '../translations'
+import	{	IconsModule					}	from '../icons'
 import 	{ 	IonicModule 				}	from '@ionic/angular'
 
 
