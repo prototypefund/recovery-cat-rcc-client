@@ -1,0 +1,7 @@
+{
+	"MENU_ENTRY":	"Share your Answers",
+	"HOME_ENTRY":	{
+						"LABEL": 		"Share your Answers",
+						"DESCRIPTION":	"Pick a data set to share with someone else."
+					}
+}

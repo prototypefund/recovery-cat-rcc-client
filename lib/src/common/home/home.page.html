@@ -1,0 +1,39 @@
+<ion-fab
+	vertical 	= "bottom"
+	horizontal	= "end"
+	slot		= "fixed"
+>
+	<ion-fab-button 
+		color	= "light"
+		(click) = "toggleMenu()"
+
+	>
+
+		<ion-icon 
+			[name] 	= "'menu' | rccIcon"
+		></ion-icon>
+
+	</ion-fab-button>	
+</ion-fab>
+
+
+<ion-content 
+	[fullscreen] 	= "true"
+>
+	
+	<div class = "spacer"></div>
+
+	<h1 class ="ion-text-center">{{ 'APP_NAME' | translate }}</h1>
+
+	<ion-list>
+
+		<rcc-home-page-entry
+			*ngFor 				= "let entry of entries"
+			[config]			= "entry"
+		></rcc-home-page-entry>			
+
+	</ion-list>
+
+	<div class = "spacer"></div>
+
+</ion-content>

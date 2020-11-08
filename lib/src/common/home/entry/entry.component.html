@@ -1,0 +1,30 @@
+<ion-item	
+	[button] 		= "true"
+	[routerLink]	= "config.route		|| null"
+	(click)			= "config.action && config.action()"
+>
+	<ion-fab-button slot = "start">
+		<ion-icon [name] = "config.icon | rccIcon"></ion-icon>
+	</ion-fab-button>
+
+	<ion-label>
+		<h3>{{ config.label | translate}}</h3>
+
+		<p 	
+			class 				= "ion-text-wrap"			
+			*ngIf				= "config.description"
+		>
+			{{ config.description | translate}}
+		</p>
+
+		<p class 				= "ion-text-wrap">
+			<ng-container
+				*ngIf				= "config.childComponent"
+				[ngComponentOutlet]	= "config.childComponent"	
+			>			
+			</ng-container>
+		</p>
+	</ion-label>
+
+
+</ion-item>

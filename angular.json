@@ -64,7 +64,7 @@
 
 		"app": {
 			"root": "",
-			"sourceRoot": "src",
+			"sourceRoot": "app/src",
 			"projectType": "application",
 			"prefix": "rcc",
 			"schematics": {},
@@ -73,11 +73,11 @@
 					"builder": "@angular-devkit/build-angular:browser",
 					"options": {
 						"aot": true,
-						"outputPath": "www",
+						"outputPath": "build/full",
 						"index": "app/index.html",
 						"main": "app/main.ts",
 						"polyfills": "app/polyfills.ts",
-						"tsConfig": "tsconfig.app.json",
+						"tsConfig": "app/tsconfig.json",
 						"assets": [
 							{
 								"glob": "**/*",
@@ -101,6 +101,15 @@
 						"scripts": []
 					},
 					"configurations": {
+						"client-only":{
+							"outputPath": "build/client-only",
+							"fileReplacements": [
+								{
+									"replace": "app/src/app.module.ts",
+									"with": "app/src/app-client-only.module.ts"
+								}
+							]
+						},
 						"production": {
 							"fileReplacements": [
 								{
@@ -137,6 +146,9 @@
 						"browserTarget": "app:build"
 					},
 					"configurations": {
+						"client-only": {
+							"browserTarget": "app:build:client-only"
+						},
 						"production": {
 							"browserTarget": "app:build:production"
 						},

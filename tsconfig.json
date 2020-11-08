@@ -2,8 +2,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "importHelpers": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
+      "@rcc/*": ["lib/src/*"],
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

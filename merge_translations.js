@@ -229,7 +229,7 @@ if(output){
 	})
 
 } else {
-	//console.dir( translations , {depth:20})
+	console.dir( translations , {depth:20})
 }
 
 

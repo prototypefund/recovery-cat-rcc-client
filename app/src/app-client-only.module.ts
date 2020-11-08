@@ -38,8 +38,7 @@ import	{
 			WebsocketTransmissionModule,
 			DueQuestionsModule,
 			ChartsModule,
-			DemoScanModule,
-			ReportShareModule
+			DemoScanModule
 		}									from '@rcc/features'
 
 import	{
@@ -74,20 +73,17 @@ import	{
 							HomePageModule,
 							LocalStorageModule,
 							BasicQueryWidgetsModule,
-							CustomQuestionStoreModule,
+							//CustomQuestionStoreModule,
 							ImportQuestionStoreModule,
 							FallbackQueryWidgetsModule,
-							CustomSymptomCheckStoreModule,
+							//CustomSymptomCheckStoreModule,
 							ImportSymptomCheckStoreModule,
 							SymptomCheckViewModule,
 							SymptomCheckShareModule,
 							QrCodeScannerModule,
-
 							//ReportImportStoreModule,
-							ReportShareModule,
-							
 							DueQuestionsModule,
-							ChartsModule,
+							//ChartsModule,
 							WebsocketTransmissionModule.forRoot("wss://signal.recoverycat.de"),
 
 							DemoScanModule,
